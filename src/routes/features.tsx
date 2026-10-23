@@ -172,7 +172,7 @@ function FeaturesPage() {
                     ))}
                   </ul>
                 </div>
-                <div className={`mx-auto w-full max-w-[300px] py-6 ${s.reverse ? "md:order-1" : ""}`}>
+                <div className={`mx-auto w-full max-w-[280px] py-4 ${s.reverse ? "md:order-1" : ""}`}>
                   <PhoneMockup
                     src={s.image}
                     alt={s.alt}
