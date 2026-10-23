@@ -1,42 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f6f4ef;
+  --bg: #faf9fd;
   --panel: #ffffff;
-  --panel-2: #efece5;
-  --line: rgba(23, 21, 18, 0.12);
-  --line-strong: rgba(23, 21, 18, 0.22);
-  --ink: #171512;
-  --ink-muted: #5e5a52;
-  --ink-faint: #8f8a7e;
-  --violet: #a84a24;
-  --violet-bright: #8f3d1c;
-  --cyan: #a84a24;
-  --cyan-bright: #8f3d1c;
-  --tint-violet: #f3e9e2;
-  --tint-cyan: #f3e9e2;
-  --card-shadow: rgba(23, 21, 18, 0.10);
-  --nav-bg: rgba(246, 244, 239, 0.88);
+  --panel-2: #f1eef8;
+  --line: rgba(28, 22, 38, 0.1);
+  --line-strong: rgba(28, 22, 38, 0.18);
+  --ink: #1c1626;
+  --ink-muted: #635c72;
+  --ink-faint: #938c9f;
+  --violet: #7c4ff0;
+  --violet-bright: #6a3ce8;
+  --cyan: #0891b2;
+  --cyan-bright: #0ea5c4;
+  --tint-violet: #f1ecfb;
+  --tint-cyan: #eaf6f8;
+  --card-shadow: rgba(28, 22, 38, 0.16);
+  --nav-bg: rgba(250, 249, 253, 0.82);
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #121110;
-  --panel: #1b1a18;
-  --panel-2: #232120;
-  --line: rgba(242, 239, 232, 0.1);
-  --line-strong: rgba(242, 239, 232, 0.2);
-  --ink: #f2efe8;
-  --ink-muted: #a6a196;
-  --ink-faint: #6f6a60;
-  --violet: #e2a574;
-  --violet-bright: #f0bf93;
-  --cyan: #e2a574;
-  --cyan-bright: #f0bf93;
-  --tint-violet: #2a2421;
-  --tint-cyan: #2a2421;
-  --card-shadow: rgba(0, 0, 0, 0.4);
-  --nav-bg: rgba(18, 17, 16, 0.88);
+  --bg: #0c0a14;
+  --panel: #151020;
+  --panel-2: #1c1730;
+  --line: rgba(245, 243, 250, 0.1);
+  --line-strong: rgba(245, 243, 250, 0.2);
+  --ink: #f5f3fa;
+  --ink-muted: #a89fc2;
+  --ink-faint: #6b6284;
+  --violet: #8b6fea;
+  --violet-bright: #a58cf5;
+  --cyan: #4fd1e8;
+  --cyan-bright: #7ee3f2;
+  --tint-violet: #1c1730;
+  --tint-cyan: #12242a;
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  --nav-bg: rgba(12, 10, 20, 0.82);
   color-scheme: dark;
 }
 
@@ -55,9 +55,9 @@
   --color-cyan-bright: var(--cyan-bright);
   --color-tint-violet: var(--tint-violet);
   --color-tint-cyan: var(--tint-cyan);
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-sans: "Source Sans 3", system-ui, sans-serif;
-  --font-mono: "Source Sans 3", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Sora", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
 }
 
 html {
@@ -102,10 +102,12 @@ h3 {
    Removed the border-left-bar treatment too — that was still the same
    underlying pattern with a different skin, not a real fix. */
 @utility eyebrow {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ink-muted);
+  display: inline-block;
 }
 
 @utility btn-primary {
@@ -118,15 +120,15 @@ h3 {
   font-size: 14.5px;
   font-weight: 600;
   color: #fff;
-  background: var(--violet);
-  box-shadow: none;
+  background: linear-gradient(120deg, var(--violet-bright), var(--violet));
+  box-shadow: 0 10px 24px -12px var(--violet);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: none;
+    box-shadow: 0 14px 30px -12px var(--violet);
   }
 }
 
@@ -369,9 +371,10 @@ h3 {
 /* Floating section card: one surface for every lifted band, so light and dark
    themes stay consistent and no hard purple/black box shows against the page. */
 @utility float-card {
-  border-radius: 24px;
-  background: var(--panel);
-  border: 1px solid var(--line);
+  border-radius: 32px;
+  background:
+    radial-gradient(60% 80% at 12% 0%, color-mix(in oklab, var(--violet) 14%, transparent), transparent 70%),
+    radial-gradient(50% 70% at 100% 100%, color-mix(in oklab, var(--cyan) 10%, transparent), transparent 70%),
+    var(--panel);
+  box-shadow: 0 40px 90px -40px var(--card-shadow);
 }
-/* Plain look: no decorative mesh glow */
-.gradient-mesh { display: none; }

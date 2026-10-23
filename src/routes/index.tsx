@@ -28,6 +28,13 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
+const facts = [
+  { n: "4.6M+", l: "domains in the local blocklist" },
+  { n: "3", l: "languages the on-device AI understands" },
+  { n: "On-device", l: "every search classified locally, not on a server" },
+  { n: "24/7", l: "quiet, background protection" },
+];
+
 const stages = [
   {
     tag: "Network",
@@ -80,7 +87,7 @@ function HomePage() {
             <span className="eyebrow">Made in Pakistan · Android</span>
             <h1 className="mt-5 max-w-[17ch] text-balance text-[clamp(34px,4.4vw,50px)] leading-[1.12]">
               The habit you want to quit is the one{" "}
-              Guardian is built to stop.
+              <em className="text-cyan">Guardian is built to stop</em>.
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
               Guardian filters adult websites and searches, blocks distracting apps and reels, and
@@ -111,6 +118,7 @@ function HomePage() {
                 rotateX={3}
                 floatDelay="1.6s"
                 floatDuration="7s"
+                chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
               />
             </div>
             {/* right: analytics */}
@@ -122,6 +130,7 @@ function HomePage() {
                 rotateX={3}
                 floatDelay="0.8s"
                 floatDuration="6.5s"
+                chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
               />
             </div>
             {/* centre: home, in front */}
@@ -138,6 +147,18 @@ function HomePage() {
           </div>
         </div>
       </header>
+
+      {/* FACTS */}
+      <div className="float-card relative z-10 mx-4 -mt-12 md:mx-auto md:max-w-[1180px]">
+        <div className="mx-auto grid max-w-[1180px] grid-cols-2 divide-line px-5 md:grid-cols-4 md:divide-x md:px-8">
+          {facts.map((f, i) => (
+            <Reveal key={f.n} variant="blur" delayMs={i * 70} className="px-2 py-8 text-center">
+              <div className="font-display text-[30px] text-cyan">{f.n}</div>
+              <div className="mt-1.5 text-[13.5px] text-ink-muted">{f.l}</div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
 
       {/* HOW IT WORKS */}
       <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
@@ -207,13 +228,12 @@ function HomePage() {
         </div>
       </section>
 
-
       {/* WHY */}
       <section className="relative overflow-hidden py-24">
         <GradientMesh variant="section" />
         <Reveal className="relative mx-auto max-w-3xl px-5 text-center md:px-8">
           <span className="eyebrow">Why we built this</span>
-          <blockquote className="mt-6 font-display text-[clamp(26px,3.8vw,40px)] leading-tight">
+          <blockquote className="mt-6 font-display text-[clamp(24px,3.6vw,36px)] italic leading-tight">
             "Guardian isn't here to punish a bad day. It's here so tomorrow is a little easier than
             today was."
           </blockquote>
@@ -226,7 +246,11 @@ function HomePage() {
       {/* CTA */}
       <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">
         <Reveal
-           className="rounded-[24px] border border-line bg-panel px-6 py-16 text-center"
+          className="rounded-[28px] px-6 py-16 text-center"
+          style={{
+            background:
+              "linear-gradient(140deg, color-mix(in oklab, var(--violet) 16%, var(--panel)), color-mix(in oklab, var(--cyan) 12%, var(--panel)))",
+          }}
         >
           <h2 className="text-[clamp(26px,4vw,40px)]">Start your first clean day.</h2>
           <p className="mx-auto mt-4 max-w-md text-ink-muted">
