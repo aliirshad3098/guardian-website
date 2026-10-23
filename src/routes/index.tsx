@@ -85,10 +85,9 @@ function HomePage() {
         <div className="relative mx-auto grid max-w-[1180px] items-center gap-14 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.05fr_1fr]">
           <div>
             <span className="eyebrow">Made in Pakistan · Android</span>
-            <h1 className="mt-5 text-[clamp(38px,6vw,60px)]">
-              The habit you want to quit
-              <br />
-              is the one <em className="text-cyan">Guardian is built to stop</em>.
+            <h1 className="mt-5 max-w-[17ch] text-balance text-[clamp(34px,4.4vw,50px)] leading-[1.12]">
+              The habit you want to quit is the one{" "}
+              <em className="text-cyan">Guardian is built to stop</em>.
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
               Guardian filters adult websites and searches, blocks distracting apps and reels, and
@@ -115,7 +114,7 @@ function HomePage() {
               <PhoneMockup
                 src={partnerShot}
                 alt="Guardian Partner app showing protection status and pending approval requests"
-                rotateY={9}
+                rotateY={8}
                 rotateX={3}
                 floatDelay="1.6s"
                 floatDuration="7s"
@@ -127,7 +126,7 @@ function HomePage() {
               <PhoneMockup
                 src={statsShot}
                 alt="Guardian statistics screen showing weekly blocking activity"
-                rotateY={-9}
+                rotateY={-8}
                 rotateX={3}
                 floatDelay="0.8s"
                 floatDuration="6.5s"
