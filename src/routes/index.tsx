@@ -109,44 +109,38 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="relative mx-auto h-[520px] w-full max-w-[520px] sm:h-[620px]">
-            {/* left: partner — smaller, behind, angled in */}
-            <div
-              className="absolute left-0 top-[12%] z-10 w-[42%] origin-bottom"
-              style={{ transform: "scale(0.92)" }}
-            >
+          <div className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]">
+            {/* left: partner */}
+            <div className="absolute left-0 top-[16%] z-10 w-[44%]">
               <PhoneMockup
                 src={partnerShot}
                 alt="Guardian Partner app showing protection status and pending approval requests"
-                rotateY={18}
-                rotateX={5}
+                rotateY={9}
+                rotateX={3}
                 floatDelay="1.6s"
                 floatDuration="7s"
-                chips={[{ label: "Partner linked", className: "-right-4 bottom-[16%]" }]}
+                chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
               />
             </div>
             {/* right: analytics */}
-            <div
-              className="absolute right-0 top-[12%] z-10 w-[42%] origin-bottom"
-              style={{ transform: "scale(0.92)" }}
-            >
+            <div className="absolute right-0 top-[16%] z-10 w-[44%]">
               <PhoneMockup
                 src={statsShot}
                 alt="Guardian statistics screen showing weekly blocking activity"
-                rotateY={-18}
-                rotateX={5}
+                rotateY={-9}
+                rotateX={3}
                 floatDelay="0.8s"
                 floatDuration="6.5s"
-                chips={[{ label: "Reels blocked", className: "-left-5 top-[12%]" }]}
+                chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
               />
             </div>
-            {/* centre: home — largest, in front */}
-            <div className="absolute left-1/2 top-0 z-20 w-[48%] -translate-x-1/2">
+            {/* centre: home, in front */}
+            <div className="absolute left-1/2 top-0 z-20 w-[50%] -translate-x-1/2">
               <PhoneMockup
                 src={homeShot}
                 alt="Guardian home screen showing protection active and a clean streak"
                 rotateY={0}
-                rotateX={4}
+                rotateX={3}
                 floatDelay="0s"
                 floatDuration="6s"
               />
