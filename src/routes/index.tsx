@@ -28,13 +28,6 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const facts = [
-  { n: "4.6M+", l: "domains in the local blocklist" },
-  { n: "3", l: "languages the on-device AI understands" },
-  { n: "On-device", l: "every search classified locally, not on a server" },
-  { n: "24/7", l: "quiet, background protection" },
-];
-
 const stages = [
   {
     tag: "Network",
@@ -56,7 +49,7 @@ const stages = [
 const highlights = [
   {
     title: "Fortress Mode",
-    body: "Time-locks your own password for a set number of days. It is auto-generated, so you can't recall it in a weak moment.",
+    body: "Time-locks your own password for a set number of days, so you can't undo it in a weak moment.",
     span: "md:col-span-2",
   },
   {
@@ -70,9 +63,6 @@ const highlights = [
     span: "",
   },
   {
-    title: "Urge-surfing timer",
-    body: "A guided pause that rides out the spike instead of fighting it. Most urges pass in minutes.",
-    span: "md:col-span-2",
   },
 ];
 
@@ -148,18 +138,6 @@ function HomePage() {
         </div>
       </header>
 
-      {/* FACTS */}
-      <div className="float-card relative z-10 mx-4 -mt-12 md:mx-auto md:max-w-[1180px]">
-        <div className="mx-auto grid max-w-[1180px] grid-cols-2 divide-line px-5 md:grid-cols-4 md:divide-x md:px-8">
-          {facts.map((f, i) => (
-            <Reveal key={f.n} variant="blur" delayMs={i * 70} className="px-2 py-8 text-center">
-              <div className="font-display text-[30px] text-cyan">{f.n}</div>
-              <div className="mt-1.5 text-[13.5px] text-ink-muted">{f.l}</div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
       {/* HOW IT WORKS */}
       <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
         <Reveal>
@@ -167,8 +145,7 @@ function HomePage() {
             <span className="eyebrow">How it works</span>
             <h2 className="mt-5 text-[clamp(28px,4.2vw,42px)]">What happens to every search</h2>
             <p className="mt-4 text-ink-muted">
-              Not three features bolted together. A single path a search travels through, in order,
-              before anything ever loads.
+              One path every search takes, in order, before anything loads.
             </p>
           </div>
         </Reveal>
@@ -197,13 +174,8 @@ function HomePage() {
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <span className="eyebrow">Built for the harder moments</span>
-              <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">
-                For when a filter alone isn't enough
-              </h2>
-              <p className="mt-4 text-ink-muted">
-                Willpower runs out sometimes. These are the tools Guardian has for exactly that
-                moment.
-              </p>
+              <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">For the harder moments</h2>
+              <p className="mt-4 text-ink-muted">Extra tools for when a filter alone isn't enough.</p>
             </div>
           </Reveal>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -228,20 +200,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* WHY */}
-      <section className="relative overflow-hidden py-24">
-        <GradientMesh variant="section" />
-        <Reveal className="relative mx-auto max-w-3xl px-5 text-center md:px-8">
-          <span className="eyebrow">Why we built this</span>
-          <blockquote className="mt-6 font-display text-[clamp(24px,3.6vw,36px)] italic leading-tight">
-            "Guardian isn't here to punish a bad day. It's here so tomorrow is a little easier than
-            today was."
-          </blockquote>
-          <p className="mt-6 font-mono text-[12.5px] text-ink-muted">
-            Built for the people actually trying, not the people watching them
-          </p>
-        </Reveal>
-      </section>
 
       {/* CTA */}
       <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">

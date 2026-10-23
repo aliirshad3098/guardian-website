@@ -9,11 +9,11 @@
   --ink: #1c1626;
   --ink-muted: #635c72;
   --ink-faint: #938c9f;
-  --violet: #7c4ff0;
-  --violet-bright: #6a3ce8;
+  --violet: #0891b2;
+  --violet-bright: #0e7490;
   --cyan: #0891b2;
   --cyan-bright: #0ea5c4;
-  --tint-violet: #f1ecfb;
+  --tint-violet: #eaf6f8;
   --tint-cyan: #eaf6f8;
   --card-shadow: rgba(28, 22, 38, 0.16);
   --nav-bg: rgba(250, 249, 253, 0.82);
@@ -29,11 +29,11 @@
   --ink: #f5f3fa;
   --ink-muted: #a89fc2;
   --ink-faint: #6b6284;
-  --violet: #8b6fea;
-  --violet-bright: #a58cf5;
+  --violet: #4fd1e8;
+  --violet-bright: #7ee3f2;
   --cyan: #4fd1e8;
   --cyan-bright: #7ee3f2;
-  --tint-violet: #1c1730;
+  --tint-violet: #12242a;
   --tint-cyan: #12242a;
   --card-shadow: rgba(0, 0, 0, 0.5);
   --nav-bg: rgba(12, 10, 20, 0.82);
@@ -55,9 +55,9 @@
   --color-cyan-bright: var(--cyan-bright);
   --color-tint-violet: var(--tint-violet);
   --color-tint-cyan: var(--tint-cyan);
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Sora", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Inter", system-ui, sans-serif;
 }
 
 html {
@@ -102,12 +102,10 @@ h3 {
    Removed the border-left-bar treatment too — that was still the same
    underlying pattern with a different skin, not a real fix. */
 @utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
   color: var(--ink-muted);
-  display: inline-block;
 }
 
 @utility btn-primary {
