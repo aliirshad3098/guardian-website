@@ -4,6 +4,9 @@ import { Reveal } from "@/components/Reveal";
 import fortressShot from "@/assets/fortress.jpg";
 import pairingShot from "@/assets/pairing.jpg";
 import BlockerShot from "@/assets/blocker.jpg";
+import partnerAddShot from "@/assets/partner-add-connection.jpg";
+import accountabilityShot from "@/assets/accountability-card.jpg";
+import autoBlockShot from "@/assets/auto-blocking-schedule.jpg";
 
 export const Route = createFileRoute("/features")({
   head: () => ({
@@ -52,6 +55,43 @@ const sections = [
     reverse: true,
   },
   {
+    eyebrow: "Support",
+    title: "Add another connection",
+    body: "Open the menu on your Guardian Partner app and tap Add another connection to link a new Guardian user to your partner account.",
+    points: [
+      "Found in the Guardian Partner menu",
+      "Add more connections whenever you need them",
+      "Manage every connection from one place",
+    ],
+    image: partnerAddShot,
+    alt: "Guardian Partner menu with the Add another connection option highlighted",
+  },
+  {
+    eyebrow: "Accountability",
+    title: "See your partner status at a glance",
+    body: "The home screen shows whether your accountability partner is linked, so you always know who is keeping you on track.",
+    points: [
+      "Accountability card on the home screen",
+      "Shows when a partner is linked",
+      "One tap to open partner settings",
+    ],
+    image: accountabilityShot,
+    alt: "Guardian home screen with the Accountability card showing Partner linked",
+    reverse: true,
+  },
+  {
+    eyebrow: "Schedule",
+    title: "Auto blocking at the times you choose",
+    body: "Turn on Auto Blocking and set the time windows you want. Guardian turns protection on by itself during those hours, so you don't have to remember to do it.",
+    points: [
+      "Pick your own start and end times",
+      "Protection turns on automatically in each window",
+      "Add as many schedules as you need",
+    ],
+    image: autoBlockShot,
+    alt: "Guardian Schedule screen with the Auto Blocking toggle and Add Schedule button highlighted",
+  },
+  {
     eyebrow: "Focus",
     title: "App & Reels blockers",
     body: "Block whole apps on a schedule, or strip only the short-video feeds out of apps you want to keep. A quick check stops turning into an hour.",
@@ -62,6 +102,7 @@ const sections = [
     ],
     image: BlockerShot,
     alt: "Guardian Blocker showing apps in the list",
+    reverse: true,
   },
 ];
 
