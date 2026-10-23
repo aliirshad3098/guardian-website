@@ -151,7 +151,7 @@ function FeaturesPage() {
       </header>
 
       <div className="relative z-10 mx-4 -mt-12 md:mx-auto md:max-w-[1180px]">
-        <div className="rounded-[32px] px-5 py-16 md:px-12 md:py-24" style={{ background: "var(--panel-2)", boxShadow: "0 40px 90px -40px var(--card-shadow)" }}>
+        <div className="float-card px-5 py-16 md:px-12 md:py-24">
           <div className="space-y-16 md:space-y-24">
             {sections.map((s) => (
               <Reveal
@@ -176,8 +176,8 @@ function FeaturesPage() {
                   <PhoneMockup
                     src={s.image}
                     alt={s.alt}
-                    rotateY={s.reverse ? -18 : 18}
-                    rotateX={5}
+                    rotateY={s.reverse ? -12 : 12}
+                    rotateX={3}
                     floatDelay={s.reverse ? "1.2s" : "0s"}
                   />
                 </div>

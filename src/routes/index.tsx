@@ -115,8 +115,8 @@ function HomePage() {
               <PhoneMockup
                 src={partnerShot}
                 alt="Guardian Partner app showing protection status and pending approval requests"
-                rotateY={22}
-                rotateX={4}
+                rotateY={14}
+                rotateX={3}
                 floatDelay="1.6s"
                 floatDuration="7s"
                 chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
@@ -127,8 +127,8 @@ function HomePage() {
               <PhoneMockup
                 src={statsShot}
                 alt="Guardian statistics screen showing weekly blocking activity"
-                rotateY={-22}
-                rotateX={4}
+                rotateY={-14}
+                rotateX={3}
                 floatDelay="0.8s"
                 floatDuration="6.5s"
                 chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
@@ -140,7 +140,7 @@ function HomePage() {
                 src={homeShot}
                 alt="Guardian home screen showing protection active and a clean streak"
                 rotateY={0}
-                rotateX={6}
+                rotateX={3}
                 floatDelay="0s"
                 floatDuration="6s"
               />
@@ -150,7 +150,7 @@ function HomePage() {
       </header>
 
       {/* FACTS */}
-      <div className="relative z-10 mx-4 -mt-12 rounded-[28px] md:mx-auto md:max-w-[1180px]" style={{ background: "var(--panel-2)", boxShadow: "0 40px 90px -40px var(--card-shadow)" }}>
+      <div className="float-card relative z-10 mx-4 -mt-12 md:mx-auto md:max-w-[1180px]">
         <div className="mx-auto grid max-w-[1180px] grid-cols-2 divide-line px-5 md:grid-cols-4 md:divide-x md:px-8">
           {facts.map((f, i) => (
             <Reveal key={f.n} variant="blur" delayMs={i * 70} className="px-2 py-8 text-center">
@@ -194,7 +194,7 @@ function HomePage() {
 
       {/* HIGHLIGHTS */}
       <section className="px-4 md:px-8">
-        <div className="mx-auto max-w-[1180px] rounded-[32px] px-6 py-20 md:px-12 md:py-24" style={{ background: "var(--panel-2)", boxShadow: "0 40px 90px -40px var(--card-shadow)" }}>
+        <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <span className="eyebrow">Built for the harder moments</span>
