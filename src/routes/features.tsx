@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
+import { PhoneMockup } from "@/components/PhoneMockup";
 
 import fortressShot from "@/assets/fortress.jpg";
 import pairingShot from "@/assets/pairing.jpg";
@@ -149,8 +150,8 @@ function FeaturesPage() {
         </Reveal>
       </header>
 
-      <div className="border-y border-line" style={{ background: "var(--panel-2)" }}>
-        <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
+      <div className="relative z-10 mx-4 -mt-12 md:mx-auto md:max-w-[1180px]">
+        <div className="rounded-[32px] px-5 py-16 md:px-12 md:py-24" style={{ background: "var(--panel-2)", boxShadow: "0 40px 90px -40px var(--card-shadow)" }}>
           <div className="space-y-16 md:space-y-24">
             {sections.map((s) => (
               <Reveal
@@ -171,10 +172,14 @@ function FeaturesPage() {
                     ))}
                   </ul>
                 </div>
-                <div className={`mx-auto w-full max-w-[300px] ${s.reverse ? "md:order-1" : ""}`}>
-                  <div className="shot-frame">
-                    <img src={s.image} alt={s.alt} loading="lazy" className="block w-full" />
-                  </div>
+                <div className={`mx-auto w-full max-w-[300px] py-6 ${s.reverse ? "md:order-1" : ""}`}>
+                  <PhoneMockup
+                    src={s.image}
+                    alt={s.alt}
+                    rotateY={s.reverse ? -18 : 18}
+                    rotateX={5}
+                    floatDelay={s.reverse ? "1.2s" : "0s"}
+                  />
                 </div>
               </Reveal>
             ))}

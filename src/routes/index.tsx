@@ -6,17 +6,18 @@ import { GradientMesh } from "@/components/GradientMesh";
 import homeShot from "@/assets/home.jpg";
 import partnerShot from "@/assets/partner.jpg";
 import statsShot from "@/assets/stats.jpg";
+import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Guardian PK Quiet content blocking for Android" },
+      { title: "Guardian PK — Quiet content blocking for Android" },
       {
         name: "description",
         content:
-          "Guardian blocks adult websites and explicit searches on Android. It understands English, Roman Urdu and Urdu. Free for users in Pakistan.",
+          "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free for users in Pakistan.",
       },
-      { property: "og:title", content: "Guardian PK Quiet content blocking for Android" },
+      { property: "og:title", content: "Guardian PK — Quiet content blocking for Android" },
       {
         property: "og:description",
         content:
@@ -75,51 +76,6 @@ const highlights = [
   },
 ];
 
-function PhoneShot({
-  src,
-  alt,
-  wrapperClassName,
-  zIndexClassName,
-  tiltClassName = "",
-  interactive = true,
-  floatDelay = "0s",
-  floatDuration = "6s",
-}: {
-  src: string;
-  alt: string;
-  wrapperClassName: string;
-  zIndexClassName: string;
-  tiltClassName?: string;
-  interactive?: boolean;
-  floatDelay?: string;
-  floatDuration?: string;
-}) {
-  return (
-    <div
-      className={`absolute ${zIndexClassName} ${wrapperClassName} ${
-        interactive ? "hover:z-50" : ""
-      }`}
-    >
-      <div
-        className={`relative transition-transform duration-500 ease-out ${tiltClassName} ${
-          interactive ? "hover:rotate-0" : ""
-        }`}
-      >
-        <div
-          className={`shot-frame float-shot transition-[transform,box-shadow] duration-500 ease-out ${
-            interactive
-              ? "cursor-pointer hover:[animation:none] hover:-translate-y-3 hover:scale-[1.12] hover:shadow-[0_45px_100px_-30px_rgba(0,0,0,0.55)]"
-              : ""
-          }`}
-          style={{ animationDelay: floatDelay, animationDuration: floatDuration }}
-        >
-          <img src={src} alt={alt} loading="lazy" className="block w-full" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function HomePage() {
   return (
     <main>
@@ -130,13 +86,13 @@ function HomePage() {
           <div>
             <span className="eyebrow">Made in Pakistan · Android</span>
             <h1 className="mt-5 text-[clamp(38px,6vw,60px)]">
-              Block adult content on your
+              The habit you want to quit
               <br />
-              <em className="text-cyan">Android phone</em>.
+              is the one <em className="text-cyan">Guardian is built to stop</em>.
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-              Guardian filters adult websites and explicit searches. It understands what you type in
-              English, Roman Urdu or Urdu, and runs those checks on your device.
+              Guardian filters adult websites and searches, blocks distracting apps and reels, and
+              turns protection on by schedule. It understands English, Roman Urdu and Urdu.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <MagneticButton>
@@ -153,39 +109,48 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="relative mx-auto h-[520px] w-full max-w-[440px] sm:h-[580px] sm:max-w-[480px]">
-            <PhoneShot
-              src={partnerShot}
-              alt="Guardian Partner app showing protection status and pending approval requests"
-              wrapperClassName="bottom-0 right-0 w-[52%]"
-              zIndexClassName="z-[1]"
-              tiltClassName="rotate-[3deg]"
-              floatDelay="2.4s"
-              floatDuration="6.5s"
-            />
-            <PhoneShot
-              src={homeShot}
-              alt="Guardian home screen showing protection active and a clean streak"
-              wrapperClassName="bottom-0 left-1/2 w-[54%] -translate-x-1/2"
-              zIndexClassName="z-[3]"
-              interactive={false}
-              floatDelay="1.2s"
-              floatDuration="7s"
-            />
-            <PhoneShot
-              src={statsShot}
-              alt="Guardian statistics screen showing weekly blocking activity"
-              wrapperClassName="bottom-0 left-0 w-[50%]"
-              zIndexClassName="z-[2]"
-              tiltClassName="-rotate-[3deg]"
-              floatDelay="0s"
-            />
+          <div className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]">
+            {/* left: partner */}
+            <div className="absolute left-0 top-[16%] z-10 w-[44%]">
+              <PhoneMockup
+                src={partnerShot}
+                alt="Guardian Partner app showing protection status and pending approval requests"
+                rotateY={22}
+                rotateX={4}
+                floatDelay="1.6s"
+                floatDuration="7s"
+                chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
+              />
+            </div>
+            {/* right: analytics */}
+            <div className="absolute right-0 top-[16%] z-10 w-[44%]">
+              <PhoneMockup
+                src={statsShot}
+                alt="Guardian statistics screen showing weekly blocking activity"
+                rotateY={-22}
+                rotateX={4}
+                floatDelay="0.8s"
+                floatDuration="6.5s"
+                chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
+              />
+            </div>
+            {/* centre: home, in front */}
+            <div className="absolute left-1/2 top-0 z-20 w-[50%] -translate-x-1/2">
+              <PhoneMockup
+                src={homeShot}
+                alt="Guardian home screen showing protection active and a clean streak"
+                rotateY={0}
+                rotateX={6}
+                floatDelay="0s"
+                floatDuration="6s"
+              />
+            </div>
           </div>
         </div>
       </header>
 
       {/* FACTS */}
-      <div className="border-y border-line" style={{ background: "var(--panel-2)" }}>
+      <div className="relative z-10 mx-4 -mt-12 rounded-[28px] md:mx-auto md:max-w-[1180px]" style={{ background: "var(--panel-2)", boxShadow: "0 40px 90px -40px var(--card-shadow)" }}>
         <div className="mx-auto grid max-w-[1180px] grid-cols-2 divide-line px-5 md:grid-cols-4 md:divide-x md:px-8">
           {facts.map((f, i) => (
             <Reveal key={f.n} variant="blur" delayMs={i * 70} className="px-2 py-8 text-center">
@@ -228,8 +193,8 @@ function HomePage() {
       </section>
 
       {/* HIGHLIGHTS */}
-      <section className="border-y border-line" style={{ background: "var(--panel-2)" }}>
-        <div className="mx-auto max-w-[1180px] px-5 py-20 md:px-8 md:py-24">
+      <section className="px-4 md:px-8">
+        <div className="mx-auto max-w-[1180px] rounded-[32px] px-6 py-20 md:px-12 md:py-24" style={{ background: "var(--panel-2)", boxShadow: "0 40px 90px -40px var(--card-shadow)" }}>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <span className="eyebrow">Built for the harder moments</span>
@@ -282,7 +247,7 @@ function HomePage() {
       {/* CTA */}
       <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">
         <Reveal
-          className="rounded-[22px] border border-line px-6 py-16 text-center"
+          className="rounded-[28px] px-6 py-16 text-center"
           style={{
             background:
               "linear-gradient(140deg, color-mix(in oklab, var(--violet) 16%, var(--panel)), color-mix(in oklab, var(--cyan) 12%, var(--panel)))",
