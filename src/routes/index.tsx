@@ -10,13 +10,13 @@ import statsShot from "@/assets/stats.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Guardian PK — Quiet content blocking for Android" },
+      { title: "Guardian PK Quiet content blocking for Android" },
       {
         name: "description",
         content:
           "Guardian blocks adult websites and explicit searches on Android. It understands English, Roman Urdu and Urdu. Free for users in Pakistan.",
       },
-      { property: "og:title", content: "Guardian PK — Quiet content blocking for Android" },
+      { property: "og:title", content: "Guardian PK Quiet content blocking for Android" },
       {
         property: "og:description",
         content:
@@ -166,19 +166,19 @@ function HomePage() {
             <PhoneShot
               src={homeShot}
               alt="Guardian home screen showing protection active and a clean streak"
-              wrapperClassName="bottom-0 left-0 w-[50%]"
-              zIndexClassName="z-[2]"
-              tiltClassName="-rotate-[3deg]"
-              floatDelay="0s"
-            />
-            <PhoneShot
-              src={statsShot}
-              alt="Guardian statistics screen showing weekly blocking activity"
               wrapperClassName="bottom-0 left-1/2 w-[54%] -translate-x-1/2"
               zIndexClassName="z-[3]"
               interactive={false}
               floatDelay="1.2s"
               floatDuration="7s"
+            />
+            <PhoneShot
+              src={statsShot}
+              alt="Guardian statistics screen showing weekly blocking activity"
+              wrapperClassName="bottom-0 left-0 w-[50%]"
+              zIndexClassName="z-[2]"
+              tiltClassName="-rotate-[3deg]"
+              floatDelay="0s"
             />
           </div>
         </div>
