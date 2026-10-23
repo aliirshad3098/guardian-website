@@ -176,8 +176,8 @@ function FeaturesPage() {
                   <PhoneMockup
                     src={s.image}
                     alt={s.alt}
-                    rotateY={s.reverse ? -8 : 8}
-                    rotateX={3}
+                    rotateY={0}
+                    rotateX={0}
                     floatDelay={s.reverse ? "1.2s" : "0s"}
                   />
                 </div>

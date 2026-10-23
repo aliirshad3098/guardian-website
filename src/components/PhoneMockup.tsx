@@ -5,9 +5,9 @@ type Chip = { label: string; className: string };
 type Props = {
   src: string;
   alt: string;
-  /** Turn around the vertical axis, in degrees. Keep between 4 and 9 for a natural look. */
+  /** Turn around the vertical axis, in degrees. 0 = flat/front-facing. */
   rotateY?: number;
-  /** Tilt around the horizontal axis, in degrees. */
+  /** Tilt around the horizontal axis, in degrees. 0 = flat/front-facing. */
   rotateX?: number;
   floatDelay?: string;
   floatDuration?: string;
@@ -16,24 +16,27 @@ type Props = {
   children?: ReactNode;
 };
 
-/* Phone geometry, in SVG units. The whole frame is one 400 x 820 box. */
-const W = 400;
-const H = 820;
-const SCREEN = { x: 18, y: 23, w: 364, h: 774, rx: 52 };
-
-const pct = (v: number, total: number) => `${(v / total) * 100}%`;
+const SIDE_KEY_STYLE_L = {
+  background: "linear-gradient(90deg, #0c0c10, #3a3a44 55%, #1c1c24)",
+  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15)",
+};
+const SIDE_KEY_STYLE_R = {
+  background: "linear-gradient(270deg, #0c0c10, #3a3a44 55%, #1c1c24)",
+  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15)",
+};
 
 /**
- * Modern Android phone built as a single SVG frame (metal edge, black bezel,
- * screen cutout, side keys, camera) with the screenshot sitting exactly in the
- * cutout. Float is on the outer element and the 3D turn on the inner one, so
- * the two transforms never fight each other.
+ * Realistic modern Android phone frame.
+ * - 9:19.5 body; the screenshot fills the glass with object-cover + object-top
+ *   so the status bar sits under the punch-hole.
+ * - Thin metal rim, dark bezel, side keys, glass specular, contact shadow.
+ * - Flat by default (rotateX/rotateY = 0); pass small angles only where wanted.
  */
 export function PhoneMockup({
   src,
   alt,
   rotateY = 0,
-  rotateX = 2,
+  rotateX = 0,
   floatDelay = "0s",
   floatDuration = "6s",
   chips = [],
@@ -41,140 +44,118 @@ export function PhoneMockup({
   children,
 }: Props) {
   return (
-    <div className={`relative ${className}`} style={{ perspective: "2400px" }}>
+    <div className={`relative ${className}`} style={{ perspective: "1600px" }}>
       <div
-        className="float-shot relative"
-        style={{ animationDelay: floatDelay, animationDuration: floatDuration, transformStyle: "preserve-3d" }}
+        className="float-shot relative mx-auto w-full"
+        style={{
+          animationDelay: floatDelay,
+          animationDuration: floatDuration,
+          transformStyle: "preserve-3d",
+        }}
       >
         <div
-          className="relative"
+          className="relative mx-auto w-full"
           style={{
             transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="relative w-full" style={{ aspectRatio: `${W} / ${H}` }}>
-            {/* screenshot, placed exactly inside the screen cutout */}
+          {/* side keys: volume up/down on the left, power on the right */}
+          <span aria-hidden className="absolute -left-[2.5px] top-[18%] z-10 h-[5.5%] w-[2.5px] rounded-l-[1px]" style={SIDE_KEY_STYLE_L} />
+          <span aria-hidden className="absolute -left-[2.5px] top-[26%] z-10 h-[9%] w-[2.5px] rounded-l-[1px]" style={SIDE_KEY_STYLE_L} />
+          <span aria-hidden className="absolute -right-[2.5px] top-[28%] z-10 h-[12%] w-[2.5px] rounded-r-[1px]" style={SIDE_KEY_STYLE_R} />
+
+          {/* outer metal chassis */}
+          <div
+            className="relative w-full overflow-hidden rounded-[2.55rem]"
+            style={{
+              aspectRatio: "9 / 19.5",
+              background:
+                "linear-gradient(145deg, #6e6e7a 0%, #2a2a32 18%, #121218 42%, #2e2e38 68%, #0a0a0e 100%)",
+              padding: "2.5px",
+              boxShadow: [
+                "0 50px 80px -30px rgba(0,0,0,0.7)",
+                "0 20px 36px -16px rgba(0,0,0,0.55)",
+                "0 0 0 1px rgba(255,255,255,0.04)",
+                "inset 0 1px 0 rgba(255,255,255,0.22)",
+                "inset 0 -1px 0 rgba(0,0,0,0.5)",
+              ].join(", "),
+            }}
+          >
+            {/* black bezel */}
             <div
-              className="absolute overflow-hidden bg-black"
-              style={{
-                left: pct(SCREEN.x, W),
-                top: pct(SCREEN.y, H),
-                width: pct(SCREEN.w, W),
-                height: pct(SCREEN.h, H),
-                borderRadius: `${(SCREEN.rx / SCREEN.w) * 100}% / ${(SCREEN.rx / SCREEN.h) * 100}%`,
-              }}
+              className="relative h-full w-full overflow-hidden rounded-[2.4rem]"
+              style={{ background: "#050507", padding: "6px", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.04)" }}
             >
-              <img
-                src={src}
-                alt={alt}
-                loading="lazy"
-                draggable={false}
-                className="absolute inset-0 h-full w-full object-cover object-top"
-              />
-              {/* glass reflection */}
+              {/* active screen */}
               <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(118deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 34%, rgba(255,255,255,0) 72%, rgba(255,255,255,0.05) 100%)",
-                }}
-              />
+                className="relative h-full w-full overflow-hidden rounded-[2.05rem] bg-black"
+                style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}
+              >
+                <img
+                  src={src}
+                  alt={alt}
+                  loading="lazy"
+                  draggable={false}
+                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover object-top"
+                />
+
+                {/* punch-hole camera */}
+                <div aria-hidden className="absolute left-1/2 top-[9px] z-20 -translate-x-1/2">
+                  <div
+                    className="size-[11px] rounded-full"
+                    style={{
+                      background: "radial-gradient(circle at 35% 30%, #1a1a28 0%, #050508 55%, #000 100%)",
+                      boxShadow:
+                        "0 0 0 1.5px #0a0a0c, 0 0 0 2.5px rgba(255,255,255,0.04), inset 0 0 3px rgba(80,120,255,0.25)",
+                    }}
+                  />
+                </div>
+
+                {/* glass specular highlight */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 z-10"
+                  style={{
+                    background:
+                      "linear-gradient(125deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 22%, transparent 40%, transparent 78%, rgba(255,255,255,0.04) 100%)",
+                  }}
+                />
+
+                {/* gesture home-indicator bar */}
+                <div
+                  aria-hidden
+                  className="absolute bottom-[6px] left-1/2 z-20 h-[3px] w-[28%] -translate-x-1/2 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.28)" }}
+                />
+              </div>
             </div>
-
-            {/* the phone body, drawn over the screenshot with a screen-shaped hole */}
-            <svg
-              aria-hidden
-              viewBox={`0 0 ${W} ${H}`}
-              className="pointer-events-none absolute inset-0 h-full w-full"
-              style={{ filter: "drop-shadow(0 40px 40px rgba(0,0,0,0.45))" }}
-            >
-              <defs>
-                <linearGradient id="gp-metal" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#6a6a78" />
-                  <stop offset="30%" stopColor="#1b1b23" />
-                  <stop offset="60%" stopColor="#3a3a46" />
-                  <stop offset="100%" stopColor="#121218" />
-                </linearGradient>
-                <linearGradient id="gp-side" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#1a1a22" />
-                  <stop offset="100%" stopColor="#3b3b46" />
-                </linearGradient>
-              </defs>
-
-              {/* side keys (left and right edges) */}
-              <rect x="-3" y="150" width="6" height="40" rx="2" fill="url(#gp-side)" />
-              <rect x="-3" y="215" width="6" height="80" rx="2" fill="url(#gp-side)" />
-              <rect x={W - 3} y="200" width="6" height="110" rx="2" fill="url(#gp-side)" />
-
-              {/* metal frame with a screen-shaped hole (evenodd) */}
-              <path
-                fillRule="evenodd"
-                fill="url(#gp-metal)"
-                d={`
-                  M 70 0 H ${W - 70} Q ${W} 0 ${W} 70 V ${H - 70} Q ${W} ${H} ${W - 70} ${H}
-                  H 70 Q 0 ${H} 0 ${H - 70} V 70 Q 0 0 70 0 Z
-                  M ${SCREEN.x + SCREEN.rx} ${SCREEN.y}
-                  H ${SCREEN.x + SCREEN.w - SCREEN.rx}
-                  Q ${SCREEN.x + SCREEN.w} ${SCREEN.y} ${SCREEN.x + SCREEN.w} ${SCREEN.y + SCREEN.rx}
-                  V ${SCREEN.y + SCREEN.h - SCREEN.rx}
-                  Q ${SCREEN.x + SCREEN.w} ${SCREEN.y + SCREEN.h} ${SCREEN.x + SCREEN.w - SCREEN.rx} ${SCREEN.y + SCREEN.h}
-                  H ${SCREEN.x + SCREEN.rx}
-                  Q ${SCREEN.x} ${SCREEN.y + SCREEN.h} ${SCREEN.x} ${SCREEN.y + SCREEN.h - SCREEN.rx}
-                  V ${SCREEN.y + SCREEN.rx}
-                  Q ${SCREEN.x} ${SCREEN.y} ${SCREEN.x + SCREEN.rx} ${SCREEN.y} Z
-                `}
-              />
-
-              {/* black bezel ring, sitting just inside the metal edge */}
-              <path
-                fillRule="evenodd"
-                fill="#050507"
-                d={`
-                  M 66 9 H ${W - 66} Q ${W - 9} 9 ${W - 9} 66 V ${H - 66} Q ${W - 9} ${H - 9} ${W - 66} ${H - 9}
-                  H 66 Q 9 ${H - 9} 9 ${H - 66} V 66 Q 9 9 66 9 Z
-                  M ${SCREEN.x + SCREEN.rx} ${SCREEN.y}
-                  H ${SCREEN.x + SCREEN.w - SCREEN.rx}
-                  Q ${SCREEN.x + SCREEN.w} ${SCREEN.y} ${SCREEN.x + SCREEN.w} ${SCREEN.y + SCREEN.rx}
-                  V ${SCREEN.y + SCREEN.h - SCREEN.rx}
-                  Q ${SCREEN.x + SCREEN.w} ${SCREEN.y + SCREEN.h} ${SCREEN.x + SCREEN.w - SCREEN.rx} ${SCREEN.y + SCREEN.h}
-                  H ${SCREEN.x + SCREEN.rx}
-                  Q ${SCREEN.x} ${SCREEN.y + SCREEN.h} ${SCREEN.x} ${SCREEN.y + SCREEN.h - SCREEN.rx}
-                  V ${SCREEN.y + SCREEN.rx}
-                  Q ${SCREEN.x} ${SCREEN.y} ${SCREEN.x + SCREEN.rx} ${SCREEN.y} Z
-                `}
-              />
-
-              {/* punch-hole camera, centred in the top of the screen */}
-              <circle cx={W / 2} cy={SCREEN.y + 16} r="6" fill="#050507" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-            </svg>
           </div>
 
-          {/* floating glass chips */}
+          {/* floating status chips */}
           {chips.map((c) => (
             <div
               key={c.label}
-              className={`absolute z-20 flex items-center gap-2 whitespace-nowrap rounded-full px-3.5 py-2 text-[12.5px] font-medium text-white ${c.className}`}
+              className={`absolute z-30 flex items-center gap-2 whitespace-nowrap rounded-full px-3.5 py-2 text-[12.5px] font-medium text-white ${c.className}`}
               style={{
-                background: "rgba(12, 18, 20, 0.72)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-                boxShadow: "0 18px 40px -18px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.1)",
+                background: "rgba(10, 14, 18, 0.78)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                boxShadow: "0 16px 36px -14px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.1)",
               }}
             >
-              <span className="size-2 rounded-full bg-[#2fe39a]" />
+              <span className="size-1.5 rounded-full bg-[#2fe39a] shadow-[0_0_6px_#2fe39a]" />
               {c.label}
             </div>
           ))}
           {children}
         </div>
 
-        {/* soft ground shadow */}
+        {/* soft ground contact shadow */}
         <div
           aria-hidden
-          className="absolute -bottom-5 left-1/2 h-6 w-[62%] -translate-x-1/2 rounded-[50%] blur-xl"
-          style={{ background: "rgba(0,0,0,0.4)" }}
+          className="pointer-events-none absolute -bottom-3 left-1/2 h-5 w-[70%] -translate-x-1/2 rounded-[50%] blur-2xl"
+          style={{ background: "rgba(0,0,0,0.45)" }}
         />
       </div>
     </div>
