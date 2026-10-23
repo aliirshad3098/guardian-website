@@ -172,7 +172,8 @@ function FeaturesPage() {
                     ))}
                   </ul>
                 </div>
-                <div className={`mx-auto w-full max-w-[300px] py-6 ${s.reverse ? "md:order-1" : ""}`}>
+                <div className={`flex w-full items-center justify-center py-6 ${s.reverse ? "md:order-1" : ""}`}>
+                  <div className="w-[230px] shrink-0 sm:w-[240px]">
                   <PhoneMockup
                     src={s.image}
                     alt={s.alt}
@@ -180,6 +181,7 @@ function FeaturesPage() {
                     rotateX={0}
                     floatDelay={s.reverse ? "1.2s" : "0s"}
                   />
+                  </div>
                 </div>
               </Reveal>
             ))}

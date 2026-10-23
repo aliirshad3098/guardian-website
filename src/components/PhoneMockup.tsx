@@ -121,13 +121,6 @@ export function PhoneMockup({
                       "linear-gradient(125deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 22%, transparent 40%, transparent 78%, rgba(255,255,255,0.04) 100%)",
                   }}
                 />
-
-                {/* gesture home-indicator bar */}
-                <div
-                  aria-hidden
-                  className="absolute bottom-[6px] left-1/2 z-20 h-[3px] w-[28%] -translate-x-1/2 rounded-full"
-                  style={{ background: "rgba(255,255,255,0.28)" }}
-                />
               </div>
             </div>
           </div>
