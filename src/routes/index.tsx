@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Guardian blocks adult content before it loads, understands English, Roman Urdu and Urdu, and keeps everything on your phone. Free for users in Pakistan.",
+          "Guardian blocks adult websites and explicit searches on Android. It understands English, Roman Urdu and Urdu. Free for users in Pakistan.",
       },
       { property: "og:title", content: "Guardian PK — Quiet content blocking for Android" },
       {
@@ -128,16 +128,15 @@ function HomePage() {
         <GradientMesh variant="hero" />
         <div className="relative mx-auto grid max-w-[1180px] items-center gap-14 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.05fr_1fr]">
           <div>
-            <span className="eyebrow">Built in Pakistan, for Pakistan</span>
+            <span className="eyebrow">Made in Pakistan · Android</span>
             <h1 className="mt-5 text-[clamp(38px,6vw,60px)]">
-              For the moments
+              Block adult content on your
               <br />
-              willpower <em className="text-cyan">isn't enough</em>.
+              <em className="text-cyan">Android phone</em>.
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-              Guardian blocks adult content before it loads. It understands what you're actually
-              searching for in English, Roman Urdu or Urdu, and never sends what it reads off your
-              phone.
+              Guardian filters adult websites and explicit searches. It understands what you type in
+              English, Roman Urdu or Urdu, and runs those checks on your device.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <MagneticButton>
@@ -150,8 +149,7 @@ function HomePage() {
               </Link>
             </div>
             <p className="mt-5 font-mono text-[12.5px] text-ink-faint">
-              Free for users in Pakistan. Private by default. No account required for core
-              protection.
+              Free for users in Pakistan. Core protection works without an account.
             </p>
           </div>
 
