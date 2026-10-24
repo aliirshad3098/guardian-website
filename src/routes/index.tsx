@@ -63,68 +63,6 @@ const stages = [
   },
 ];
 
-function FortressVisual() {
-  return (
-    <div className="mt-auto pt-8">
-    <div className="rounded-xl border border-line bg-panel-2 p-4">
-      <div className="flex items-center justify-between text-[13px] text-ink-muted">
-        <span className="font-medium text-ink">Protection locked</span>
-        <span className="font-mono text-[12px]">Day 5 of 7</span>
-      </div>
-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-line-strong">
-        <div
-          aria-hidden
-          className="fill-bar h-full rounded-full bg-accent"
-          style={{ ["--fill" as string]: 5 / 7 }}
-        />
-      </div>
-    </div>
-    </div>
-  );
-}
-
-function BreathingVisual() {
-  return (
-    <div className="mt-auto flex flex-col items-center gap-4 pt-8">
-      <div aria-hidden className="relative grid size-36 place-items-center">
-        <span className="breathe absolute inset-0 rounded-full border-2 border-accent/50" />
-        <span
-          className="breathe absolute inset-6 rounded-full bg-accent/20"
-          style={{ animationDelay: "-1.5s" }}
-        />
-      </div>
-      <span className="text-[13px] text-ink-muted">Breathe in… and out. The urge passes.</span>
-    </div>
-  );
-}
-
-const highlights = [
-  {
-    title: "Fortress Mode",
-    body: "Time-locks your own password for a set number of days. It is auto-generated, so you can't recall it in a weak moment.",
-    span: "md:col-span-2",
-    visual: <FortressVisual />,
-  },
-  {
-    title: "App Blocker",
-    body: "Block chosen apps on a schedule or permanently. The block survives restarts and force-stops.",
-    span: "",
-    visual: null,
-  },
-  {
-    title: "Reels Blocker",
-    body: "Strips short-video feeds out of the apps you keep, so a quick check doesn't turn into an hour.",
-    span: "",
-    visual: null,
-  },
-  {
-    title: "Urge-surfing timer",
-    body: "A guided pause that rides out the spike instead of fighting it. Most urges pass in minutes.",
-    span: "md:col-span-2",
-    visual: <BreathingVisual />,
-  },
-];
-
 function HomePage() {
   return (
     <main>
@@ -241,37 +179,67 @@ function HomePage() {
 
       {/* HIGHLIGHTS */}
       <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">
-        <div className="float-card px-6 py-20 md:px-12 md:py-24">
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <span className="eyebrow">Built for the harder moments</span>
-              <h2 className="mt-4 text-[clamp(28px,3.8vw,38px)]">
-                For when a filter alone isn't enough
-              </h2>
-              <p className="mt-4 text-ink-muted">
-                Willpower runs out sometimes. These are the tools Guardian has for exactly that
-                moment.
+        <Reveal className="max-w-2xl">
+          <h2 className="text-[clamp(28px,3.8vw,38px)]">For when a filter alone isn't enough</h2>
+          <p className="mt-4 text-ink-muted">
+            Willpower runs out sometimes. These are the tools Guardian has for exactly that moment.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          <Reveal className="rounded-2xl border border-line bg-panel p-8">
+            <h3 className="text-[21px]">Fortress Mode</h3>
+            <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
+              Time-locks your own password for a set number of days. It is auto-generated, so you
+              can't recall it in a weak moment.
+            </p>
+          </Reveal>
+
+          <Reveal delayMs={80} className="rounded-2xl border border-line bg-panel p-8">
+            <h3 className="text-[21px]">App Blocker</h3>
+            <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
+              Block chosen apps on a schedule or permanently. The block survives restarts and
+              force-stops.
+            </p>
+          </Reveal>
+
+          <Reveal delayMs={0} className="rounded-2xl border border-line bg-panel p-8">
+            <h3 className="text-[21px]">Reels Blocker</h3>
+            <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
+              Strips short-video feeds out of the apps you keep, so a quick check doesn't turn into
+              an hour.
+            </p>
+          </Reveal>
+
+          <Reveal
+            delayMs={80}
+            className="grid items-center gap-8 rounded-2xl border border-line bg-panel p-8 md:col-span-2 md:grid-cols-2 md:p-10"
+          >
+            <div>
+              <h3 className="text-[21px]">Accountability partner</h3>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
+                Pair with someone you trust. They get a partner view showing whether protection is
+                on and any request to change it, never your searches or browsing history.
               </p>
+              <Link to="/features" className="mt-6 inline-block text-[15px] font-medium text-accent hover:underline">
+                How pairing works
+              </Link>
+            </div>
+            <div className="shot-frame mx-auto w-full max-w-[260px]">
+              <img
+                src={partnerShot}
+                alt="Guardian Partner app showing protection status and pending approval requests"
+                loading="lazy"
+                className="block h-auto w-full"
+              />
             </div>
           </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {highlights.map((h, i) => (
-              <Reveal
-                key={h.title}
-                delayMs={i * 80}
-                className={`bento-tile flex flex-col p-8 ${h.span}`}
-              >
-                <h3 className="text-[21px]">{h.title}</h3>
-                <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">{h.body}</p>
-                {h.visual}
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Link to="/features" className="btn-ghost">
-              See every feature
-            </Link>
-          </div>
+        </div>
+
+        <div className="mt-10">
+          <Link to="/features" className="btn-ghost">
+            See every feature
+          </Link>
         </div>
       </section>
 
