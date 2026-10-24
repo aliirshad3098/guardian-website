@@ -141,10 +141,8 @@ function FeaturesPage() {
         <Reveal>
           <span className="eyebrow">Features</span>
           <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
-            Protection that holds up when motivation runs low, <em>with privacy you never have to give
-            up to get it.</em>
+            Protection that holds when motivation runs low, <em>with privacy intact</em>.
           </h1>
-          
         </Reveal>
       </header>
 
