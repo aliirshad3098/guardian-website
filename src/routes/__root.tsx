@@ -48,12 +48,12 @@ function SiteNav() {
       className="sticky top-0 z-50 border-b border-line backdrop-blur-xl"
       style={{ background: "var(--nav-bg)" }}
     >
-      <div className="mx-auto grid max-w-[1180px] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3.5 md:px-8">
+      <div className="mx-auto grid max-w-[1180px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 py-3.5 md:px-8">
         <div className="flex min-w-0 items-center">
           <Wordmark />
         </div>
-        <div className="flex shrink-0 items-center gap-3">
-            <div className="hidden items-center gap-7 pr-3 text-[14.5px] text-ink-muted lg:flex">
+        <div className="flex items-center justify-center">
+            <div className="hidden items-center gap-7 text-[14.5px] text-ink-muted lg:flex">
               {navLinks.map((l) => (
                 <Link
                   key={l.label}
@@ -69,6 +69,8 @@ function SiteNav() {
                 </Link>
               ))}
             </div>
+        </div>
+        <div className="flex shrink-0 items-center justify-self-end gap-3">
           <ThemeToggle />
           <Link to="/download" className="btn-primary hidden sm:inline-flex">
             Get Guardian
@@ -217,6 +219,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
