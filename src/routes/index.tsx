@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
-import { GradientMesh } from "@/components/GradientMesh";
 import { CountUp } from "@/components/CountUp";
 import { PipelineDiagram } from "@/components/PipelineDiagram";
 import { Globe, Brain, ShieldCheck } from "lucide-react";
@@ -10,7 +9,6 @@ import { Globe, Brain, ShieldCheck } from "lucide-react";
 import homeShot from "@/assets/home.jpg";
 import partnerShot from "@/assets/partner.jpg";
 import statsShot from "@/assets/stats.jpg";
-import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -132,70 +130,77 @@ function HomePage() {
   return (
     <main>
       {/* HERO */}
-      <header className="relative overflow-hidden">
-        <GradientMesh variant="hero" />
-        <div className="relative mx-auto grid max-w-[1180px] items-center gap-14 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.05fr_1fr]">
-          <div>
-            <span className="eyebrow">Android · Made in Pakistan</span>
-            <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(36px,4.8vw,56px)] leading-[1.06]">
-              The habit you want to quit is the one{" "}
-              <em>Guardian is built to stop</em>.
-            </h1>
-            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-              Guardian filters adult websites and searches, blocks distracting apps and reels, and
-              turns protection on by schedule. It understands English, Roman Urdu, Urdu, Chinese, Bengali and Hindi.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <MagneticButton>
-                <Link to="/download" className="btn-primary">
-                  Download for Android
-                </Link>
-              </MagneticButton>
-              <Link to="/" hash="how" className="btn-ghost">
-                See how it works
+      <header className="hero-sky relative mx-3 mt-3 overflow-hidden rounded-[28px] md:mx-6 md:mt-6">
+        <div className="relative mx-auto max-w-[1000px] px-5 pt-16 text-center md:pt-24">
+          <span className="eyebrow">Android · Made in Pakistan</span>
+          <h1 className="mx-auto mt-5 max-w-[20ch] text-balance text-[clamp(38px,5.6vw,64px)] leading-[1.04] tracking-[-0.03em]">
+            The habit you want to quit is the one <em>Guardian is built to stop</em>.
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
+            Guardian filters adult websites and searches, blocks distracting apps and reels, and
+            turns protection on by schedule. It understands six languages.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <MagneticButton>
+              <Link
+                to="/download"
+                className="inline-flex items-center justify-center rounded-full bg-ink px-7 py-3.5 text-[15px] font-semibold text-bg transition-transform hover:-translate-y-px"
+              >
+                Download for Android
               </Link>
+            </MagneticButton>
+            <Link to="/" hash="how" className="btn-ghost">
+              See how it works
+            </Link>
+          </div>
+          <p className="mt-4 text-[13px] text-ink-faint">
+            Free for users in Pakistan. Core protection works without an account.
+          </p>
+        </div>
+
+        <div className="relative mx-auto mt-16 h-[340px] max-w-[900px] md:h-[420px]">
+          {/* main product window */}
+          <div className="absolute left-1/2 top-0 w-[92%] -translate-x-1/2 overflow-hidden rounded-[18px] border border-line bg-panel shadow-[0_40px_80px_-30px_rgba(15,40,80,0.35)] md:w-[58%]">
+            <div className="flex h-9 items-center gap-1.5 border-b border-line bg-panel-2 px-3.5">
+              <span className="size-2.5 rounded-full bg-line-strong" />
+              <span className="size-2.5 rounded-full bg-line-strong" />
+              <span className="size-2.5 rounded-full bg-line-strong" />
             </div>
-            <p className="mt-5 text-[13.5px] text-ink-faint">
-              Free for users in Pakistan. Core protection works without an account.
-            </p>
+            <div className="grid h-[calc(100%-36px)] grid-cols-2">
+              <img src={homeShot} alt="Guardian home screen showing protection active" className="h-full w-full object-cover object-top" />
+              <img src={statsShot} alt="Guardian statistics screen showing weekly blocking activity" className="h-full w-full object-cover object-top" />
+            </div>
           </div>
 
-          <div className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]">
-            {/* left: partner */}
-            <div className="absolute left-0 top-[16%] z-10 w-[44%]">
-              <PhoneMockup
-                src={partnerShot}
-                alt="Guardian Partner app showing protection status and pending approval requests"
-                rotateY={8}
-                rotateX={3}
-                floatDelay="1.6s"
-                floatDuration="7s"
-                chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
-              />
+          {/* floating: feature list (desktop only) */}
+          <div className="absolute left-0 top-12 hidden w-[200px] rounded-2xl border border-line bg-panel/90 p-4 text-[13.5px] shadow-[0_24px_48px_-24px_rgba(15,40,80,0.35)] backdrop-blur md:block">
+            <p className="mb-2 text-[13px] font-semibold text-ink-faint">Protection</p>
+            {["App Blocker", "Reels Blocker", "Fortress Mode"].map((t) => (
+              <div key={t} className="flex items-center gap-2.5 py-1.5 font-medium text-ink">
+                <ShieldCheck className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+                {t}
+              </div>
+            ))}
+          </div>
+
+          {/* floating: status card (desktop only) */}
+          <div className="absolute right-0 top-4 hidden w-[230px] rounded-2xl border border-line bg-panel/90 p-4 text-[13.5px] shadow-[0_24px_48px_-24px_rgba(15,40,80,0.35)] backdrop-blur md:block">
+            <p className="mb-2 text-[13px] font-semibold text-ink-faint">Guardian</p>
+            <div className="rounded-xl bg-panel-2 px-3 py-2.5 leading-snug text-ink-muted">
+              Reels blocked for the next <span className="font-semibold text-ink">2 hours</span>.
             </div>
-            {/* right: analytics */}
-            <div className="absolute right-0 top-[16%] z-10 w-[44%]">
-              <PhoneMockup
-                src={statsShot}
-                alt="Guardian statistics screen showing weekly blocking activity"
-                rotateY={-8}
-                rotateX={3}
-                floatDelay="0.8s"
-                floatDuration="6.5s"
-                chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
-              />
+            <div className="mt-2 rounded-xl bg-panel-2 px-3 py-2.5 leading-snug text-ink-muted">
+              Partner is linked and <span className="font-semibold text-ink">protection is on</span>.
             </div>
-            {/* centre: home, in front */}
-            <div className="absolute left-1/2 top-0 z-20 w-[50%] -translate-x-1/2">
-              <PhoneMockup
-                src={homeShot}
-                alt="Guardian home screen showing protection active and a clean streak"
-                rotateY={0}
-                rotateX={3}
-                floatDelay="0s"
-                floatDuration="6s"
-              />
+            <div className="mt-3 flex items-center gap-2 text-[12.5px] text-ink-faint">
+              <span className="dot-blink size-2 rounded-full bg-accent" />
+              Protection active
             </div>
+          </div>
+
+          {/* floating: partner thumbnail (desktop only) */}
+          <div className="absolute bottom-0 right-[6%] hidden w-[120px] rounded-2xl border border-line bg-panel/90 p-1.5 shadow-[0_24px_48px_-24px_rgba(15,40,80,0.35)] backdrop-blur md:block">
+            <img src={partnerShot} alt="Guardian Partner app" className="block w-full rounded-xl" />
           </div>
         </div>
       </header>

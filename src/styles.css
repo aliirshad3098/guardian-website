@@ -319,3 +319,11 @@ h2 em {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hero backdrop: sky blue fading to the page background (reference style). */
+.hero-sky {
+  background: linear-gradient(180deg, #a9cdf7 0%, #d7e9fb 45%, #f5faff 80%, var(--bg) 100%);
+}
+[data-theme="dark"] .hero-sky {
+  background: linear-gradient(180deg, #1b2e52 0%, #111b33 50%, var(--bg) 100%);
+}
