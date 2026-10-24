@@ -7,6 +7,7 @@ import homeShot from "@/assets/home.jpg";
 import fortressShot from "@/assets/fortress.jpg";
 import blockerShot from "@/assets/blocker.jpg";
 import partnerShot from "@/assets/partner.jpg";
+import statsShot from "@/assets/stats.jpg";
 import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Network-level blocking, on-device AI in three languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
+          "Network-level blocking, on-device AI in six languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
       },
     ],
   }),
@@ -31,7 +32,7 @@ export const Route = createFileRoute("/")({
 
 const facts = [
   { n: "4.6M+", l: "domains on-device" },
-  { n: "3", l: "languages supported" },
+  { n: "6", l: "languages supported" },
   { n: "On-device", l: "search classification" },
   { n: "Offline", l: "domain filtering continues" },
 ];
@@ -45,7 +46,7 @@ const stages = [
   {
     tag: "Understanding",
     title: "On-device AI",
-    body: "Searches are classified locally in English, Roman Urdu and Urdu.",
+    body: "Searches are classified locally in Urdu, Roman Urdu, English, Chinese, Bengali and Hindi.",
   },
   {
     tag: "Support",
@@ -86,14 +87,13 @@ function HomePage() {
         <GradientMesh variant="hero" />
         <div className="relative mx-auto grid max-w-[1180px] items-center gap-14 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.05fr_1fr]">
           <div>
-            <span className="eyebrow">Made in Pakistan · Android</span>
             <h1 className="mt-5 max-w-[17ch] text-balance text-[clamp(34px,4.4vw,50px)] leading-[1.12]">
-              Build healthier digital habits{" "}
-              <em className="text-cyan">one day at a time</em>.
+              The habit you want to quit is the one{" "}
+              <em className="text-cyan">Guardian is built to stop</em>.
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
               Guardian filters adult websites and searches, blocks distracting apps and reels, and
-              turns protection on by schedule. It understands English, Roman Urdu and Urdu.
+              turns protection on by schedule. Its AI classifies search queries in Urdu, Roman Urdu, English, Chinese, Bengali and Hindi.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <MagneticButton>
@@ -105,31 +105,43 @@ function HomePage() {
                 See how it works
               </Link>
             </div>
-            <p className="mt-5 font-mono text-[12.5px] text-ink-faint">
-              Free for users in Pakistan. Core protection works without an account.
-            </p>
           </div>
 
-          <div className="hero-product relative mx-auto flex min-h-[440px] w-full max-w-[480px] items-center justify-center px-8 py-8 sm:min-h-[520px]">
-            <div className="hero-phone relative z-10 w-[68%] max-w-[260px]">
+          <div className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]">
+            {/* Left: accountability partner app */}
+            <div className="absolute left-0 top-[16%] z-10 w-[44%]">
               <PhoneMockup
-                src={homeShot}
-                alt="Guardian home screen showing protection active and a clean streak"
-                rotateY={0}
-                rotateX={0}
+                src={partnerShot}
+                alt="Guardian Partner app showing protection status and pending approval requests"
+                rotateY={8}
+                rotateX={3}
+                floatDelay="1.6s"
+                floatDuration="7s"
+                chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
               />
             </div>
-            <div className="hero-note absolute bottom-[12%] left-0 z-20 max-w-[210px] p-4">
-              <div className="flex items-center gap-2 text-sm font-semibold text-ink">
-                <span className="hero-status-dot" aria-hidden="true" /> Protection is active
-              </div>
-              <p className="mt-1.5 text-xs leading-relaxed text-ink-muted">
-                Filtering happens on your device. Your browsing stays private.
-              </p>
+            {/* Right: weekly activity */}
+            <div className="absolute right-0 top-[16%] z-10 w-[44%]">
+              <PhoneMockup
+                src={statsShot}
+                alt="Guardian statistics screen showing weekly blocking activity"
+                rotateY={-8}
+                rotateX={3}
+                floatDelay="0.8s"
+                floatDuration="6.5s"
+                chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
+              />
             </div>
-            <div className="hero-note hero-note-secondary absolute right-0 top-[12%] z-20 max-w-[170px] p-4">
-              <p className="text-xs font-medium text-ink-muted">Designed for everyday use</p>
-              <p className="mt-1 text-sm font-semibold text-ink">English · Urdu · Roman Urdu</p>
+            {/* Centre: Guardian home app */}
+            <div className="absolute left-1/2 top-0 z-20 w-[50%] -translate-x-1/2">
+              <PhoneMockup
+                src={homeShot}
+                alt="Guardian home screen showing protection status and a clean streak"
+                rotateY={0}
+                rotateX={3}
+                floatDelay="0s"
+                floatDuration="6s"
+              />
             </div>
           </div>
         </div>
