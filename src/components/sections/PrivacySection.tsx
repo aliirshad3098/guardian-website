@@ -1,25 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
-
-export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy — Guardian PK keeps everything on your phone" },
-      {
-        name: "description",
-        content:
-          "Guardian filters and classifies on-device. No browsing history, no search content, no accounts required. Here is exactly what stays on your phone and what a partner can see.",
-      },
-      { property: "og:title", content: "Privacy — Guardian PK keeps everything on your phone" },
-      {
-        property: "og:description",
-        content:
-          "No browsing history collected, no search content uploaded, no ads, no selling data. Filtering runs locally.",
-      },
-    ],
-  }),
-  component: PrivacyPage,
-});
 
 const onPhone = [
   "Your browsing and search history",
@@ -46,9 +26,9 @@ const partnerSees = [
   { yes: false, t: "Anything typed inside other apps" },
 ];
 
-function PrivacyPage() {
+export function PrivacySection() {
   return (
-    <main>
+    <section>
       <header className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
         <span className="eyebrow">Privacy</span>
         <h1 className="mt-5 max-w-2xl text-[clamp(34px,5.4vw,54px)]">
@@ -137,13 +117,13 @@ function PrivacyPage() {
               <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
                 We answer in English or Urdu, usually within a day.
               </p>
-              <Link to="/faq" className="btn-ghost mt-4">
+              <Link to="/" hash="faq" className="btn-ghost mt-4">
                 Read the FAQ
               </Link>
             </Reveal>
           </div>
         </div>
       </section>
-    </main>
+    </section>
   );
 }

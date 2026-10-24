@@ -1,24 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
-
-export const Route = createFileRoute("/faq")({
-  head: () => ({
-    meta: [
-      { title: "FAQ & support — Guardian PK" },
-      {
-        name: "description",
-        content:
-          "Answers about Guardian PK privacy, blocking layers, Fortress Mode, accountability partner, app blocker, reels blocker and cost — plus how to reach support in English or Urdu.",
-      },
-      { property: "og:title", content: "FAQ & support — Guardian PK" },
-      {
-        property: "og:description",
-        content: "Privacy, Fortress Mode, permissions and setup — answered plainly.",
-      },
-    ],
-  }),
-  component: FaqPage,
-});
 
 const faqs = [
   {
@@ -63,9 +44,9 @@ const faqs = [
   },
 ];
 
-function FaqPage() {
+export function FaqSection() {
   return (
-    <main>
+    <section>
       <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
         <Reveal>
           <span className="eyebrow">FAQ</span>
@@ -106,6 +87,6 @@ function FaqPage() {
           </div>
         </Reveal>
       </div>
-    </main>
+    </section>
   );
 }

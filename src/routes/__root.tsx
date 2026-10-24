@@ -35,9 +35,9 @@ function Wordmark() {
 
 const navLinks = [
   { label: "How it works", to: "/", hash: "how" },
-  { label: "Features", to: "/features" },
-  { label: "Privacy", to: "/privacy" },
-  { label: "FAQ", to: "/faq" },
+  { label: "Features", to: "/", hash: "features" },
+  { label: "Privacy", to: "/", hash: "privacy" },
+  { label: "FAQ", to: "/", hash: "faq" },
 ] as const;
 
 function SiteNav() {
@@ -118,13 +118,13 @@ function SiteFooter() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Wordmark />
           <div className="flex flex-wrap gap-6 text-[13.5px] text-ink-muted">
-            <Link to="/features" className="hover:text-ink">
+            <Link to="/" hash="features" className="hover:text-ink">
               Features
             </Link>
-            <Link to="/privacy" className="hover:text-ink">
+            <Link to="/" hash="privacy" className="hover:text-ink">
               Privacy
             </Link>
-            <Link to="/faq" className="hover:text-ink">
+            <Link to="/" hash="faq" className="hover:text-ink">
               FAQ
             </Link>
             <Link to="/download" className="hover:text-ink">

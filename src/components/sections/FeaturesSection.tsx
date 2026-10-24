@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { PhoneMockup } from "@/components/PhoneMockup";
 
@@ -8,26 +8,6 @@ import BlockerShot from "@/assets/blocker.jpg";
 import partnerAddShot from "@/assets/partner-add-connection.jpg";
 import accountabilityShot from "@/assets/accountability-card.jpg";
 import autoBlockShot from "@/assets/auto-blocking-schedule.jpg";
-
-export const Route = createFileRoute("/features")({
-  head: () => ({
-    meta: [
-      { title: "Features — Guardian PK for Android" },
-      {
-        name: "description",
-        content:
-          "Fortress Mode, accountability partner, app blocker, reels blocker, urge-surfing timer, decoy password and on-device AI in English, Roman Urdu, Urdu, Chinese, Bengali and Hindi.",
-      },
-      { property: "og:title", content: "Features — Guardian PK for Android" },
-      {
-        property: "og:description",
-        content:
-          "Every tool Guardian gives you: network filtering, on-device AI, Fortress Mode, partner support and focus blockers.",
-      },
-    ],
-  }),
-  component: FeaturesPage,
-});
 
 const sections = [
   {
@@ -134,9 +114,9 @@ const grid = [
   },
 ];
 
-function FeaturesPage() {
+export function FeaturesSection() {
   return (
-    <main>
+    <section>
       <header className="mx-auto max-w-[1180px] px-5 pb-12 pt-20 text-center md:px-8 md:pb-16 md:pt-28">
         <Reveal>
           <span className="eyebrow">Features</span>
@@ -202,11 +182,11 @@ function FeaturesPage() {
           <Link to="/download" className="btn-primary">
             Download for Android
           </Link>
-          <Link to="/privacy" className="btn-ghost">
+          <Link to="/" hash="privacy" className="btn-ghost">
             How privacy works
           </Link>
         </div>
       </section>
-    </main>
+    </section>
   );
 }

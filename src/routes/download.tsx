@@ -155,7 +155,7 @@ function DownloadPage() {
                 <p className="mt-3 text-center font-mono text-[11.5px] text-ink-faint">
                   Signed build · check the publisher prompt on install
                 </p>
-                <Link to="/privacy" className="btn-ghost mt-3 w-full">
+                <Link to="/" hash="privacy" className="btn-ghost mt-3 w-full">
                   What it can access
                 </Link>
               </div>
@@ -164,7 +164,7 @@ function DownloadPage() {
         </div>
       </div>
 
-      <section className="border-t border-line">
+      <main className="border-t border-line">
         <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
             <span className="eyebrow">Downloads</span>
@@ -187,9 +187,9 @@ function DownloadPage() {
             ))}
           </div>
         </div>
-      </section>
+      </main>
 
-      <section className="border-t border-line" style={{ background: "var(--panel-2)" }}>
+      <main className="border-t border-line" style={{ background: "var(--panel-2)" }}>
         <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
             <span className="eyebrow">Permissions</span>
@@ -215,20 +215,20 @@ function DownloadPage() {
             ))}
           </div>
         </div>
-      </section>
+      </main>
 
-      <section className="border-t border-line" style={{ background: "var(--panel-2)" }}>
+      <main className="border-t border-line" style={{ background: "var(--panel-2)" }}>
         <Reveal className="mx-auto max-w-[1180px] px-5 py-16 text-center md:px-8">
           <h2 className="text-[clamp(24px,3.4vw,34px)]">Stuck on a step?</h2>
           <p className="mx-auto mt-3 max-w-md text-ink-muted">
             The FAQ covers permissions, forgotten passwords and Fortress Mode. Real people answer,
             in English or Urdu.
           </p>
-          <Link to="/faq" className="btn-ghost mt-7">
+          <Link to="/" hash="faq" className="btn-ghost mt-7">
             Read the FAQ
           </Link>
         </Reveal>
-      </section>
+      </main>
     </main>
   );
 }
