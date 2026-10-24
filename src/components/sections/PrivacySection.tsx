@@ -29,12 +29,12 @@ const partnerSees = [
 export function PrivacySection() {
   return (
     <section>
-      <header className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
+      <header className="mx-auto max-w-[1180px] px-5 pb-12 pt-20 text-center md:px-8 md:pb-16 md:pt-28">
         <span className="eyebrow">Privacy</span>
-        <h1 className="mt-5 max-w-2xl text-[clamp(34px,5.4vw,54px)]">
+        <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
           The safest place for your data is <em className="text-accent">your phone</em>.
         </h1>
-        <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
+        <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
           A tool that reads what you search has to earn trust. Guardian does it the only honest way:
           by never sending it anywhere.
         </p>

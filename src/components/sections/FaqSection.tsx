@@ -47,11 +47,11 @@ const faqs = [
 export function FaqSection() {
   return (
     <section>
-      <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-        <Reveal>
+      <div className="mx-auto max-w-3xl px-5 pb-16 pt-20 md:px-8 md:pb-24 md:pt-28">
+        <Reveal className="text-center">
           <span className="eyebrow">FAQ</span>
           <h1 className="mt-5 text-[clamp(34px,5.4vw,50px)]">Questions, answered.</h1>
-          <p className="mt-5 text-[17px] leading-relaxed text-ink-muted">
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-ink-muted">
             If something isn't here, write to us — we reply in English or Urdu.
           </p>
         </Reveal>

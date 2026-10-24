@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
@@ -70,6 +71,70 @@ const stages = [
     body: "If protection is turned off, an optional trusted partner is notified. They see your protection status, never your browsing history or search content.",
   },
 ];
+
+const highlights = [
+  {
+    title: "Fortress Mode",
+    body: "Time-locks your own password for a set number of days. It is auto-generated, so you can't recall it in a weak moment.",
+    span: "md:col-span-2",
+  },
+  {
+    title: "App Blocker",
+    body: "Block chosen apps on a schedule or permanently. The block survives restarts and force-stops.",
+    span: "",
+  },
+  {
+    title: "Reels Blocker",
+    body: "Strips short-video feeds out of the apps you keep, so a quick check doesn't turn into an hour.",
+    span: "",
+  },
+  {
+    title: "Accountability partner",
+    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it, never your searches or browsing history.",
+    span: "md:col-span-2",
+  },
+];
+
+function HighlightsGrid() {
+  const [active, setActive] = useState<number | null>(null);
+
+  return (
+    <div className="mt-12 grid gap-5 md:grid-cols-3" onMouseLeave={() => setActive(null)}>
+      {highlights.map((h, i) => {
+        const isActive = active === i;
+        const dimmed = active !== null && !isActive;
+        return (
+          <div
+            key={h.title}
+            tabIndex={0}
+            onMouseEnter={() => setActive(i)}
+            onFocus={() => setActive(i)}
+            onBlur={() => setActive(null)}
+            className={`h-full rounded-[18px] outline-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-accent ${h.span}`}
+            style={{ opacity: dimmed ? 0.4 : 1 }}
+          >
+            <Reveal
+              variant="scale"
+              delayMs={i * 80}
+              className="bento-tile h-full p-8"
+              style={{ borderColor: isActive ? "var(--accent)" : undefined }}
+            >
+              <span
+                className={`font-mono text-[12px] transition-colors duration-300 ${
+                  isActive ? "text-accent" : "text-ink-faint"
+                }`}
+              >
+                0{i + 1}
+              </span>
+              <h3 className="mt-3 text-[21px]">{h.title}</h3>
+              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{h.body}</p>
+            </Reveal>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 function HomePage() {
   return (
@@ -163,7 +228,7 @@ function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-24 md:px-8 md:py-32">
+      <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">How it works</span>
@@ -178,6 +243,30 @@ function HomePage() {
         <Reveal delayMs={120} className="mt-20">
           <PipelineDiagram steps={stages} />
         </Reveal>
+      </section>
+
+      {/* HIGHLIGHTS */}
+      <section className="px-4 py-20 md:px-8 md:py-28">
+        <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="eyebrow">Built for the harder moments</span>
+              <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">
+                For when a filter alone isn't enough
+              </h2>
+              <p className="mt-4 text-ink-muted">
+                Willpower runs out sometimes. These are the tools Guardian has for exactly that
+                moment.
+              </p>
+            </div>
+          </Reveal>
+          <HighlightsGrid />
+          <div className="mt-10 text-center">
+            <Link to="/" hash="features" className="btn-ghost">
+              See every feature
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* FEATURES, PRIVACY, FAQ (same content as their former pages) */}
