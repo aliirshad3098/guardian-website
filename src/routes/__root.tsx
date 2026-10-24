@@ -18,12 +18,13 @@ import { ThemeToggle } from "../components/ThemeToggle";
 function Wordmark() {
   return (
     <Link to="/" className="group flex items-center gap-2.5">
-      <span className="grid size-8 place-items-center rounded-[10px] bg-accent-tint text-accent transition-transform duration-300 group-hover:-translate-y-px">
-        <svg viewBox="0 0 24 24" aria-hidden className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" />
-          <path d="M9 12l2 2 4-4" />
-        </svg>
-      </span>
+      <img
+        src="/logo.png"
+        alt="Guardian logo"
+        width={34}
+        height={34}
+        className="size-[34px] rounded-[9px] transition-transform duration-300 group-hover:-translate-y-px"
+      />
       <span className="flex items-baseline gap-1.5">
         <span className="font-display text-[18px] font-semibold tracking-[-0.02em] text-ink">Guardian</span>
         <span className="text-[12px] font-medium text-ink-faint">PK</span>
@@ -216,7 +217,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
