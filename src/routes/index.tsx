@@ -136,7 +136,6 @@ function HomePage() {
         <GradientMesh variant="hero" />
         <div className="relative mx-auto grid max-w-[1180px] items-center gap-14 px-5 pb-16 pt-8 md:px-8 md:pb-24 md:pt-12 lg:grid-cols-[1.05fr_1fr]">
           <div>
-            <span className="eyebrow">Android · Made in Pakistan</span>
             <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(36px,4.8vw,56px)] leading-[1.06]">
               The habit you want to quit is the one <em>Guardian is built to stop</em>.
             </h1>
@@ -154,9 +153,6 @@ function HomePage() {
                 See how it works
               </Link>
             </div>
-            <p className="mt-5 text-[13.5px] text-ink-faint">
-              Free for users in Pakistan. Core protection works without an account.
-            </p>
           </div>
 
           <div className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]">
