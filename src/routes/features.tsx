@@ -137,15 +137,15 @@ const grid = [
 function FeaturesPage() {
   return (
     <main>
-      <header className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
+      <header className="mx-auto max-w-[1180px] px-5 pb-12 pt-20 text-center md:px-8 md:pb-16 md:pt-28">
         <Reveal>
           <span className="eyebrow">Features</span>
-          <h1 className="mt-5 max-w-2xl text-[clamp(34px,5.4vw,54px)]">
-            Everything Guardian does, in <em className="text-accent">plain language</em>.
+          <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
+            Every tool Guardian gives you, <em>explained simply</em>.
           </h1>
-          <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-            Protection you can rely on when motivation is low — and privacy you don't have to trade
-            away to get it.
+          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
+            Protection that holds up when motivation runs low, with privacy you never have to give
+            up to get it.
           </p>
         </Reveal>
       </header>
