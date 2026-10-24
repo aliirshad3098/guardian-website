@@ -4,12 +4,9 @@ import { MagneticButton } from "@/components/MagneticButton";
 import { GradientMesh } from "@/components/GradientMesh";
 
 import homeShot from "@/assets/home.jpg";
-import fortressShot from "@/assets/fortress.jpg";
-import blockerShot from "@/assets/blocker.jpg";
 import partnerShot from "@/assets/partner.jpg";
 import statsShot from "@/assets/stats.jpg";
 import { PhoneMockup } from "@/components/PhoneMockup";
-import { BrainCircuit, Globe2, ShieldCheck, Cpu, Wifi, Languages } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,7 +21,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Network-level blocking, on-device AI in six languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
+          "Network-level blocking, on-device AI in three languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
       },
     ],
   }),
@@ -32,51 +29,50 @@ export const Route = createFileRoute("/")({
 });
 
 const facts = [
-  { n: "4.6M+", l: "domains on-device" },
-  { n: "6", l: "languages supported" },
-  { n: "On-device", l: "search classification" },
-  { n: "Offline", l: "domain filtering continues" },
+  { n: "4.6M+", l: "domains in the local blocklist" },
+  { n: "3", l: "languages the on-device AI understands" },
+  { n: "On-device", l: "every search classified locally, not on a server" },
+  { n: "24/7", l: "quiet, background protection" },
 ];
 
 const stages = [
   {
     tag: "Network",
     title: "VPN-level filtering",
-    body: "Known domains are checked on your phone before the site loads.",
+    body: "A lightweight, on-device VPN checks every site your browser tries to reach against 4.6 million known domains before the page ever loads. No traffic leaves your phone to do this.",
   },
   {
     tag: "Understanding",
     title: "On-device AI",
-    body: "Searches are classified locally in Urdu, Roman Urdu, English, Chinese, Bengali and Hindi.",
+    body: "If a search slips past the domain list, a model trained on English, Roman Urdu and Urdu search patterns catches it — without ever sending the search to a server.",
   },
   {
     tag: "Support",
     title: "Accountability partner",
-    body: "A trusted partner can see protection status — never browsing history.",
+    body: "If protection is turned off, an optional trusted partner is notified. They see your protection status, never your browsing history or search content.",
   },
 ];
 
 const highlights = [
   {
     title: "Fortress Mode",
-    body: "Create a time lock that helps protect the commitment you made to yourself.",
-    image: fortressShot,
-    alt: "Guardian Fortress Mode interface",
-    span: "",
+    body: "Time-locks your own password for a set number of days. It is auto-generated, so you can't recall it in a weak moment.",
+    span: "md:col-span-2",
   },
   {
     title: "App Blocker",
-    body: "Choose the apps you want to limit, then block them on your terms.",
-    image: blockerShot,
-    alt: "Guardian app blocker interface",
+    body: "Block chosen apps on a schedule or permanently. The block survives restarts and force-stops.",
     span: "",
   },
   {
-    title: "Accountability",
-    body: "Bring a trusted person into your plan without sharing private browsing activity.",
-    image: partnerShot,
-    alt: "Guardian accountability partner interface",
+    title: "Reels Blocker",
+    body: "Strips short-video feeds out of the apps you keep, so a quick check doesn't turn into an hour.",
     span: "",
+  },
+  {
+    title: "Urge-surfing timer",
+    body: "A guided pause that rides out the spike instead of fighting it. Most urges pass in minutes.",
+    span: "md:col-span-2",
   },
 ];
 
@@ -94,7 +90,7 @@ function HomePage() {
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
               Guardian filters adult websites and searches, blocks distracting apps and reels, and
-              turns protection on by schedule. Its AI classifies search queries in Urdu, Roman Urdu, English, Chinese, Bengali and Hindi.
+              turns protection on by schedule. It understands English, Roman Urdu and Urdu.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <MagneticButton>
@@ -109,7 +105,7 @@ function HomePage() {
           </div>
 
           <div className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]">
-            {/* Left: accountability partner app */}
+            {/* left: partner */}
             <div className="absolute left-0 top-[16%] z-10 w-[44%]">
               <PhoneMockup
                 src={partnerShot}
@@ -121,7 +117,7 @@ function HomePage() {
                 chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
               />
             </div>
-            {/* Right: weekly activity */}
+            {/* right: analytics */}
             <div className="absolute right-0 top-[16%] z-10 w-[44%]">
               <PhoneMockup
                 src={statsShot}
@@ -133,11 +129,11 @@ function HomePage() {
                 chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
               />
             </div>
-            {/* Centre: Guardian home app */}
+            {/* centre: home, in front */}
             <div className="absolute left-1/2 top-0 z-20 w-[50%] -translate-x-1/2">
               <PhoneMockup
                 src={homeShot}
-                alt="Guardian home screen showing protection status and a clean streak"
+                alt="Guardian home screen showing protection active and a clean streak"
                 rotateY={0}
                 rotateX={3}
                 floatDelay="0s"
@@ -160,65 +156,70 @@ function HomePage() {
         </div>
       </div>
 
-      {/* PRODUCT SHOWCASE: PROTECTION */}
-      <section id="how" className="showcase-section mx-auto max-w-[1180px] scroll-mt-24 px-5 py-16 md:px-8 md:py-24">
-        <div className="showcase-grid">
-          <Reveal className="showcase-copy">
-            <span className="showcase-kicker">Key features</span>
-            <h2>Complete protection.<br />In your hands.</h2>
-            <p>
-              Guardian PK combines on-device AI, DNS filtering and smart blocking to help keep
-              harmful content away — before it reaches you.
+      {/* HOW IT WORKS */}
+      <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">How it works</span>
+            <h2 className="mt-5 text-[clamp(28px,4.2vw,42px)]">What happens to every search</h2>
+            <p className="mt-4 text-ink-muted">
+              Not three features bolted together. A single path a search travels through, in order,
+              before anything ever loads.
             </p>
-            <div className="protection-points">
-              <div><span className="point-icon"><BrainCircuit size={19} /></span><span>AI classification<br /><small>In real time</small></span></div>
-              <div><span className="point-icon"><Globe2 size={19} /></span><span>DNS VPN<br /><small>Filtering</small></span></div>
-              <div><span className="point-icon"><Wifi size={19} /></span><span>Works offline<br /><small>Private & secure</small></span></div>
-            </div>
-          </Reveal>
-          <Reveal delayMs={100} className="protection-visual">
-            <div className="protection-orbit" aria-hidden="true" />
-            <div className="protection-phone">
-              <PhoneMockup src={homeShot} alt="Guardian home screen showing the app's protection controls" rotateY={-5} rotateX={2} floatDuration="7s" />
-            </div>
-            <div className="protection-label protection-label-ai"><span><BrainCircuit size={20} /></span><div><strong>AI classification</strong><small>6 languages</small></div></div>
-            <div className="protection-label protection-label-dns"><span><Globe2 size={20} /></span><div><strong>DNS VPN</strong><small>Filtering</small></div></div>
-            <div className="protection-label protection-label-device"><span><Cpu size={20} /></span><div><strong>On-device</strong><small>Processing</small></div></div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
+
+        <Reveal delayMs={120}>
+          <ol className="mt-14 grid gap-6 md:grid-cols-3">
+            {stages.map((s, i) => (
+              <li key={s.title} className="bento-tile p-7">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-[12px] text-ink-faint">0{i + 1}</span>
+                  <span className="font-mono text-[11.5px] uppercase tracking-[0.14em] text-cyan">
+                    {s.tag}
+                  </span>
+                </div>
+                <h3 className="mt-3 text-[21px]">{s.title}</h3>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-ink-muted">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
       </section>
 
-      {/* PRODUCT SHOWCASE: MULTILINGUAL CLASSIFICATION */}
-      <section className="language-section">
-        <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
-          <div className="language-grid">
-            <Reveal className="language-copy">
-              <span className="showcase-kicker">AI classification</span>
-              <h2>Smart filtering with<br />6 languages.</h2>
-              <p>
-                Guardian's on-device AI classifies search queries across six languages, helping
-                protection work with the way people actually search.
+      {/* HIGHLIGHTS */}
+      <section className="px-4 md:px-8">
+        <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="eyebrow">Built for the harder moments</span>
+              <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">
+                For when a filter alone isn't enough
+              </h2>
+              <p className="mt-4 text-ink-muted">
+                Willpower runs out sometimes. These are the tools Guardian has for exactly that
+                moment.
               </p>
-              <div className="language-pills" aria-label="Supported languages">
-                {['Urdu', 'Roman Urdu', 'English', 'Chinese', 'Bengali', 'Hindi'].map((language) => (
-                  <span key={language}>{language}</span>
-                ))}
-              </div>
-            </Reveal>
-            <Reveal delayMs={100} className="classification-visual">
-              <div className="classification-halo" aria-hidden="true" />
-              <div className="classification-phone">
-                <div className="classification-topbar"><span>9:41</span><span>Guardian PK</span><span>•••</span></div>
-                <div className="classification-title"><Languages size={17} /><strong>Content classification</strong></div>
-                <div className="classification-tabs"><span>Safe</span><span>Adult</span><span>Blocked</span></div>
-                <div className="classification-row"><span className="classification-mark safe">ع</span><div><strong>Urdu content</strong><small>Classified on device</small></div><span className="classification-status" /></div>
-                <div className="classification-row"><span className="classification-mark safe">En</span><div><strong>English content</strong><small>Classified on device</small></div><span className="classification-status" /></div>
-                <div className="classification-row"><span className="classification-mark safe">Ro</span><div><strong>Roman Urdu</strong><small>Classified on device</small></div><span className="classification-status" /></div>
-                <div className="classification-row"><span className="classification-mark blocked">!</span><div><strong>Adult content</strong><small>Blocked by protection</small></div><span className="classification-status blocked-status" /></div>
-                <div className="classification-private"><ShieldCheck size={15} /><span>Processed locally on your device</span></div>
-              </div>
-              <div className="classification-note"><strong>Better detection.</strong><br />Safer browsing.</div>
-            </Reveal>
+            </div>
+          </Reveal>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {highlights.map((h, i) => (
+              <Reveal
+                key={h.title}
+                variant="scale"
+                delayMs={i * 80}
+                className={`bento-tile p-8 ${h.span}`}
+              >
+                <span className="font-mono text-[12px] text-ink-faint">0{i + 1}</span>
+                <h3 className="mt-3 text-[21px]">{h.title}</h3>
+                <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{h.body}</p>
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link to="/features" className="btn-ghost">
+              See every feature
+            </Link>
           </div>
         </div>
       </section>
@@ -241,7 +242,11 @@ function HomePage() {
       {/* CTA */}
       <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">
         <Reveal
-          className="cta-panel rounded-[18px] px-6 py-16 text-center"
+          className="rounded-[28px] px-6 py-16 text-center"
+          style={{
+            background:
+              "linear-gradient(140deg, color-mix(in oklab, var(--violet) 16%, var(--panel)), color-mix(in oklab, var(--cyan) 12%, var(--panel)))",
+          }}
         >
           <h2 className="text-[clamp(26px,4vw,40px)]">Start your first clean day.</h2>
           <p className="mx-auto mt-4 max-w-md text-ink-muted">
