@@ -155,11 +155,11 @@ function FeaturesPage() {
                 variant={s.reverse ? "right" : "left"}
                 className="grid items-center gap-10 md:grid-cols-2 md:gap-14"
               >
-                <div className={s.reverse ? "md:order-2" : undefined}>
+                <div className={`flex flex-col items-center text-center ${s.reverse ? "md:order-2" : ""}`}>
                   <span className="eyebrow">{s.eyebrow}</span>
                   <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">{s.title}</h2>
                   <p className="mt-4 text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-                  <ul className="mt-6 space-y-2.5">
+                  <ul className="mt-6 w-fit space-y-2.5 text-left">
                     {s.points.map((p) => (
                       <li key={p} className="flex gap-3 text-[14.5px] text-ink-muted">
                         <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
@@ -192,7 +192,7 @@ function FeaturesPage() {
         </Reveal>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {grid.map((g, i) => (
-            <Reveal key={g.title} variant="scale" delayMs={i * 60} className="panel-card p-7">
+            <Reveal key={g.title} variant="scale" delayMs={i * 60} className="panel-card p-7 text-center">
               <h3 className="text-[19px]">{g.title}</h3>
               <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{g.body}</p>
             </Reveal>
@@ -209,4 +209,4 @@ function FeaturesPage() {
       </section>
     </main>
   );
-}65
+}
