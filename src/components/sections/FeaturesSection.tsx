@@ -126,8 +126,8 @@ export function FeaturesSection() {
         </Reveal>
       </header>
 
-      <div className="relative z-10 mx-4 md:mx-auto md:max-w-[1180px]">
-        <div className="float-card px-5 py-16 md:px-12 md:py-24">
+      <div className="relative z-10 border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
           <div className="space-y-16 md:space-y-24">
             {sections.map((s) => (
               <Reveal

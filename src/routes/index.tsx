@@ -204,8 +204,8 @@ function HomePage() {
       </header>
 
       {/* FACTS */}
-      <section className="mx-auto max-w-[1180px] px-5 md:px-8">
-        <div className="float-card grid grid-cols-2 md:grid-cols-4">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto grid max-w-[1180px] grid-cols-2 md:grid-cols-4">
           {facts.map((f, i) => (
             <Reveal
               key={f.l}
@@ -246,8 +246,8 @@ function HomePage() {
       </section>
 
       {/* HIGHLIGHTS */}
-      <section className="px-4 py-16 md:px-8 md:py-20">
-        <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
+      <section className="border-y border-line bg-panel-2">
+        <div className="mx-auto max-w-[1180px] px-5 py-20 md:px-8 md:py-24">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <span className="eyebrow">Built for the harder moments</span>
@@ -290,8 +290,8 @@ function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">
-        <Reveal className="relative overflow-hidden rounded-[24px] bg-accent px-6 py-16 text-center text-white">
+      <section className="bg-accent">
+        <Reveal className="relative overflow-hidden px-6 py-20 text-center text-white">
           <h2 className="text-[clamp(28px,4vw,40px)] text-white">Start your first clean day.</h2>
           <p className="mx-auto mt-4 max-w-md text-white/80">
             Guardian is free for users in Pakistan. Install it in under two minutes — no account
