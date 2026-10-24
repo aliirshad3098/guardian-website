@@ -52,6 +52,7 @@ const stages = [
     n: "02",
     tag: "Understanding",
     icon: Brain,
+    image: homeShot,
     title: "On-device AI",
     body: "If a search slips past the domain list, a model trained on English, Roman Urdu, Urdu, Chinese, Bengali and Hindi search patterns catches it — without ever sending the search to a server.",
   },

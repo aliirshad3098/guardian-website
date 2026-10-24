@@ -1,51 +1,41 @@
 import type { LucideIcon } from "lucide-react";
-import { Globe, Brain, ShieldCheck } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 
-export type PipelineStep = { n: string; title: string; body: string; icon: LucideIcon; tag: string };
-
-const icons = { Globe, Brain, ShieldCheck };
-export { icons };
+export type PipelineStep = {
+  n: string;
+  title: string;
+  body: string;
+  icon: LucideIcon;
+  tag: string;
+  image?: string;
+};
 
 /**
- * Three-node flow. Connectors draw in left-to-right (vertical on mobile) when
- * the diagram scrolls into view, and a pulse travels along each one.
+ * Vertical timeline: icon boxes joined by a line on the left, text on the right.
+ * A step with an `image` is shown inside a card with the picture below its text.
+ * The connector draws in top-to-bottom when the diagram scrolls into view.
  */
 export function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
   const { ref, visible } = useReveal<HTMLOListElement>();
 
   return (
-    <ol ref={ref} className="grid gap-10 md:grid-cols-3 md:gap-0">
+    <ol ref={ref} className="mx-auto max-w-[760px]">
       {steps.map((s, i) => {
         const Icon = s.icon;
         const last = i === steps.length - 1;
         const delay = `${i * 450 + 300}ms`;
         return (
-          <li key={s.title} className="relative flex flex-col items-center px-2 text-center md:px-8">
+          <li key={s.title} className={`relative grid grid-cols-[64px_1fr] gap-6 ${last ? "" : "pb-14"}`}>
             {!last && (
-              <>
-                {/* desktop: horizontal connector to the next node */}
+              <span
+                aria-hidden
+                className="absolute bottom-[-3.5rem] left-[31px] top-16 w-px overflow-hidden bg-line-strong"
+              >
                 <span
-                  aria-hidden
-                  className="absolute top-8 hidden h-px overflow-hidden bg-line-strong md:block"
-                  style={{ left: "calc(50% + 2.75rem)", right: "calc(-50% + 2.75rem)" }}
-                >
-                  <span
-                    className="block h-full origin-left bg-accent transition-transform duration-[1000ms] ease-out"
-                    style={{ transform: visible ? "scaleX(1)" : "scaleX(0)", transitionDelay: delay }}
-                  />
-                </span>
-                {/* mobile: vertical connector to the next node */}
-                <span
-                  aria-hidden
-                  className="absolute left-1/2 -bottom-10 top-20 w-px -translate-x-1/2 overflow-hidden bg-line-strong md:hidden"
-                >
-                  <span
-                    className="block h-full origin-top bg-accent transition-transform duration-[1000ms] ease-out"
-                    style={{ transform: visible ? "scaleY(1)" : "scaleY(0)", transitionDelay: delay }}
-                  />
-                </span>
-              </>
+                  className="block h-full origin-top bg-accent transition-transform duration-[1000ms] ease-out"
+                  style={{ transform: visible ? "scaleY(1)" : "scaleY(0)", transitionDelay: delay }}
+                />
+              </span>
             )}
 
             <div
@@ -59,11 +49,18 @@ export function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
               <Icon className="size-7 text-accent" strokeWidth={1.75} aria-hidden />
             </div>
 
-            <span className="mt-5 font-mono text-[12px] text-ink-faint">
-              {s.n} · {s.tag}
-            </span>
-            <h3 className="mt-2 text-[21px]">{s.title}</h3>
-            <p className="mt-3 max-w-[30ch] text-[15px] leading-relaxed text-ink-muted">{s.body}</p>
+            <div className={s.image ? "rounded-2xl border border-line bg-panel p-6 md:p-7" : "pt-3"}>
+              <span className="font-mono text-[12px] text-ink-faint">
+                {s.n} · {s.tag}
+              </span>
+              <h3 className="mt-2 text-[21px]">{s.title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink-muted">{s.body}</p>
+              {s.image && (
+                <div className="shot-frame mx-auto mt-5 max-w-[280px]">
+                  <img src={s.image} alt="" loading="lazy" className="block h-auto w-full" />
+                </div>
+              )}
+            </div>
           </li>
         );
       })}
