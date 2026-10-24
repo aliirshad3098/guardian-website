@@ -17,16 +17,16 @@ import { ThemeToggle } from "../components/ThemeToggle";
 
 function Wordmark() {
   return (
-    <Link to="/" className="flex items-center gap-2">
-      <svg viewBox="0 0 24 24" aria-hidden className="size-6 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
-        <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" />
-        <path d="M9 12l2 2 4-4" />
-      </svg>
-      <span className="font-display text-[19px] font-semibold tracking-tight text-ink">
-        Guardian
+    <Link to="/" className="group flex items-center gap-2.5">
+      <span className="grid size-8 place-items-center rounded-[10px] bg-accent-tint text-accent transition-transform duration-300 group-hover:-translate-y-px">
+        <svg viewBox="0 0 24 24" aria-hidden className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
       </span>
-      <span className="rounded-md bg-accent px-1.5 py-0.5 font-mono text-[10px] font-medium tracking-widest text-white">
-        PK
+      <span className="flex items-baseline gap-1.5">
+        <span className="font-display text-[18px] font-semibold tracking-[-0.02em] text-ink">Guardian</span>
+        <span className="text-[12px] font-medium text-ink-faint">PK</span>
       </span>
     </Link>
   );
@@ -48,26 +48,26 @@ function SiteNav() {
       style={{ background: "var(--nav-bg)" }}
     >
       <div className="mx-auto grid max-w-[1180px] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3.5 md:px-8">
-        <div className="flex min-w-0 items-center gap-10">
+        <div className="flex min-w-0 items-center">
           <Wordmark />
-          <div className="hidden items-center gap-7 text-[14.5px] text-ink-muted lg:flex">
-            {navLinks.map((l) => (
-              <Link
-                key={l.label}
-                to={l.to}
-                {...("hash" in l ? { hash: l.hash } : {})}
-                className="group relative py-1 transition-colors hover:text-ink"
-              >
-                {l.label}
-                <span
-                  aria-hidden
-                  className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-x-100"
-                />
-              </Link>
-            ))}
-          </div>
         </div>
         <div className="flex shrink-0 items-center gap-3">
+            <div className="hidden items-center gap-7 pr-3 text-[14.5px] text-ink-muted lg:flex">
+              {navLinks.map((l) => (
+                <Link
+                  key={l.label}
+                  to={l.to}
+                  {...("hash" in l ? { hash: l.hash } : {})}
+                  className="group relative py-1 transition-colors hover:text-ink"
+                >
+                  {l.label}
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  />
+                </Link>
+              ))}
+            </div>
           <ThemeToggle />
           <Link to="/download" className="btn-primary hidden sm:inline-flex">
             Get Guardian
