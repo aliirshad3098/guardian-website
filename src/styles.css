@@ -1,42 +1,38 @@
 @import "tailwindcss";
 
+/* Palette: neutral surfaces + one teal accent (trust / protection).
+   No gradient glows, no neon, no serif-italic display type. */
 :root {
-  --bg: #faf9fd;
+  --bg: #f6f7f9;
   --panel: #ffffff;
-  --panel-2: #f1eef8;
-  --line: rgba(28, 22, 38, 0.1);
-  --line-strong: rgba(28, 22, 38, 0.18);
-  --ink: #1c1626;
-  --ink-muted: #635c72;
-  --ink-faint: #938c9f;
-  --violet: #7c4ff0;
-  --violet-bright: #6a3ce8;
-  --cyan: #0891b2;
-  --cyan-bright: #0ea5c4;
-  --tint-violet: #f1ecfb;
-  --tint-cyan: #eaf6f8;
-  --card-shadow: rgba(28, 22, 38, 0.16);
-  --nav-bg: rgba(250, 249, 253, 0.82);
+  --panel-2: #eef1f5;
+  --line: rgba(15, 23, 42, 0.08);
+  --line-strong: rgba(15, 23, 42, 0.16);
+  --ink: #0f172a;
+  --ink-muted: #475569;
+  --ink-faint: #8a96a8;
+  --accent: #0f766e;
+  --accent-bright: #14b8a6;
+  --accent-tint: #e7f4f2;
+  --card-shadow: rgba(15, 23, 42, 0.14);
+  --nav-bg: rgba(246, 247, 249, 0.86);
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #0c0a14;
-  --panel: #151020;
-  --panel-2: #1c1730;
-  --line: rgba(245, 243, 250, 0.1);
-  --line-strong: rgba(245, 243, 250, 0.2);
-  --ink: #f5f3fa;
-  --ink-muted: #a89fc2;
-  --ink-faint: #6b6284;
-  --violet: #8b6fea;
-  --violet-bright: #a58cf5;
-  --cyan: #4fd1e8;
-  --cyan-bright: #7ee3f2;
-  --tint-violet: #1c1730;
-  --tint-cyan: #12242a;
-  --card-shadow: rgba(0, 0, 0, 0.5);
-  --nav-bg: rgba(12, 10, 20, 0.82);
+  --bg: #0a0f1c;
+  --panel: #111827;
+  --panel-2: #162032;
+  --line: rgba(226, 232, 240, 0.08);
+  --line-strong: rgba(226, 232, 240, 0.16);
+  --ink: #f1f5f9;
+  --ink-muted: #94a3b8;
+  --ink-faint: #64748b;
+  --accent: #2dd4bf;
+  --accent-bright: #5eead4;
+  --accent-tint: #0f2a2c;
+  --card-shadow: rgba(0, 0, 0, 0.55);
+  --nav-bg: rgba(10, 15, 28, 0.86);
   color-scheme: dark;
 }
 
@@ -49,15 +45,12 @@
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-ink-faint: var(--ink-faint);
-  --color-violet: var(--violet);
-  --color-violet-bright: var(--violet-bright);
-  --color-cyan: var(--cyan);
-  --color-cyan-bright: var(--cyan-bright);
-  --color-tint-violet: var(--tint-violet);
-  --color-tint-cyan: var(--tint-cyan);
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Sora", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-tint: var(--accent-tint);
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 html {
@@ -72,41 +65,35 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: var(--cyan);
-  color: var(--bg);
+  background: var(--accent);
+  color: #fff;
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.014em;
-  text-wrap: pretty;
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
-/* ✅ FIX (confirmed AI-slop pattern via research — a real design-critique
-   doc lists "eyebrow labels", "uppercase + letter-spacing labels", and
-   "dots via ::before" together as the exact tells of template-generated
-   sites, and names the fix directly: "no eyebrows, no uppercase labels...
-   just h1/h2 with proper hierarchy." Real product sites (Raycast, Stripe,
-   GitHub) don't put a chip/dot/box before section labels — plain
-   typography (size, weight, spacing, muted color) does the work alone.
-   Removed the border-left-bar treatment too — that was still the same
-   underlying pattern with a different skin, not a real fix. */
+h1 em,
+h2 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* Small section label: plain accent text, no caps or boxes. */
 @utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
   display: inline-block;
 }
 
@@ -115,20 +102,17 @@ h3 {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 100px;
-  padding: 12px 22px;
-  font-size: 14.5px;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(120deg, var(--violet-bright), var(--violet));
-  box-shadow: 0 10px 24px -12px var(--violet);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  background: var(--accent);
+  transition: transform 0.2s ease, background-color 0.2s ease;
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 14px 30px -12px var(--violet);
+    background: color-mix(in oklab, var(--accent) 88%, #000);
   }
 }
 
@@ -137,173 +121,81 @@ h3 {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 100px;
-  padding: 12px 22px;
-  font-size: 14.5px;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--ink);
   border: 1px solid var(--line-strong);
   background: transparent;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 
   &:hover {
-    border-color: var(--cyan);
-    background: var(--tint-cyan);
+    border-color: var(--accent);
+    background: var(--accent-tint);
   }
 }
 
 @utility panel-card {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 18px;
-  /* ✅ Compound shadow (2026 "clay" technique): outer shadow = floating
-     above the surface, inset highlight = light catching the upper edge.
-     Together this reads as real depth without any WebGL/3D library. */
-  box-shadow:
-    0 18px 50px -34px var(--card-shadow),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
-  transition:
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 16px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px) scale(1.012);
-    box-shadow:
-      0 30px 70px -30px var(--card-shadow),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    border-color: var(--line-strong);
   }
 }
 
-/* ✅ Bento tile — for the "Active Grid" pattern (2026 trend): instead of a
-   flat, uniform grid of same-size cards, tiles vary in size (grid-column/
-   row spans set per-tile in the component) and react on hover with a
-   gradient-glow border + lift, not just a color change. Distinct from
-   panel-card specifically for feature-grid sections where we want more
-   visual weight/personality than a plain settings-style card. */
 @utility bento-tile {
   position: relative;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow:
-    0 18px 50px -34px var(--card-shadow),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
-  transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s ease;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, var(--violet), transparent 40%, transparent 60%, var(--cyan));
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-  }
+  transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
-    transform: translateY(-6px) scale(1.015);
-    box-shadow:
-      0 36px 80px -28px var(--card-shadow),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-  }
-
-  &:hover::before {
-    opacity: 1;
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--accent) 45%, transparent);
   }
 }
 
 @utility shot-frame {
-  border-radius: 22px;
+  border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--panel-2);
-  box-shadow: 0 30px 70px -40px var(--card-shadow);
-
-  & img {
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  &:hover img {
-    transform: scale(1.035);
-  }
 }
 
-/* ✅ Animated gradient mesh (2026 technique, confirmed via research):
-   several independently-animated radial blobs, staggered durations so no
-   visible repeat pattern, mix-blend-mode:screen for additive light
-   mixing instead of flat color stacking, heavy blur so they read as soft
-   light sources rather than shapes. Replaces the old single static
-   radial-gradient hero background — this is the single biggest visible
-   upgrade for "feels premium/2026" vs "feels like a template". Only
-   transform is animated (GPU-safe); blur/opacity are static per-blob. */
-@utility gradient-mesh {
+/* Surface for a full-width band. Flat, one border, no glow. */
+@utility float-card {
+  border-radius: 24px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+/* Faint dot/grid texture, masked so it fades out from one corner. */
+@utility grid-bg {
   position: absolute;
   inset: 0;
-  overflow: hidden;
   pointer-events: none;
-
-  & > span {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    mix-blend-mode: screen;
-    will-change: transform;
-  }
-
-  [data-theme="dark"] & {
-    mix-blend-mode: plus-lighter;
-  }
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 75% 25%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 75% 25%, #000 0%, transparent 75%);
 }
 
-@keyframes blob-drift-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(6%, 8%) scale(1.08); }
-  66% { transform: translate(-4%, 4%) scale(0.95); }
-}
-@keyframes blob-drift-b {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-7%, -5%) scale(1.05); }
-  66% { transform: translate(5%, -7%) scale(0.97); }
-}
-@keyframes blob-drift-c {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-6%, 6%) scale(1.1); }
-}
-
-@utility blob-a { animation: blob-drift-a 19s ease-in-out infinite; }
-@utility blob-b { animation: blob-drift-b 24s ease-in-out infinite; }
-@utility blob-c { animation: blob-drift-c 28s ease-in-out infinite; }
-
-/* ✅ Magnetic button — the cursor-follow micro-interaction confirmed as a
-   2026 CTA pattern ("looks impressive, strengthens CTAs"). JS (see
-   MagneticButton.tsx) sets --mx/--my per-frame; this utility just applies
-   them as a bounded transform, and eases back to center on mouseleave via
-   the transition. Press-compress on :active is the "claymorphism" touch
-   point half of the compound-shadow system above. */
 @utility magnetic {
   transform: translate(var(--mx, 0), var(--my, 0));
   transition: transform 0.15s ease-out;
-
-  &:active {
-    transform: translate(var(--mx, 0), var(--my, 0)) scale(0.96);
-  }
 }
 
 @utility float-shot {
-  animation: float-shot 6s ease-in-out infinite;
+  animation: float-shot 7s ease-in-out infinite;
 }
 
 @keyframes float-shot {
@@ -312,8 +204,38 @@ h3 {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.72);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@utility breathe {
+  animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes fill-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(var(--fill, 0.6));
+  }
+}
+
+@utility fill-bar {
+  transform-origin: left center;
+  animation: fill-x 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes blink {
@@ -322,7 +244,7 @@ h3 {
     opacity: 1;
   }
   50% {
-    opacity: 0.3;
+    opacity: 0.35;
   }
 }
 
@@ -330,16 +252,10 @@ h3 {
   animation: blink 1.7s ease-in-out infinite;
 }
 
-/* ✅ Route/page transition (see PageTransition in __root.tsx). Fade+small-
-   lift, single-shot on mount — same shape as Reveal's fade variant so a
-   route change reads as continuous with the rest of the site's motion
-   language rather than a bolted-on effect. Kept short (350ms) since this
-   gates the next page's content from appearing; anything longer starts to
-   feel like lag rather than polish. */
 @keyframes page-enter {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -348,16 +264,9 @@ h3 {
 }
 
 .page-enter {
-  animation: page-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: page-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ✅ Accessibility: respects the user's OS-level motion preference.
-   Anyone with prefers-reduced-motion set gets every transition/animation
-   collapsed to effectively instant — no floating shots, no hover-lift, no
-   scroll-reveal motion (Reveal.tsx's useReveal hook also independently
-   skips the IntersectionObserver entirely for these users and shows
-   content immediately, so this is belt-and-suspenders coverage for
-   anything CSS-driven too). */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -367,14 +276,4 @@ h3 {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-}
-/* Floating section card: one surface for every lifted band, so light and dark
-   themes stay consistent and no hard purple/black box shows against the page. */
-@utility float-card {
-  border-radius: 32px;
-  background:
-    radial-gradient(60% 80% at 12% 0%, color-mix(in oklab, var(--violet) 14%, transparent), transparent 70%),
-    radial-gradient(50% 70% at 100% 100%, color-mix(in oklab, var(--cyan) 10%, transparent), transparent 70%),
-    var(--panel);
-  box-shadow: 0 40px 90px -40px var(--card-shadow);
 }

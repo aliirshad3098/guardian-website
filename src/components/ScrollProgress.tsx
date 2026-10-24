@@ -39,7 +39,7 @@ export function ScrollProgress() {
         className="h-full"
         style={{
           width: `${progress * 100}%`,
-          background: "linear-gradient(90deg, var(--violet), var(--cyan))",
+          background: "var(--accent)",
           transition: "width 0.1s linear",
         }}
       />

@@ -18,10 +18,14 @@ import { ThemeToggle } from "../components/ThemeToggle";
 function Wordmark() {
   return (
     <Link to="/" className="flex items-center gap-2">
-      <span className="font-display text-[21px] font-semibold tracking-tight text-ink">
+      <svg viewBox="0 0 24 24" aria-hidden className="size-6 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+        <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" />
+        <path d="M9 12l2 2 4-4" />
+      </svg>
+      <span className="font-display text-[19px] font-semibold tracking-tight text-ink">
         Guardian
       </span>
-      <span className="rounded-md bg-violet px-1.5 py-0.5 font-mono text-[10px] font-medium tracking-widest text-white">
+      <span className="rounded-md bg-accent px-1.5 py-0.5 font-mono text-[10px] font-medium tracking-widest text-white">
         PK
       </span>
     </Link>
@@ -57,7 +61,7 @@ function SiteNav() {
                 {l.label}
                 <span
                   aria-hidden
-                  className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-cyan transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-x-100"
                 />
               </Link>
             ))}
@@ -218,7 +222,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,440;9..144,560;9..144,660&family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),

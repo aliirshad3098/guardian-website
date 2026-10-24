@@ -52,7 +52,7 @@ function PrivacyPage() {
       <header className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
         <span className="eyebrow">Privacy</span>
         <h1 className="mt-5 max-w-2xl text-[clamp(34px,5.4vw,54px)]">
-          The safest place for your data is <em className="text-cyan">your phone</em>.
+          The safest place for your data is <em className="text-accent">your phone</em>.
         </h1>
         <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
           A tool that reads what you search has to earn trust. Guardian does it the only honest way:
@@ -67,7 +67,7 @@ function PrivacyPage() {
             <ul className="mt-5 space-y-3">
               {onPhone.map((t) => (
                 <li key={t} className="flex gap-3 text-[14.5px] text-ink-muted">
-                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-cyan" />
+                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
                   {t}
                 </li>
               ))}
@@ -78,7 +78,7 @@ function PrivacyPage() {
             <ul className="mt-5 space-y-3">
               {neverLeaves.map((t) => (
                 <li key={t} className="flex gap-3 text-[14.5px] text-ink-muted">
-                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-violet" />
+                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
                   {t}
                 </li>
               ))}
@@ -100,8 +100,8 @@ function PrivacyPage() {
                   aria-hidden
                   className="grid size-6 shrink-0 place-items-center rounded-full font-mono text-[12px]"
                   style={{
-                    background: r.yes ? "var(--tint-cyan)" : "var(--tint-violet)",
-                    color: r.yes ? "var(--cyan)" : "var(--ink-faint)",
+                    background: r.yes ? "var(--accent-tint)" : "var(--accent-tint)",
+                    color: r.yes ? "var(--accent)" : "var(--ink-faint)",
                   }}
                 >
                   {r.yes ? "✓" : "—"}

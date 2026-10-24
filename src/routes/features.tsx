@@ -141,7 +141,7 @@ function FeaturesPage() {
         <Reveal>
           <span className="eyebrow">Features</span>
           <h1 className="mt-5 max-w-2xl text-[clamp(34px,5.4vw,54px)]">
-            Everything Guardian does, in <em className="text-cyan">plain language</em>.
+            Everything Guardian does, in <em className="text-accent">plain language</em>.
           </h1>
           <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
             Protection you can rely on when motivation is low — and privacy you don't have to trade
@@ -166,7 +166,7 @@ function FeaturesPage() {
                   <ul className="mt-6 space-y-2.5">
                     {s.points.map((p) => (
                       <li key={p} className="flex gap-3 text-[14.5px] text-ink-muted">
-                        <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-cyan" />
+                        <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
                         {p}
                       </li>
                     ))}

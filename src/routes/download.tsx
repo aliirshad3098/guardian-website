@@ -108,19 +108,12 @@ function DownloadPage() {
   return (
     <main>
       <div className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -top-40 h-[400px]"
-          style={{
-            background:
-              "radial-gradient(circle 440px at 30% 40%, color-mix(in oklab, var(--violet) 20%, transparent), transparent 70%), radial-gradient(circle 400px at 75% 30%, color-mix(in oklab, var(--cyan) 16%, transparent), transparent 70%)",
-          }}
-        />
+        <div aria-hidden className="grid-bg" />
         <div className="relative mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
             <span className="eyebrow">Install</span>
             <h1 className="mt-5 max-w-2xl text-[clamp(34px,5.4vw,54px)]">
-              Set up in <em className="text-cyan">under two minutes</em>.
+              Set up in <em className="text-accent">under two minutes</em>.
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
               Guardian is an Android app that runs a local VPN and an on-device checker. There is no
@@ -133,7 +126,7 @@ function DownloadPage() {
               {steps.map((s, i) => (
                 <Reveal key={s.title} variant="left" delayMs={i * 90}>
                   <li className="panel-card flex gap-5 p-6">
-                    <span className="font-mono text-[13px] text-cyan">0{i + 1}</span>
+                    <span className="font-mono text-[13px] text-accent">0{i + 1}</span>
                     <div>
                       <h2 className="text-[19px]">{s.title}</h2>
                       <p className="mt-2 text-[14.5px] leading-relaxed text-ink-muted">{s.body}</p>
@@ -183,7 +176,7 @@ function DownloadPage() {
                 <div className="panel-card flex h-full flex-col p-6">
                   <div className="flex items-baseline justify-between gap-4">
                     <h3 className="text-[18px]">{d.name}</h3>
-                    <span className="font-mono text-[13px] text-cyan">{d.size}</span>
+                    <span className="font-mono text-[13px] text-accent">{d.size}</span>
                   </div>
                   <p className="mt-2 flex-1 text-[14.5px] leading-relaxed text-ink-muted">{d.note}</p>
                   <a href="#" className="btn-ghost mt-5 w-full">
@@ -212,7 +205,7 @@ function DownloadPage() {
                 <div className="panel-card h-full p-6">
                   <div className="flex items-center justify-between gap-4">
                     <h3 className="text-[18px]">{p.name}</h3>
-                    <span className="font-mono text-[11.5px] uppercase tracking-[0.12em] text-cyan">
+                    <span className="font-mono text-[11.5px] uppercase tracking-[0.12em] text-accent">
                       {p.tag}
                     </span>
                   </div>
