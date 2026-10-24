@@ -11,13 +11,13 @@ import { PhoneMockup } from "@/components/PhoneMockup";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Guardian PK — Quiet content blocking for Android" },
+      { title: "Guardian PK - Quiet content blocking for Android" },
       {
         name: "description",
         content:
           "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free for users in Pakistan.",
       },
-      { property: "og:title", content: "Guardian PK — Quiet content blocking for Android" },
+      { property: "og:title", content: "Guardian PK - Quiet content blocking for Android" },
       {
         property: "og:description",
         content:
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
 
 const facts = [
   { n: "4.6M+", l: "domains in the local blocklist" },
-  { n: "3", l: "languages the on-device AI understands" },
+  { n: "6", l: "languages the on-device AI understands" },
   { n: "On-device", l: "every search classified locally, not on a server" },
   { n: "24/7", l: "quiet, background protection" },
 ];
