@@ -4,7 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
 import { PipelineDiagram } from "@/components/PipelineDiagram";
-import { Globe, Brain, ShieldCheck } from "lucide-react";
+import { Globe, Brain, ShieldCheck, Wind, KeyRound, WifiOff, ShieldAlert } from "lucide-react";
 
 import homeShot from "@/assets/home.jpg";
 import partnerShot from "@/assets/partner.jpg";
@@ -172,36 +172,70 @@ function HomePage() {
             </div>
           </div>
 
-          {/* floating: feature list (desktop only) */}
-          <div className="absolute left-0 top-12 hidden w-[200px] rounded-2xl border border-line bg-panel/90 p-4 text-[13.5px] shadow-[0_24px_48px_-24px_rgba(15,40,80,0.35)] backdrop-blur md:block">
-            <p className="mb-2 text-[13px] font-semibold text-ink-faint">Protection</p>
-            {["App Blocker", "Reels Blocker", "Fortress Mode"].map((t) => (
-              <div key={t} className="flex items-center gap-2.5 py-1.5 font-medium text-ink">
-                <ShieldCheck className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-                {t}
+          {/* floating feature chips (desktop only): features not shown in the screenshots */}
+          <div className="absolute left-0 top-10 hidden flex-col items-start gap-3 md:flex">
+            {[
+              { icon: Wind, label: "Urge-surfing timer" },
+              { icon: KeyRound, label: "Decoy password" },
+              { icon: Brain, label: "On-device AI" },
+            ].map((c, i) => (
+              <div
+                key={c.label}
+                className="float-shot flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-panel/95 px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_18px_40px_-20px_rgba(15,40,80,0.35)] backdrop-blur"
+                style={{ animationDelay: `${i * 0.6}s` }}
+              >
+                <c.icon className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+                {c.label}
               </div>
             ))}
           </div>
 
-          {/* floating: status card (desktop only) */}
-          <div className="absolute right-0 top-4 hidden w-[230px] rounded-2xl border border-line bg-panel/90 p-4 text-[13.5px] shadow-[0_24px_48px_-24px_rgba(15,40,80,0.35)] backdrop-blur md:block">
-            <p className="mb-2 text-[13px] font-semibold text-ink-faint">Guardian</p>
-            <div className="rounded-xl bg-panel-2 px-3 py-2.5 leading-snug text-ink-muted">
-              Reels blocked for the next <span className="font-semibold text-ink">2 hours</span>.
-            </div>
-            <div className="mt-2 rounded-xl bg-panel-2 px-3 py-2.5 leading-snug text-ink-muted">
-              Partner is linked and <span className="font-semibold text-ink">protection is on</span>.
-            </div>
-            <div className="mt-3 flex items-center gap-2 text-[12.5px] text-ink-faint">
-              <span className="dot-blink size-2 rounded-full bg-accent" />
-              Protection active
-            </div>
+          <div className="absolute right-0 top-6 hidden flex-col items-end gap-3 md:flex">
+            {[
+              { icon: WifiOff, label: "Works offline" },
+              { icon: ShieldAlert, label: "Tamper resistance" },
+            ].map((c, i) => (
+              <div
+                key={c.label}
+                className="float-shot flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-panel/95 px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_18px_40px_-20px_rgba(15,40,80,0.35)] backdrop-blur"
+                style={{ animationDelay: `${i * 0.8 + 0.3}s` }}
+              >
+                <c.icon className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
+                {c.label}
+              </div>
+            ))}
           </div>
 
-          {/* floating: partner thumbnail (desktop only) */}
-          <div className="absolute bottom-0 right-[6%] hidden w-[120px] rounded-2xl border border-line bg-panel/90 p-1.5 shadow-[0_24px_48px_-24px_rgba(15,40,80,0.35)] backdrop-blur md:block">
-            <img src={partnerShot} alt="Guardian Partner app" className="block w-full rounded-xl" />
+          {/* phone model, same mockup as before */}
+          <div className="absolute bottom-0 right-[180px] hidden w-[150px] md:block">
+            <PhoneMockup src={partnerShot} alt="Guardian Partner app showing protection status and pending approval requests" rotateY={-6} rotateX={2} floatDelay="1.2s" floatDuration="7s" />
           </div>
+
+          {/* side chips: features not shown in the screenshots */}
+          {[
+            { label: "Urge-surfing timer", Icon: Timer, cls: "left-0 top-[220px]" },
+            { label: "Decoy password", Icon: EyeOff, cls: "left-10 top-[276px]" },
+          ].map((c) => (
+            <div
+              key={c.label}
+              className={`absolute ${c.cls} hidden items-center gap-2 rounded-full border border-line bg-panel/90 px-3.5 py-2 text-[13px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.4)] backdrop-blur md:flex`}
+            >
+              <c.Icon className="size-4 text-accent" strokeWidth={2} aria-hidden />
+              {c.label}
+            </div>
+          ))}
+          {[
+            { label: "On-device AI", Icon: Brain, cls: "right-0 top-[220px]" },
+            { label: "Tamper resistance", Icon: ShieldAlert, cls: "right-10 top-[276px]" },
+          ].map((c) => (
+            <div
+              key={c.label}
+              className={`absolute ${c.cls} hidden items-center gap-2 rounded-full border border-line bg-panel/90 px-3.5 py-2 text-[13px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.4)] backdrop-blur md:flex`}
+            >
+              <c.Icon className="size-4 text-accent" strokeWidth={2} aria-hidden />
+              {c.label}
+            </div>
+          ))}
         </div>
       </header>
 

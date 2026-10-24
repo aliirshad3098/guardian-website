@@ -1,339 +1,329 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Reveal } from "@/components/Reveal";
-import { MagneticButton } from "@/components/MagneticButton";
-import { CountUp } from "@/components/CountUp";
-import { PipelineDiagram } from "@/components/PipelineDiagram";
-import { Globe, Brain, ShieldCheck, Wind, KeyRound, WifiOff, ShieldAlert } from "lucide-react";
+@import "tailwindcss";
 
-import homeShot from "@/assets/home.jpg";
-import partnerShot from "@/assets/partner.jpg";
-import statsShot from "@/assets/stats.jpg";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Guardian PK — Quiet content blocking for Android" },
-      {
-        name: "description",
-        content:
-          "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free for users in Pakistan.",
-      },
-      { property: "og:title", content: "Guardian PK — Quiet content blocking for Android" },
-      {
-        property: "og:description",
-        content:
-          "Network-level blocking, on-device AI in six languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
-      },
-    ],
-  }),
-  component: HomePage,
-});
-
-// Numeric values are counted up on scroll; the rest render as plain text.
-const facts: { n: number | string; decimals?: number; suffix?: string; l: string }[] = [
-  { n: 4.6, decimals: 1, suffix: "M+", l: "domains in the local blocklist" },
-  { n: 6, l: "languages the on-device AI understands" },
-  { n: "On-device", l: "every search classified locally, not on a server" },
-  { n: "24/7", l: "quiet, background protection" },
-];
-
-const stages = [
-  {
-    n: "01",
-    tag: "Network",
-    icon: Globe,
-    title: "VPN-level filtering",
-    body: "A lightweight, on-device VPN checks every site your browser tries to reach against 4.6 million known domains before the page ever loads. No traffic leaves your phone to do this.",
-  },
-  {
-    n: "02",
-    tag: "Understanding",
-    icon: Brain,
-    title: "On-device AI",
-    body: "If a search slips past the domain list, a model trained on English, Roman Urdu, Urdu, Chinese, Bengali and Hindi search patterns catches it — without ever sending the search to a server.",
-  },
-  {
-    n: "03",
-    tag: "Support",
-    icon: ShieldCheck,
-    title: "Accountability partner",
-    body: "If protection is turned off, an optional trusted partner is notified. They see your protection status, never your browsing history or search content.",
-  },
-];
-
-const highlights = [
-  {
-    title: "Fortress Mode",
-    body: "Time-locks your own password for a set number of days. It is auto-generated, so you can't recall it in a weak moment.",
-    span: "md:col-span-2",
-  },
-  {
-    title: "App Blocker",
-    body: "Block chosen apps on a schedule or permanently. The block survives restarts and force-stops.",
-    span: "",
-  },
-  {
-    title: "Reels Blocker",
-    body: "Strips short-video feeds out of the apps you keep, so a quick check doesn't turn into an hour.",
-    span: "",
-  },
-  {
-    title: "Accountability partner",
-    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it, never your searches or browsing history.",
-    span: "md:col-span-2",
-  },
-];
-
-function HighlightsGrid() {
-  const [active, setActive] = useState<number | null>(null);
-
-  return (
-    <div className="mt-12 grid gap-5 md:grid-cols-3" onMouseLeave={() => setActive(null)}>
-      {highlights.map((h, i) => {
-        const isActive = active === i;
-        const dimmed = active !== null && !isActive;
-        return (
-          <div
-            key={h.title}
-            tabIndex={0}
-            onMouseEnter={() => setActive(i)}
-            onFocus={() => setActive(i)}
-            onBlur={() => setActive(null)}
-            className={`h-full rounded-[18px] outline-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-accent ${h.span}`}
-            style={{ opacity: dimmed ? 0.4 : 1 }}
-          >
-            <Reveal
-              variant="scale"
-              delayMs={i * 80}
-              className="bento-tile h-full p-8"
-              style={{ borderColor: isActive ? "var(--accent)" : undefined }}
-            >
-              <span
-                className={`font-mono text-[12px] transition-colors duration-300 ${
-                  isActive ? "text-accent" : "text-ink-faint"
-                }`}
-              >
-                0{i + 1}
-              </span>
-              <h3 className="mt-3 text-[21px]">{h.title}</h3>
-              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{h.body}</p>
-            </Reveal>
-          </div>
-        );
-      })}
-    </div>
-  );
+/* Palette: neutral surfaces + one teal accent (trust / protection).
+   No gradient glows, no neon, no serif-italic display type. */
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #eef1f5;
+  --line: rgba(15, 23, 42, 0.08);
+  --line-strong: rgba(15, 23, 42, 0.16);
+  --ink: #0f172a;
+  --ink-muted: #475569;
+  --ink-faint: #8a96a8;
+  --accent: #0f766e;
+  --accent-bright: #14b8a6;
+  --accent-tint: #e7f4f2;
+  --card-shadow: rgba(15, 23, 42, 0.14);
+  --nav-bg: rgba(246, 247, 249, 0.86);
+  color-scheme: light;
 }
 
-function HomePage() {
-  return (
-    <main>
-      {/* HERO */}
-      <header className="hero-sky relative mx-3 mt-3 overflow-hidden rounded-[28px] md:mx-6 md:mt-6">
-        <div className="relative mx-auto max-w-[1000px] px-5 pt-16 text-center md:pt-24">
-          <span className="eyebrow">Android · Made in Pakistan</span>
-          <h1 className="mx-auto mt-5 max-w-[20ch] text-balance text-[clamp(38px,5.6vw,64px)] leading-[1.04] tracking-[-0.03em]">
-            The habit you want to quit is the one <em>Guardian is built to stop</em>.
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-            Guardian filters adult websites and searches, blocks distracting apps and reels, and
-            turns protection on by schedule. It understands six languages.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <MagneticButton>
-              <Link
-                to="/download"
-                className="inline-flex items-center justify-center rounded-full bg-ink px-7 py-3.5 text-[15px] font-semibold text-bg transition-transform hover:-translate-y-px"
-              >
-                Download for Android
-              </Link>
-            </MagneticButton>
-            <Link to="/" hash="how" className="btn-ghost">
-              See how it works
-            </Link>
-          </div>
-          <p className="mt-4 text-[13px] text-ink-faint">
-            Free for users in Pakistan. Core protection works without an account.
-          </p>
-        </div>
+[data-theme="dark"] {
+  --bg: #0a0f1c;
+  --panel: #111827;
+  --panel-2: #162032;
+  --line: rgba(226, 232, 240, 0.08);
+  --line-strong: rgba(226, 232, 240, 0.16);
+  --ink: #f1f5f9;
+  --ink-muted: #94a3b8;
+  --ink-faint: #64748b;
+  --accent: #2dd4bf;
+  --accent-bright: #5eead4;
+  --accent-tint: #0f2a2c;
+  --card-shadow: rgba(0, 0, 0, 0.55);
+  --nav-bg: rgba(10, 15, 28, 0.86);
+  color-scheme: dark;
+}
 
-        <div className="relative mx-auto mt-16 h-[340px] max-w-[900px] md:h-[420px]">
-          {/* main product window */}
-          <div className="absolute left-1/2 top-0 w-[92%] -translate-x-1/2 overflow-hidden rounded-[18px] border border-line bg-panel shadow-[0_40px_80px_-30px_rgba(15,40,80,0.35)] md:w-[58%]">
-            <div className="flex h-9 items-center gap-1.5 border-b border-line bg-panel-2 px-3.5">
-              <span className="size-2.5 rounded-full bg-line-strong" />
-              <span className="size-2.5 rounded-full bg-line-strong" />
-              <span className="size-2.5 rounded-full bg-line-strong" />
-            </div>
-            <div className="grid h-[calc(100%-36px)] grid-cols-2">
-              <img src={homeShot} alt="Guardian home screen showing protection active" className="h-full w-full object-cover object-top" />
-              <img src={statsShot} alt="Guardian statistics screen showing weekly blocking activity" className="h-full w-full object-cover object-top" />
-            </div>
-          </div>
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-tint: var(--accent-tint);
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
 
-          {/* floating feature chips (desktop only): features not shown in the screenshots */}
-          <div className="absolute left-0 top-10 hidden flex-col items-start gap-3 md:flex">
-            {[
-              { icon: Wind, label: "Urge-surfing timer" },
-              { icon: KeyRound, label: "Decoy password" },
-              { icon: Brain, label: "On-device AI" },
-            ].map((c, i) => (
-              <div
-                key={c.label}
-                className="float-shot flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-panel/95 px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_18px_40px_-20px_rgba(15,40,80,0.35)] backdrop-blur"
-                style={{ animationDelay: `${i * 0.6}s` }}
-              >
-                <c.icon className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-                {c.label}
-              </div>
-            ))}
-          </div>
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease;
+}
 
-          <div className="absolute right-0 top-6 hidden flex-col items-end gap-3 md:flex">
-            {[
-              { icon: WifiOff, label: "Works offline" },
-              { icon: ShieldAlert, label: "Tamper resistance" },
-            ].map((c, i) => (
-              <div
-                key={c.label}
-                className="float-shot flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-panel/95 px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_18px_40px_-20px_rgba(15,40,80,0.35)] backdrop-blur"
-                style={{ animationDelay: `${i * 0.8 + 0.3}s` }}
-              >
-                <c.icon className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-                {c.label}
-              </div>
-            ))}
-          </div>
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-          {/* phone model, same mockup as before */}
-          <div className="absolute bottom-0 right-[180px] hidden w-[150px] md:block">
-            <PhoneMockup src={partnerShot} alt="Guardian Partner app showing protection status and pending approval requests" rotateY={-6} rotateX={2} floatDelay="1.2s" floatDuration="7s" />
-          </div>
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
 
-          {/* side chips: features not shown in the screenshots */}
-          {[
-            { label: "Urge-surfing timer", Icon: Timer, cls: "left-0 top-[220px]" },
-            { label: "Decoy password", Icon: EyeOff, cls: "left-10 top-[276px]" },
-          ].map((c) => (
-            <div
-              key={c.label}
-              className={`absolute ${c.cls} hidden items-center gap-2 rounded-full border border-line bg-panel/90 px-3.5 py-2 text-[13px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.4)] backdrop-blur md:flex`}
-            >
-              <c.Icon className="size-4 text-accent" strokeWidth={2} aria-hidden />
-              {c.label}
-            </div>
-          ))}
-          {[
-            { label: "On-device AI", Icon: Brain, cls: "right-0 top-[220px]" },
-            { label: "Tamper resistance", Icon: ShieldAlert, cls: "right-10 top-[276px]" },
-          ].map((c) => (
-            <div
-              key={c.label}
-              className={`absolute ${c.cls} hidden items-center gap-2 rounded-full border border-line bg-panel/90 px-3.5 py-2 text-[13px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.4)] backdrop-blur md:flex`}
-            >
-              <c.Icon className="size-4 text-accent" strokeWidth={2} aria-hidden />
-              {c.label}
-            </div>
-          ))}
-        </div>
-      </header>
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
 
-      {/* FACTS */}
-      <section className="mx-auto max-w-[1180px] px-5 md:px-8">
-        <div className="float-card grid grid-cols-2 md:grid-cols-4">
-          {facts.map((f, i) => (
-            <Reveal
-              key={f.l}
-              delayMs={i * 80}
-              className={`px-6 py-9 text-center ${i % 2 === 0 ? "border-r border-line md:border-r" : ""} ${
-                i < 2 ? "border-b border-line md:border-b-0" : ""
-              } ${i === 3 ? "md:border-r-0" : ""}`}
-            >
-              <div className="font-display text-[34px] font-semibold tracking-tight text-accent">
-                {typeof f.n === "number" ? (
-                  <CountUp to={f.n} decimals={f.decimals ?? 0} suffix={f.suffix ?? ""} />
-                ) : (
-                  f.n
-                )}
-              </div>
-              <div className="mt-2 text-[14px] leading-snug text-ink-muted">{f.l}</div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+h1 em,
+h2 em {
+  font-style: normal;
+  color: var(--accent);
+}
 
-      {/* HOW IT WORKS */}
-      <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-24 md:px-8 md:py-32">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">How it works</span>
-            <h2 className="mt-4 text-[clamp(30px,4.2vw,44px)]">What happens to every search</h2>
-            <p className="mt-4 text-ink-muted">
-              Not three features bolted together. A single path a search travels through, in order,
-              before anything ever loads.
-            </p>
-          </div>
-        </Reveal>
+/* Small section label: plain accent text, no caps or boxes. */
+@utility eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-block;
+}
 
-        <Reveal delayMs={120} className="mt-20">
-          <PipelineDiagram steps={stages} />
-        </Reveal>
-      </section>
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  transition: transform 0.2s ease, background-color 0.2s ease;
 
-      {/* HIGHLIGHTS */}
-      <section className="px-4 md:px-8">
-        <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <span className="eyebrow">Built for the harder moments</span>
-              <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">
-                For when a filter alone isn't enough
-              </h2>
-              <p className="mt-4 text-ink-muted">
-                Willpower runs out sometimes. These are the tools Guardian has for exactly that
-                moment.
-              </p>
-            </div>
-          </Reveal>
-          <HighlightsGrid />
-          <div className="mt-10 text-center">
-            <Link to="/features" className="btn-ghost">
-              See every feature
-            </Link>
-          </div>
-        </div>
-      </section>
+  &:hover {
+    transform: translateY(-1px);
+    background: color-mix(in oklab, var(--accent) 88%, #000);
+  }
+}
 
-      {/* WHY */}
-      <section className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
-        <Reveal>
-          <span className="eyebrow">Why we built this</span>
-          <blockquote className="mt-6 text-[clamp(24px,3.4vw,34px)] font-medium leading-snug tracking-tight text-ink">
-            “Guardian isn't here to punish a bad day. It's here so tomorrow is a little easier than
-            today was.”
-          </blockquote>
-          <p className="mt-6 text-[14.5px] text-ink-muted">
-            Built for the people actually trying, not the people watching them
-          </p>
-        </Reveal>
-      </section>
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 
-      {/* CTA */}
-      <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">
-        <Reveal className="relative overflow-hidden rounded-[24px] bg-accent px-6 py-16 text-center text-white">
-          <h2 className="text-[clamp(28px,4vw,40px)] text-white">Start your first clean day.</h2>
-          <p className="mx-auto mt-4 max-w-md text-white/80">
-            Guardian is free for users in Pakistan. Install it in under two minutes — no account
-            needed.
-          </p>
-          <MagneticButton className="mt-8">
-            <Link to="/download" className="btn-primary bg-white !text-accent hover:bg-white/90">
-              Download for Android
-            </Link>
-          </MagneticButton>
-        </Reveal>
-      </section>
-    </main>
-  );
+  &:hover {
+    border-color: var(--accent);
+    background: var(--accent-tint);
+  }
+}
+
+@utility panel-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--line-strong);
+  }
+}
+
+/* ✅ Bento tile — for the "Active Grid" pattern (2026 trend): instead of a
+   flat, uniform grid of same-size cards, tiles vary in size (grid-column/
+   row spans set per-tile in the component) and react on hover with a
+   gradient-glow border + lift, not just a color change. Distinct from
+   panel-card specifically for feature-grid sections where we want more
+   visual weight/personality than a plain settings-style card. */
+@utility bento-tile {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    0 18px 50px -34px var(--card-shadow),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--accent), transparent 40%, transparent 60%, var(--accent));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow:
+      0 36px 80px -28px var(--card-shadow),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+
+@utility shot-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+/* Surface for a full-width band. Flat, one border, no glow. */
+/* Floating section card: one surface for every lifted band, so light and dark
+   themes stay consistent and no hard purple/black box shows against the page. */
+@utility float-card {
+  border-radius: 32px;
+  background:
+    radial-gradient(60% 80% at 12% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(50% 70% at 100% 100%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%),
+    var(--panel);
+  box-shadow: 0 40px 90px -40px var(--card-shadow);
+}
+
+
+/* Faint dot/grid texture, masked so it fades out from one corner. */
+@utility grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 75% 25%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 75% 25%, #000 0%, transparent 75%);
+}
+
+@utility magnetic {
+  transform: translate(var(--mx, 0), var(--my, 0));
+  transition: transform 0.15s ease-out;
+}
+
+@utility float-shot {
+  animation: float-shot 7s ease-in-out infinite;
+}
+
+@keyframes float-shot {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.72);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@utility breathe {
+  animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes fill-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(var(--fill, 0.6));
+  }
+}
+
+@utility fill-bar {
+  transform-origin: left center;
+  animation: fill-x 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@utility dot-blink {
+  animation: blink 1.7s ease-in-out infinite;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hero backdrop: sky blue fading to the page background (reference style). */
+.hero-sky {
+  background: linear-gradient(180deg, #a9cdf7 0%, #d7e9fb 45%, #f5faff 80%, var(--bg) 100%);
+}
+[data-theme="dark"] .hero-sky {
+  background: linear-gradient(180deg, #1b2e52 0%, #111b33 50%, var(--bg) 100%);
 }
