@@ -47,7 +47,7 @@ const faqs = [
 export function FaqSection() {
   return (
     <section>
-      <div className="mx-auto max-w-3xl px-5 pb-16 pt-20 md:px-8 md:pb-24 md:pt-28">
+      <div className="mx-auto max-w-3xl px-5 pb-16 pt-12 md:px-8 md:pb-20 md:pt-16">
         <Reveal className="text-center">
           <span className="eyebrow">FAQ</span>
           <h1 className="mt-5 text-[clamp(34px,5.4vw,50px)]">Questions, answered.</h1>

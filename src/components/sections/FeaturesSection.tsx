@@ -117,7 +117,7 @@ const grid = [
 export function FeaturesSection() {
   return (
     <section>
-      <header className="mx-auto max-w-[1180px] px-5 pb-12 pt-20 text-center md:px-8 md:pb-16 md:pt-28">
+      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-12 text-center md:px-8 md:pb-14 md:pt-16">
         <Reveal>
           <span className="eyebrow">Features</span>
           <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
@@ -126,7 +126,7 @@ export function FeaturesSection() {
         </Reveal>
       </header>
 
-      <div className="relative z-10 mx-4 -mt-12 md:mx-auto md:max-w-[1180px]">
+      <div className="relative z-10 mx-4 md:mx-auto md:max-w-[1180px]">
         <div className="float-card px-5 py-16 md:px-12 md:py-24">
           <div className="space-y-16 md:space-y-24">
             {sections.map((s) => (

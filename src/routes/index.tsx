@@ -246,7 +246,7 @@ function HomePage() {
       </section>
 
       {/* HIGHLIGHTS */}
-      <section className="px-4 py-20 md:px-8 md:py-28">
+      <section className="px-4 py-16 md:px-8 md:py-20">
         <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
@@ -261,11 +261,6 @@ function HomePage() {
             </div>
           </Reveal>
           <HighlightsGrid />
-          <div className="mt-10 text-center">
-            <Link to="/" hash="features" className="btn-ghost">
-              See every feature
-            </Link>
-          </div>
         </div>
       </section>
 

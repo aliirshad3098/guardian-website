@@ -29,7 +29,7 @@ const partnerSees = [
 export function PrivacySection() {
   return (
     <section>
-      <header className="mx-auto max-w-[1180px] px-5 pb-12 pt-20 text-center md:px-8 md:pb-16 md:pt-28">
+      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-12 text-center md:px-8 md:pb-14 md:pt-16">
         <span className="eyebrow">Privacy</span>
         <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
           The safest place for your data is <em className="text-accent">your phone</em>.
