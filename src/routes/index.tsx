@@ -9,6 +9,7 @@ import blockerShot from "@/assets/blocker.jpg";
 import partnerShot from "@/assets/partner.jpg";
 import statsShot from "@/assets/stats.jpg";
 import { PhoneMockup } from "@/components/PhoneMockup";
+import { BrainCircuit, Globe2, ShieldCheck, Cpu, Wifi, Languages } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -159,73 +160,65 @@ function HomePage() {
         </div>
       </div>
 
-      {/* HOW IT WORKS */}
-      <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">How it works</span>
-            <h2 className="mt-5 text-[clamp(28px,4.2vw,42px)]">What happens to every search</h2>
-            <p className="mt-4 text-ink-muted">
-              Three layers working together before a page loads.
+      {/* PRODUCT SHOWCASE: PROTECTION */}
+      <section id="how" className="showcase-section mx-auto max-w-[1180px] scroll-mt-24 px-5 py-16 md:px-8 md:py-24">
+        <div className="showcase-grid">
+          <Reveal className="showcase-copy">
+            <span className="showcase-kicker">Key features</span>
+            <h2>Complete protection.<br />In your hands.</h2>
+            <p>
+              Guardian PK combines on-device AI, DNS filtering and smart blocking to help keep
+              harmful content away — before it reaches you.
             </p>
-          </div>
-        </Reveal>
-
-        <Reveal delayMs={120}>
-          <ol className="mt-14 grid gap-6 md:grid-cols-3">
-            {stages.map((s, i) => (
-              <li key={s.title} className="bento-tile p-7">
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-[12px] text-ink-faint">0{i + 1}</span>
-                  <span className="font-mono text-[11.5px] uppercase tracking-[0.14em] text-cyan">
-                    {s.tag}
-                  </span>
-                </div>
-                <h3 className="mt-3 text-[21px]">{s.title}</h3>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-ink-muted">{s.body}</p>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </section>
-
-      {/* HIGHLIGHTS */}
-      <section className="px-4 md:px-8">
-        <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <span className="eyebrow">Built for the harder moments</span>
-              <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">
-                For when a filter alone isn't enough
-              </h2>
-              <p className="mt-4 text-ink-muted">
-                Practical tools for protection, focus and accountability.
-              </p>
+            <div className="protection-points">
+              <div><span className="point-icon"><BrainCircuit size={19} /></span><span>AI classification<br /><small>In real time</small></span></div>
+              <div><span className="point-icon"><Globe2 size={19} /></span><span>DNS VPN<br /><small>Filtering</small></span></div>
+              <div><span className="point-icon"><Wifi size={19} /></span><span>Works offline<br /><small>Private & secure</small></span></div>
             </div>
           </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {highlights.map((h, i) => (
-              <Reveal
-                key={h.title}
-                variant="scale"
-                delayMs={i * 80}
-                className="product-feature"
-              >
-                <div className="product-feature-image">
-                  <img src={h.image} alt={h.alt} loading="lazy" />
-                </div>
-                <div className="p-6 md:p-7">
-                  <span className="font-mono text-[11px] text-ink-faint">0{i + 1}</span>
-                  <h3 className="mt-2 text-[20px]">{h.title}</h3>
-                  <p className="mt-2.5 text-[14px] leading-relaxed text-ink-muted">{h.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Link to="/features" className="btn-ghost">
-              See every feature
-            </Link>
+          <Reveal delayMs={100} className="protection-visual">
+            <div className="protection-orbit" aria-hidden="true" />
+            <div className="protection-phone">
+              <PhoneMockup src={homeShot} alt="Guardian home screen showing the app's protection controls" rotateY={-5} rotateX={2} floatDuration="7s" />
+            </div>
+            <div className="protection-label protection-label-ai"><span><BrainCircuit size={20} /></span><div><strong>AI classification</strong><small>6 languages</small></div></div>
+            <div className="protection-label protection-label-dns"><span><Globe2 size={20} /></span><div><strong>DNS VPN</strong><small>Filtering</small></div></div>
+            <div className="protection-label protection-label-device"><span><Cpu size={20} /></span><div><strong>On-device</strong><small>Processing</small></div></div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* PRODUCT SHOWCASE: MULTILINGUAL CLASSIFICATION */}
+      <section className="language-section">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
+          <div className="language-grid">
+            <Reveal className="language-copy">
+              <span className="showcase-kicker">AI classification</span>
+              <h2>Smart filtering with<br />6 languages.</h2>
+              <p>
+                Guardian's on-device AI classifies search queries across six languages, helping
+                protection work with the way people actually search.
+              </p>
+              <div className="language-pills" aria-label="Supported languages">
+                {['Urdu', 'Roman Urdu', 'English', 'Chinese', 'Bengali', 'Hindi'].map((language) => (
+                  <span key={language}>{language}</span>
+                ))}
+              </div>
+            </Reveal>
+            <Reveal delayMs={100} className="classification-visual">
+              <div className="classification-halo" aria-hidden="true" />
+              <div className="classification-phone">
+                <div className="classification-topbar"><span>9:41</span><span>Guardian PK</span><span>•••</span></div>
+                <div className="classification-title"><Languages size={17} /><strong>Content classification</strong></div>
+                <div className="classification-tabs"><span>Safe</span><span>Adult</span><span>Blocked</span></div>
+                <div className="classification-row"><span className="classification-mark safe">ع</span><div><strong>Urdu content</strong><small>Classified on device</small></div><span className="classification-status" /></div>
+                <div className="classification-row"><span className="classification-mark safe">En</span><div><strong>English content</strong><small>Classified on device</small></div><span className="classification-status" /></div>
+                <div className="classification-row"><span className="classification-mark safe">Ro</span><div><strong>Roman Urdu</strong><small>Classified on device</small></div><span className="classification-status" /></div>
+                <div className="classification-row"><span className="classification-mark blocked">!</span><div><strong>Adult content</strong><small>Blocked by protection</small></div><span className="classification-status blocked-status" /></div>
+                <div className="classification-private"><ShieldCheck size={15} /><span>Processed locally on your device</span></div>
+              </div>
+              <div className="classification-note"><strong>Better detection.</strong><br />Safer browsing.</div>
+            </Reveal>
           </div>
         </div>
       </section>
