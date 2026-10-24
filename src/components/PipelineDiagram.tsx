@@ -9,6 +9,8 @@ export type PipelineStep = {
   icon: LucideIcon;
   tag: string;
   image?: ReactNode;
+  /** Put the picture on the left and the text on the right for this row. */
+  imageFirst?: boolean;
 };
 
 /**
@@ -23,6 +25,16 @@ export function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
       {steps.map((s, i) => {
         const Icon = s.icon;
         const delay = `${i * 150}ms`;
+        const textEl = (
+          <div>
+            <Icon className="size-6 text-accent" strokeWidth={1.5} aria-hidden />
+            <span className="mt-4 block font-mono text-[12px] text-ink-faint">
+              {s.n} · {s.tag}
+            </span>
+            <h3 className="mt-2 text-[24px]">{s.title}</h3>
+            <p className="mt-3 max-w-[46ch] text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
+          </div>
+        );
         return (
           <li
             key={s.title}
@@ -34,19 +46,20 @@ export function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
               transitionDelay: delay,
             }}
           >
-            <div>
-              <Icon className="size-6 text-accent" strokeWidth={1.5} aria-hidden />
-              <span className="mt-4 block font-mono text-[12px] text-ink-faint">
-                {s.n} · {s.tag}
-              </span>
-              <h3 className="mt-2 text-[24px]">{s.title}</h3>
-              <p className="mt-3 max-w-[46ch] text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-            </div>
-
-            {s.image && (
-              <div className="rounded-2xl border border-line bg-panel px-8 py-10">
-                {s.image}
-              </div>
+            {s.imageFirst ? (
+              <>
+                {s.image && (
+                  <div className="rounded-2xl border border-line bg-panel px-8 py-10">{s.image}</div>
+                )}
+                {textEl}
+              </>
+            ) : (
+              <>
+                {textEl}
+                {s.image && (
+                  <div className="rounded-2xl border border-line bg-panel px-8 py-10">{s.image}</div>
+                )}
+              </>
             )}
           </li>
         );
