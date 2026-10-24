@@ -4,8 +4,8 @@ import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
 import { PipelineDiagram } from "@/components/PipelineDiagram";
+import { Globe, Brain, ShieldCheck, Timer, EyeOff, ShieldAlert } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
-import { Globe, Brain, ShieldCheck, Wind, KeyRound, WifiOff, ShieldAlert, Timer, EyeOff } from "lucide-react";
 
 import homeShot from "@/assets/home.jpg";
 import partnerShot from "@/assets/partner.jpg";
@@ -159,84 +159,32 @@ function HomePage() {
           </p>
         </div>
 
-        <div className="relative mx-auto mt-16 h-[340px] max-w-[900px] md:h-[420px]">
-          {/* main product window */}
-          <div className="absolute left-1/2 top-0 w-[92%] -translate-x-1/2 overflow-hidden rounded-[18px] border border-line bg-panel shadow-[0_40px_80px_-30px_rgba(15,40,80,0.35)] md:w-[58%]">
-            <div className="flex h-9 items-center gap-1.5 border-b border-line bg-panel-2 px-3.5">
-              <span className="size-2.5 rounded-full bg-line-strong" />
-              <span className="size-2.5 rounded-full bg-line-strong" />
-              <span className="size-2.5 rounded-full bg-line-strong" />
-            </div>
-            <div className="grid h-[calc(100%-36px)] grid-cols-2">
-              <img src={homeShot} alt="Guardian home screen showing protection active" className="h-full w-full object-cover object-top" />
-              <img src={statsShot} alt="Guardian statistics screen showing weekly blocking activity" className="h-full w-full object-cover object-top" />
-            </div>
+        <div className="relative mx-auto mt-16 h-[440px] max-w-[900px] md:h-[460px]">
+          <div className="absolute left-[22%] top-[18%] z-10 w-[190px] md:w-[200px]">
+            <PhoneMockup src={partnerShot} alt="Guardian Partner app showing protection status and pending approval requests" rotateY={8} rotateX={3} floatDelay="1.6s" floatDuration="7s" />
           </div>
-
-          {/* floating feature chips (desktop only): features not shown in the screenshots */}
-          <div className="absolute left-0 top-10 hidden flex-col items-start gap-3 md:flex">
-            {[
-              { icon: Wind, label: "Urge-surfing timer" },
-              { icon: KeyRound, label: "Decoy password" },
-              { icon: Brain, label: "On-device AI" },
-            ].map((c, i) => (
-              <div
-                key={c.label}
-                className="float-shot flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-panel/95 px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_18px_40px_-20px_rgba(15,40,80,0.35)] backdrop-blur"
-                style={{ animationDelay: `${i * 0.6}s` }}
-              >
-                <c.icon className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-                {c.label}
-              </div>
-            ))}
+          <div className="absolute right-[22%] top-[18%] z-10 w-[190px] md:w-[200px]">
+            <PhoneMockup src={statsShot} alt="Guardian statistics screen showing weekly blocking activity" rotateY={-8} rotateX={3} floatDelay="0.8s" floatDuration="6.5s" />
           </div>
-
-          <div className="absolute right-0 top-6 hidden flex-col items-end gap-3 md:flex">
-            {[
-              { icon: WifiOff, label: "Works offline" },
-              { icon: ShieldAlert, label: "Tamper resistance" },
-            ].map((c, i) => (
-              <div
-                key={c.label}
-                className="float-shot flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-panel/95 px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_18px_40px_-20px_rgba(15,40,80,0.35)] backdrop-blur"
-                style={{ animationDelay: `${i * 0.8 + 0.3}s` }}
-              >
-                <c.icon className="size-4 shrink-0 text-accent" strokeWidth={2} aria-hidden />
-                {c.label}
-              </div>
-            ))}
+          <div className="absolute left-1/2 top-0 z-20 w-[220px] -translate-x-1/2 md:w-[230px]">
+            <PhoneMockup src={homeShot} alt="Guardian home screen showing protection active and a clean streak" rotateY={0} rotateX={3} floatDelay="0s" floatDuration="6s" />
           </div>
-
-          {/* phone model, same mockup as before */}
-          <div className="absolute bottom-0 right-[180px] hidden w-[150px] md:block">
-            <PhoneMockup src={partnerShot} alt="Guardian Partner app showing protection status and pending approval requests" rotateY={-6} rotateX={2} floatDelay="1.2s" floatDuration="7s" />
+          <div className="absolute left-0 top-[30%] hidden items-center gap-2 whitespace-nowrap rounded-full border border-line bg-panel px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.35)] md:flex">
+            <Timer className="size-4 text-accent" strokeWidth={2} aria-hidden />
+            Urge-surfing timer
           </div>
-
-          {/* side chips: features not shown in the screenshots */}
-          {[
-            { label: "Urge-surfing timer", Icon: Timer, cls: "left-0 top-[220px]" },
-            { label: "Decoy password", Icon: EyeOff, cls: "left-10 top-[276px]" },
-          ].map((c) => (
-            <div
-              key={c.label}
-              className={`absolute ${c.cls} hidden items-center gap-2 rounded-full border border-line bg-panel/90 px-3.5 py-2 text-[13px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.4)] backdrop-blur md:flex`}
-            >
-              <c.Icon className="size-4 text-accent" strokeWidth={2} aria-hidden />
-              {c.label}
-            </div>
-          ))}
-          {[
-            { label: "On-device AI", Icon: Brain, cls: "right-0 top-[220px]" },
-            { label: "Tamper resistance", Icon: ShieldAlert, cls: "right-10 top-[276px]" },
-          ].map((c) => (
-            <div
-              key={c.label}
-              className={`absolute ${c.cls} hidden items-center gap-2 rounded-full border border-line bg-panel/90 px-3.5 py-2 text-[13px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.4)] backdrop-blur md:flex`}
-            >
-              <c.Icon className="size-4 text-accent" strokeWidth={2} aria-hidden />
-              {c.label}
-            </div>
-          ))}
+          <div className="absolute left-6 top-[56%] hidden items-center gap-2 whitespace-nowrap rounded-full border border-line bg-panel px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.35)] md:flex">
+            <EyeOff className="size-4 text-accent" strokeWidth={2} aria-hidden />
+            Decoy password
+          </div>
+          <div className="absolute right-0 top-[30%] hidden items-center gap-2 whitespace-nowrap rounded-full border border-line bg-panel px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.35)] md:flex">
+            <Brain className="size-4 text-accent" strokeWidth={2} aria-hidden />
+            On-device AI
+          </div>
+          <div className="absolute right-6 top-[56%] hidden items-center gap-2 whitespace-nowrap rounded-full border border-line bg-panel px-4 py-2.5 text-[13.5px] font-medium text-ink shadow-[0_16px_36px_-18px_rgba(15,40,80,0.35)] md:flex">
+            <ShieldAlert className="size-4 text-accent" strokeWidth={2} aria-hidden />
+            Tamper resistance
+          </div>
         </div>
       </header>
 
