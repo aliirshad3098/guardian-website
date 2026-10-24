@@ -405,46 +405,90 @@ h3 {
 
 .cta-panel { background: var(--panel-2); border: 1px solid var(--line); }
 
-/* Product-led homepage cards: show the real app before asking visitors to read. */
+/* Feature showcase: richer contrast, larger product visuals and more depth. */
 .product-feature {
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 20px;
   background: var(--panel);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 14px 34px -26px rgba(14, 32, 24, .38);
+  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
 }
 
 .product-feature:hover {
   border-color: var(--line-strong);
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  box-shadow: 0 24px 44px -28px rgba(14, 32, 24, .42);
 }
 
 .product-feature-image {
+  position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  min-height: 270px;
-  padding: 24px 20px 0;
-  background: var(--panel-2);
+  min-height: 310px;
+  padding: 26px 18px 0;
   overflow: hidden;
+  background: linear-gradient(145deg, #e7eee8 0%, #d8e3db 100%);
+  border-bottom: 1px solid var(--line);
+}
+
+.product-feature-image::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .48);
+  filter: blur(1px);
 }
 
 .product-feature-image img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: auto;
-  max-width: 100%;
-  height: 270px;
+  max-width: 88%;
+  height: 300px;
   object-fit: contain;
   object-position: center bottom;
+  border-radius: 15px 15px 0 0;
+  filter: drop-shadow(0 18px 18px rgba(10, 24, 18, .24));
+  transition: transform .3s ease, filter .3s ease;
+}
+
+.product-feature:hover .product-feature-image img {
+  transform: translateY(-5px) scale(1.025);
+  filter: drop-shadow(0 22px 22px rgba(10, 24, 18, .28));
+}
+
+.product-feature > div:last-child {
+  min-height: 148px;
+  background: var(--panel);
 }
 
 @media (max-width: 640px) {
   .product-feature-image {
-    min-height: 230px;
-    padding-top: 18px;
+    min-height: 275px;
+    padding-top: 20px;
   }
 
   .product-feature-image img {
-    height: 230px;
+    height: 265px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-feature,
+  .product-feature-image img {
+    transition: none;
+  }
+  .product-feature:hover,
+  .product-feature:hover .product-feature-image img {
+    transform: none;
   }
 }
