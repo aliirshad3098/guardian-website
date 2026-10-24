@@ -16,7 +16,7 @@ export const Route = createFileRoute("/features")({
       {
         name: "description",
         content:
-          "Fortress Mode, accountability partner, app blocker, reels blocker, urge-surfing timer, decoy password and on-device AI in English, Roman Urdu and Urdu.",
+          "Fortress Mode, accountability partner, app blocker, reels blocker, urge-surfing timer, decoy password and on-device AI in English, Roman Urdu, Urdu, Chinese, Bengali and Hindi.",
       },
       { property: "og:title", content: "Features — Guardian PK for Android" },
       {
@@ -110,7 +110,7 @@ const sections = [
 const grid = [
   {
     title: "On-device AI",
-    body: "Search intent classified locally in English, Roman Urdu and Urdu. Nothing is uploaded.",
+    body: "Search intent classified locally in English, Roman Urdu, Urdu, Chinese, Bengali and Hindi. Nothing is uploaded.",
   },
   {
     title: "4.6M domain blocklist",

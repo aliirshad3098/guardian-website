@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Network-level blocking, on-device AI in three languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
+          "Network-level blocking, on-device AI in six languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
       },
     ],
   }),
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
 // Numeric values are counted up on scroll; the rest render as plain text.
 const facts: { n: number | string; decimals?: number; suffix?: string; l: string }[] = [
   { n: 4.6, decimals: 1, suffix: "M+", l: "domains in the local blocklist" },
-  { n: 3, l: "languages the on-device AI understands" },
+  { n: 6, l: "languages the on-device AI understands" },
   { n: "On-device", l: "every search classified locally, not on a server" },
   { n: "24/7", l: "quiet, background protection" },
 ];
@@ -52,7 +52,7 @@ const stages = [
     tag: "Understanding",
     icon: Brain,
     title: "On-device AI",
-    body: "If a search slips past the domain list, a model trained on English, Roman Urdu and Urdu search patterns catches it — without ever sending the search to a server.",
+    body: "If a search slips past the domain list, a model trained on English, Roman Urdu, Urdu, Chinese, Bengali and Hindi search patterns catches it — without ever sending the search to a server.",
   },
   {
     n: "03",
@@ -60,6 +60,29 @@ const stages = [
     icon: ShieldCheck,
     title: "Accountability partner",
     body: "If protection is turned off, an optional trusted partner is notified. They see your protection status, never your browsing history or search content.",
+  },
+];
+
+const highlights = [
+  {
+    title: "Fortress Mode",
+    body: "Time-locks your own password for a set number of days. It is auto-generated, so you can't recall it in a weak moment.",
+    span: "md:col-span-2",
+  },
+  {
+    title: "App Blocker",
+    body: "Block chosen apps on a schedule or permanently. The block survives restarts and force-stops.",
+    span: "",
+  },
+  {
+    title: "Reels Blocker",
+    body: "Strips short-video feeds out of the apps you keep, so a quick check doesn't turn into an hour.",
+    span: "",
+  },
+  {
+    title: "Accountability partner",
+    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it, never your searches or browsing history.",
+    span: "md:col-span-2",
   },
 ];
 
@@ -78,7 +101,7 @@ function HomePage() {
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
               Guardian filters adult websites and searches, blocks distracting apps and reels, and
-              turns protection on by schedule. It understands English, Roman Urdu and Urdu.
+              turns protection on by schedule. It understands English, Roman Urdu, Urdu, Chinese, Bengali and Hindi.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <MagneticButton>
@@ -178,68 +201,39 @@ function HomePage() {
       </section>
 
       {/* HIGHLIGHTS */}
-      <section className="mx-auto max-w-[1180px] px-5 pb-24 md:px-8">
-        <Reveal className="max-w-2xl">
-          <h2 className="text-[clamp(28px,3.8vw,38px)]">For when a filter alone isn't enough</h2>
-          <p className="mt-4 text-ink-muted">
-            Willpower runs out sometimes. These are the tools Guardian has for exactly that moment.
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          <Reveal className="rounded-2xl border border-line bg-panel p-8">
-            <h3 className="text-[21px]">Fortress Mode</h3>
-            <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
-              Time-locks your own password for a set number of days. It is auto-generated, so you
-              can't recall it in a weak moment.
-            </p>
-          </Reveal>
-
-          <Reveal delayMs={80} className="rounded-2xl border border-line bg-panel p-8">
-            <h3 className="text-[21px]">App Blocker</h3>
-            <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
-              Block chosen apps on a schedule or permanently. The block survives restarts and
-              force-stops.
-            </p>
-          </Reveal>
-
-          <Reveal delayMs={0} className="rounded-2xl border border-line bg-panel p-8">
-            <h3 className="text-[21px]">Reels Blocker</h3>
-            <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
-              Strips short-video feeds out of the apps you keep, so a quick check doesn't turn into
-              an hour.
-            </p>
-          </Reveal>
-
-          <Reveal
-            delayMs={80}
-            className="grid items-center gap-8 rounded-2xl border border-line bg-panel p-8 md:col-span-2 md:grid-cols-2 md:p-10"
-          >
-            <div>
-              <h3 className="text-[21px]">Accountability partner</h3>
-              <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">
-                Pair with someone you trust. They get a partner view showing whether protection is
-                on and any request to change it, never your searches or browsing history.
+      <section className="px-4 md:px-8">
+        <div className="float-card mx-auto max-w-[1180px] px-6 py-20 md:px-12 md:py-24">
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="eyebrow">Built for the harder moments</span>
+              <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">
+                For when a filter alone isn't enough
+              </h2>
+              <p className="mt-4 text-ink-muted">
+                Willpower runs out sometimes. These are the tools Guardian has for exactly that
+                moment.
               </p>
-              <Link to="/features" className="mt-6 inline-block text-[15px] font-medium text-accent hover:underline">
-                How pairing works
-              </Link>
-            </div>
-            <div className="shot-frame mx-auto w-full max-w-[260px]">
-              <img
-                src={partnerShot}
-                alt="Guardian Partner app showing protection status and pending approval requests"
-                loading="lazy"
-                className="block h-auto w-full"
-              />
             </div>
           </Reveal>
-        </div>
-
-        <div className="mt-10">
-          <Link to="/features" className="btn-ghost">
-            See every feature
-          </Link>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {highlights.map((h, i) => (
+              <Reveal
+                key={h.title}
+                variant="scale"
+                delayMs={i * 80}
+                className={`bento-tile p-8 ${h.span}`}
+              >
+                <span className="font-mono text-[12px] text-ink-faint">0{i + 1}</span>
+                <h3 className="mt-3 text-[21px]">{h.title}</h3>
+                <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{h.body}</p>
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link to="/features" className="btn-ghost">
+              See every feature
+            </Link>
+          </div>
         </div>
       </section>
 
