@@ -65,7 +65,8 @@ const stages = [
 
 function FortressVisual() {
   return (
-    <div className="mt-8 rounded-xl border border-line bg-panel-2 p-4">
+    <div className="mt-auto pt-8">
+    <div className="rounded-xl border border-line bg-panel-2 p-4">
       <div className="flex items-center justify-between text-[13px] text-ink-muted">
         <span className="font-medium text-ink">Protection locked</span>
         <span className="font-mono text-[12px]">Day 5 of 7</span>
@@ -78,20 +79,21 @@ function FortressVisual() {
         />
       </div>
     </div>
+    </div>
   );
 }
 
 function BreathingVisual() {
   return (
-    <div aria-hidden className="mt-8 flex h-40 items-center justify-center">
-      <div className="relative grid size-32 place-items-center">
+    <div className="mt-auto flex flex-col items-center gap-4 pt-8">
+      <div aria-hidden className="relative grid size-36 place-items-center">
         <span className="breathe absolute inset-0 rounded-full border-2 border-accent/50" />
         <span
-          className="breathe absolute inset-4 rounded-full bg-accent/15"
+          className="breathe absolute inset-6 rounded-full bg-accent/20"
           style={{ animationDelay: "-1.5s" }}
         />
-        <span className="font-mono text-[12px] text-ink-muted">breathe</span>
       </div>
+      <span className="text-[13px] text-ink-muted">Breathe in… and out. The urge passes.</span>
     </div>
   );
 }
@@ -254,7 +256,11 @@ function HomePage() {
           </Reveal>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {highlights.map((h, i) => (
-              <Reveal key={h.title} delayMs={i * 80} className={`bento-tile p-8 ${h.span}`}>
+              <Reveal
+                key={h.title}
+                delayMs={i * 80}
+                className={`bento-tile flex flex-col p-8 ${h.span}`}
+              >
                 <h3 className="text-[21px]">{h.title}</h3>
                 <p className="mt-2.5 text-[15px] leading-relaxed text-ink-muted">{h.body}</p>
                 {h.visual}
