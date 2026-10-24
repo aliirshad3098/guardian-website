@@ -4,7 +4,8 @@ import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
 import { PipelineDiagram } from "@/components/PipelineDiagram";
-import { Globe, Brain, ShieldCheck, Wind, KeyRound, WifiOff, ShieldAlert } from "lucide-react";
+import { PhoneMockup } from "@/components/PhoneMockup";
+import { Globe, Brain, ShieldCheck, Wind, KeyRound, WifiOff, ShieldAlert, Timer, EyeOff } from "lucide-react";
 
 import homeShot from "@/assets/home.jpg";
 import partnerShot from "@/assets/partner.jpg";
