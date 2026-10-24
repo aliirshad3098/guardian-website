@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { GradientMesh } from "@/components/GradientMesh";
@@ -85,6 +86,47 @@ const highlights = [
     span: "md:col-span-2",
   },
 ];
+
+function HighlightsGrid() {
+  const [active, setActive] = useState<number | null>(null);
+
+  return (
+    <div className="mt-12 grid gap-5 md:grid-cols-3" onMouseLeave={() => setActive(null)}>
+      {highlights.map((h, i) => {
+        const isActive = active === i;
+        const dimmed = active !== null && !isActive;
+        return (
+          <div
+            key={h.title}
+            tabIndex={0}
+            onMouseEnter={() => setActive(i)}
+            onFocus={() => setActive(i)}
+            onBlur={() => setActive(null)}
+            className={`h-full rounded-[18px] outline-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-accent ${h.span}`}
+            style={{ opacity: dimmed ? 0.4 : 1 }}
+          >
+            <Reveal
+              variant="scale"
+              delayMs={i * 80}
+              className="bento-tile h-full p-8"
+              style={{ borderColor: isActive ? "var(--accent)" : undefined }}
+            >
+              <span
+                className={`font-mono text-[12px] transition-colors duration-300 ${
+                  isActive ? "text-accent" : "text-ink-faint"
+                }`}
+              >
+                0{i + 1}
+              </span>
+              <h3 className="mt-3 text-[21px]">{h.title}</h3>
+              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{h.body}</p>
+            </Reveal>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 function HomePage() {
   return (
@@ -215,20 +257,7 @@ function HomePage() {
               </p>
             </div>
           </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {highlights.map((h, i) => (
-              <Reveal
-                key={h.title}
-                variant="scale"
-                delayMs={i * 80}
-                className={`bento-tile p-8 ${h.span}`}
-              >
-                <span className="font-mono text-[12px] text-ink-faint">0{i + 1}</span>
-                <h3 className="mt-3 text-[21px]">{h.title}</h3>
-                <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{h.body}</p>
-              </Reveal>
-            ))}
-          </div>
+          <HighlightsGrid />
           <div className="mt-10 text-center">
             <Link to="/features" className="btn-ghost">
               See every feature
