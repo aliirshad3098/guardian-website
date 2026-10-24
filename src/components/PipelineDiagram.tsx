@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -7,7 +8,7 @@ export type PipelineStep = {
   body: string;
   icon: LucideIcon;
   tag: string;
-  image?: string;
+  image?: ReactNode;
 };
 
 /**
@@ -56,8 +57,8 @@ export function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
               <h3 className="mt-2 text-[21px]">{s.title}</h3>
               <p className="mt-2 text-[15px] leading-relaxed text-ink-muted">{s.body}</p>
               {s.image && (
-                <div className="shot-frame mx-auto mt-5 max-w-[280px]">
-                  <img src={s.image} alt="" loading="lazy" className="block h-auto w-full" />
+                <div className="mt-5 overflow-hidden rounded-xl border border-line bg-panel-2 px-4 py-3">
+                  {s.image}
                 </div>
               )}
             </div>

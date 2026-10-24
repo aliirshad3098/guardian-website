@@ -4,6 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
 import { PipelineDiagram } from "@/components/PipelineDiagram";
+import { NetworkArt, AIArt, PartnerArt } from "@/components/StepArt";
 import { GradientMesh } from "@/components/GradientMesh";
 import { Globe, Brain, ShieldCheck } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
@@ -45,6 +46,7 @@ const stages = [
     n: "01",
     tag: "Network",
     icon: Globe,
+    image: <NetworkArt />,
     title: "VPN-level filtering",
     body: "A lightweight, on-device VPN checks every site your browser tries to reach against 4.6 million known domains before the page ever loads. No traffic leaves your phone to do this.",
   },
@@ -52,7 +54,7 @@ const stages = [
     n: "02",
     tag: "Understanding",
     icon: Brain,
-    image: homeShot,
+    image: <AIArt />,
     title: "On-device AI",
     body: "If a search slips past the domain list, a model trained on English, Roman Urdu, Urdu, Chinese, Bengali and Hindi search patterns catches it — without ever sending the search to a server.",
   },
@@ -60,6 +62,7 @@ const stages = [
     n: "03",
     tag: "Support",
     icon: ShieldCheck,
+    image: <PartnerArt />,
     title: "Accountability partner",
     body: "If protection is turned off, an optional trusted partner is notified. They see your protection status, never your browsing history or search content.",
   },
