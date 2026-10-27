@@ -1,5 +1,5 @@
+import { Smartphone, Ban, Eye, EyeOff } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { Smartphone, Ban } from "lucide-react";
 
 const onPhone = [
   "Your browsing and search history",
@@ -26,88 +26,116 @@ const partnerSees = [
   { yes: false, t: "Anything typed inside other apps" },
 ];
 
+const chip =
+  "inline-flex items-center rounded-full border border-line bg-panel px-4 py-2 text-[14.5px] text-ink/85";
 
-type ColumnProps = { label: string; items: string[]; Icon: typeof Smartphone };
-
-function PrivacyColumn({ label, items, Icon }: ColumnProps) {
+function Group({
+  label,
+  items,
+  Icon,
+}: {
+  label: string;
+  items: string[];
+  Icon: typeof Smartphone;
+}) {
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-between border-t-2 border-accent pt-5">
-        <div className="flex items-center gap-3">
-          <span
-            className="grid size-9 place-items-center rounded-lg"
-            style={{ background: "var(--accent-tint)" }}
-          >
-            <Icon className="size-4 text-accent" strokeWidth={1.8} aria-hidden />
-          </span>
-          <h3 className="text-[18px] font-semibold text-ink">{label}</h3>
-        </div>
-        <span className="font-mono text-[12px] text-ink-faint">
-          {String(items.length).padStart(2, "0")}
+    <div>
+      <div className="flex items-center gap-4">
+        <span
+          className="grid size-12 place-items-center rounded-2xl"
+          style={{ background: "var(--accent-tint)" }}
+        >
+          <Icon className="size-5 text-accent" strokeWidth={1.8} aria-hidden />
         </span>
+        <h3 className="text-[20px] font-semibold tracking-[-0.01em] text-ink">{label}</h3>
       </div>
-      <ul className="mt-2 divide-y divide-line">
+      <div className="mt-6 flex flex-wrap gap-2.5">
         {items.map((t) => (
-          <li key={t} className="flex items-start gap-3.5 py-4 text-left text-[15.5px] leading-relaxed text-ink/80">
-            <span aria-hidden className="mt-[9px] size-1.5 shrink-0 rounded-full bg-accent" />
+          <span key={t} className={chip}>
             {t}
-          </li>
+          </span>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
 
 export function PrivacySection() {
+  const shown = partnerSees.filter((r) => r.yes);
+  const hidden = partnerSees.filter((r) => !r.yes);
+
   return (
     <section>
-      {/* centred header: eyebrow, large heading, short intro */}
-      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-12 text-center md:px-8 md:pb-14 md:pt-16">
-        <Reveal>
+      {/* Principle: a split layout. Statement on the left, proof on the right. */}
+      <div className="mx-auto grid max-w-[1180px] gap-16 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+        <Reveal className="lg:sticky lg:top-32 lg:self-start">
           <span className="eyebrow">Privacy by design</span>
-          <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
-            Your data belongs on <em className="text-accent">your phone</em>.
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
+          <h2 className="mt-5 text-[clamp(34px,4.6vw,52px)] leading-[1.08] tracking-[-0.03em]">
+            Your data belongs <em className="text-accent">on your phone.</em>
+          </h2>
+          <p className="mt-6 max-w-md text-[17px] leading-relaxed text-ink-muted">
             Guardian is built to protect your focus without turning your private activity into
             someone else's data.
           </p>
         </Reveal>
-      </header>
 
-      <div className="mx-auto grid max-w-[1000px] gap-12 px-5 py-14 md:grid-cols-2 md:gap-16 md:px-8 md:py-20">
-        <Reveal>
-          <PrivacyColumn label="Stays on your phone" items={onPhone} Icon={Smartphone} />
-        </Reveal>
-        <Reveal delayMs={100}>
-          <PrivacyColumn label="Never happens" items={neverLeaves} Icon={Ban} />
-        </Reveal>
+        <div className="flex flex-col gap-16">
+          <Reveal>
+            <Group label="Stays on your phone" items={onPhone} Icon={Smartphone} />
+          </Reveal>
+          <Reveal delayMs={100}>
+            <Group label="Never happens" items={neverLeaves} Icon={Ban} />
+          </Reveal>
+        </div>
       </div>
 
-      <div className="mx-auto max-w-3xl px-5 pb-20 text-center md:px-8">
-        <Reveal>
-          <span className="eyebrow">Accountability partner</span>
-          <h2 className="mt-5 text-[clamp(24px,3.2vw,32px)] font-medium leading-snug tracking-tight text-ink">
-            What a partner can and can't see
-          </h2>
-        </Reveal>
-        <ul className="mx-auto mt-10 max-w-xl divide-y divide-line border-y border-line text-left">
-          {partnerSees.map((r) => (
-            <li key={r.t} className="flex items-center gap-4 py-4">
-              <span
-                aria-hidden
-                className="grid size-6 shrink-0 place-items-center rounded-full font-mono text-[12px]"
-                style={{
-                  background: "var(--accent-tint)",
-                  color: r.yes ? "var(--accent)" : "var(--ink-faint)",
-                }}
-              >
-                {r.yes ? "✓" : "—"}
-              </span>
-              <span className={r.yes ? "text-[15px] text-ink" : "text-[15px] text-ink-muted"}>{r.t}</span>
-            </li>
-          ))}
-        </ul>
+      {/* Accountability partner, same visual language */}
+      <div className="border-t border-line">
+        <div className="mx-auto grid max-w-[1180px] gap-16 px-5 py-20 md:px-8 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+          <Reveal className="lg:sticky lg:top-32 lg:self-start">
+            <span className="eyebrow">Accountability partner</span>
+            <h3 className="mt-5 text-[clamp(28px,3.4vw,40px)] leading-[1.1] tracking-[-0.025em]">
+              What a partner can and can't see
+            </h3>
+          </Reveal>
+
+          <div className="flex flex-col gap-16">
+            <Reveal>
+              <div className="flex items-center gap-4">
+                <span
+                  className="grid size-12 place-items-center rounded-2xl"
+                  style={{ background: "var(--accent-tint)" }}
+                >
+                  <Eye className="size-5 text-accent" strokeWidth={1.8} aria-hidden />
+                </span>
+                <h4 className="text-[20px] font-semibold tracking-[-0.01em] text-ink">Partner can see</h4>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                {shown.map((r) => (
+                  <span key={r.t} className={`${chip} border-accent/30`}>
+                    {r.t}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal delayMs={100}>
+              <div className="flex items-center gap-4">
+                <span className="grid size-12 place-items-center rounded-2xl border border-line">
+                  <EyeOff className="size-5 text-ink-faint" strokeWidth={1.8} aria-hidden />
+                </span>
+                <h4 className="text-[20px] font-semibold tracking-[-0.01em] text-ink">Stays private</h4>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                {hidden.map((r) => (
+                  <span key={r.t} className={`${chip} text-ink-muted`}>
+                    {r.t}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </div>
       </div>
     </section>
   );
