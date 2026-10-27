@@ -176,14 +176,13 @@ const css = `
 .hp-p{font-size:17px;line-height:1.75;color:var(--ink-muted);margin:0;max-width:44ch}
 .hp-media{justify-self:end;width:100%;max-width:360px}
 .hp-img{width:100%;display:block;will-change:transform,opacity}
-.hp-nav{position:absolute;left:0;right:0;bottom:40px;z-index:3;width:100%;max-width:1160px;margin:0 auto;padding:0 48px;box-sizing:border-box;display:flex;gap:48px}
-.hp-btn{all:unset;cursor:pointer;flex:1;position:relative;padding-top:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink-faint);font-size:17px;font-weight:600;letter-spacing:-.01em;transition:color .4s}
-.hp-btn:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--line)}
-.hp-btn i{position:absolute;left:0;right:0;top:0;height:2px;background:var(--accent);transform-origin:left;transform:scaleX(var(--p,0))}
-.hp-btn span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;color:var(--ink-faint)}
-.hp-btn.on{color:var(--ink)}
+.hp-nav{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);z-index:3;display:inline-flex;align-items:center;gap:4px;padding:6px;border-radius:16px;background:var(--panel);border:1px solid var(--line);box-shadow:0 12px 32px -18px rgba(0,0,0,.35)}
+.hp-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:11px 20px;border-radius:12px;font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--ink-muted);transition:background .35s,color .35s,box-shadow .35s;white-space:nowrap}
+.hp-btn span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;color:var(--ink-faint);transition:color .35s}
+.hp-btn:hover{color:var(--ink)}
+.hp-btn.on{background:var(--panel-2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
 .hp-btn.on span{color:var(--accent)}
-.hp-btn:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.hp-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 @media(max-width:900px){
   .hp-track{height:auto}
   .hp-pin{position:static;height:auto;overflow:visible}
@@ -345,7 +344,6 @@ export function HowSection() {
               >
                 <span>{s.n}</span>
                 <b className="font-semibold">{s.tag}</b>
-                <i />
               </button>
             ))}
           </nav>
