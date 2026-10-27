@@ -14,9 +14,9 @@ const EASE = "cubic-bezier(0.645, 0.045, 0.355, 1)";
  * positions with a 3D transform, so the change reads as a rotation.
  */
 const SLOTS = [
-  { transform: "translate3d(0%, 0%, 0) rotateY(0deg) scale(1)", zIndex: 30, opacity: 1 },
-  { transform: "translate3d(-64%, 10%, -90px) rotateY(22deg) scale(0.8)", zIndex: 20, opacity: 0.92 },
-  { transform: "translate3d(64%, 10%, -90px) rotateY(-22deg) scale(0.8)", zIndex: 20, opacity: 0.92 },
+  { transform: "translate3d(0%, 0%, 0) rotateY(0deg) scale(1)", opacity: 1 },
+  { transform: "translate3d(-64%, 10%, -90px) rotateY(22deg) scale(0.8)", opacity: 0.92 },
+  { transform: "translate3d(64%, 10%, -90px) rotateY(-22deg) scale(0.8)", opacity: 0.92 },
 ];
 
 /**
@@ -67,7 +67,7 @@ export function HeroPhones({ phones, intervalMs = 3800 }: { phones: HeroPhone[];
   return (
     <div
       className="relative mx-auto h-[520px] w-full max-w-[480px] sm:h-[580px]"
-      style={{ perspective: "1400px" }}
+      style={{ perspective: "1400px", transformStyle: "preserve-3d" }}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => {
         setHovering(false);
@@ -104,10 +104,10 @@ export function HeroPhones({ phones, intervalMs = 3800 }: { phones: HeroPhone[];
               left: "27%",
               top: "3%",
               width: "46%",
-              zIndex: pos.zIndex,
               opacity: pos.opacity,
               transform: pos.transform,
               transformStyle: "preserve-3d",
+              willChange: "transform",
               transition: `transform 1300ms ${EASE}, opacity 1300ms ${EASE}`,
               cursor: isFront ? "default" : "pointer",
             }}
