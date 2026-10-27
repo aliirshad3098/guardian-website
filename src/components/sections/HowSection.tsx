@@ -172,17 +172,17 @@ const css = `
 .hp-inner{width:100%;max-width:1080px;display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center}
 .hp-txt{will-change:transform,opacity}
 .hp-count{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-faint);letter-spacing:.04em;display:flex;align-items:center;gap:12px}
-.hp-count:after{content:"";height:1px;width:56px;background:var(--line-strong)}
 .hp-h3{font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.028em;font-weight:650;margin:22px 0 20px;color:var(--ink)}
 .hp-p{font-size:17px;line-height:1.75;color:var(--ink-muted);margin:0;max-width:44ch}
 .hp-media{justify-self:end;width:100%;max-width:360px}
 .hp-img{width:100%;display:block;will-change:transform,opacity}
 .hp-nav{position:absolute;left:0;right:0;bottom:40px;z-index:3;width:100%;max-width:1160px;margin:0 auto;padding:0 48px;box-sizing:border-box;display:flex;gap:48px}
-.hp-btn{all:unset;cursor:pointer;flex:1;position:relative;padding-top:18px;color:var(--ink-faint);font-size:14px;font-weight:500;transition:color .4s}
+.hp-btn{all:unset;cursor:pointer;flex:1;position:relative;padding-top:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink-faint);font-size:17px;font-weight:600;letter-spacing:-.01em;transition:color .4s}
 .hp-btn:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--line)}
 .hp-btn i{position:absolute;left:0;right:0;top:0;height:2px;background:var(--accent);transform-origin:left;transform:scaleX(var(--p,0))}
-.hp-btn span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;margin-right:10px;color:var(--ink-faint)}
+.hp-btn span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;color:var(--ink-faint)}
 .hp-btn.on{color:var(--ink)}
+.hp-btn.on span{color:var(--accent)}
 .hp-btn:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
 @media(max-width:900px){
   .hp-track{height:auto}
@@ -344,7 +344,7 @@ export function HowSection() {
                 aria-current={active === i ? "step" : undefined}
               >
                 <span>{s.n}</span>
-                {s.tag}
+                <b className="font-semibold">{s.tag}</b>
                 <i />
               </button>
             ))}
