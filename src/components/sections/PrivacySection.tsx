@@ -31,20 +31,21 @@ export function PrivacySection() {
   return (
     <section id="privacy" className="border-y border-line">
       {/* Section introduction */}
-      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-14 md:px-8 md:pb-12 md:pt-20">
-        <Reveal className="max-w-3xl">
+      
+      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-14 text-center md:px-8 md:pb-14 md:pt-20">
+        <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <span className="eyebrow">Privacy by design</span>
-
+        
           <h2 className="mt-5 max-w-3xl text-[clamp(34px,5.2vw,54px)] leading-[1.08]">
             Your data belongs <em className="text-accent">on your phone.</em>
           </h2>
-
+        
           <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ink-muted">
-            Guardian is built to protect your focus without turning your
-            private activity into someone else’s data.
+            Guardian is built to protect your focus without turning your private activity into someone else’s data.
           </p>
         </Reveal>
       </header>
+
 
       {/* Three principles: typography and dividers instead of cards */}
       <div
