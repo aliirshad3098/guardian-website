@@ -164,9 +164,9 @@ const STEPS = [
 const css = `
 .hp-track{height:340vh;position:relative}
 .hp-pin{position:sticky;top:0;height:100vh;overflow:hidden}
-.hp-head{position:absolute;top:0;left:0;right:0;z-index:3;width:100%;max-width:1160px;margin:0 auto;padding:56px 48px 0;box-sizing:border-box;text-align:left}
-.hp-eb{color:var(--accent);font-size:13px;font-weight:600;letter-spacing:.02em}
-.hp-h2{font-size:clamp(28px,3.2vw,40px);line-height:1.1;letter-spacing:-.025em;font-weight:650;margin:10px 0 0;color:var(--ink)}
+.hp-head{position:absolute;top:0;left:0;right:0;z-index:3;width:100%;max-width:1160px;margin:0 auto;padding:64px 48px 0;box-sizing:border-box;text-align:center}
+.hp-eb{color:var(--accent);font-size:14px;font-weight:600}
+.hp-h2{font-size:clamp(34px,5.4vw,56px);line-height:1.08;letter-spacing:-.025em;font-weight:650;margin:20px auto 0;max-width:20ch;color:var(--ink)}
 .hp-row{position:absolute;top:0;left:0;height:100%;display:flex;will-change:transform}
 .hp-panel{flex:0 0 100vw;height:100%;display:flex;align-items:center;justify-content:center;padding:130px 48px 150px;box-sizing:border-box}
 .hp-inner{width:100%;max-width:1080px;display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center}

@@ -9,8 +9,6 @@ import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { PrivacySection } from "@/components/sections/PrivacySection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { GradientMesh } from "@/components/GradientMesh";
-import { Globe, Brain, ShieldCheck } from "lucide-react";
-import { PhoneMockup } from "@/components/PhoneMockup";
 
 import homeShot from "@/assets/home.jpg";
 import partnerShot from "@/assets/partner.jpg";
@@ -178,11 +176,29 @@ function HomePage() {
         </div>
       </section>
 
+      {/* WHY */}
+      <section className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
+        <Reveal>
+          <span className="eyebrow">Why we built this</span>
+          <blockquote className="mt-6 text-[clamp(24px,3.4vw,34px)] font-medium leading-snug tracking-tight text-ink">
+            “Guardian isn't here to punish a bad day. It's here so tomorrow is a little easier than
+            today was.”
+          </blockquote>
+          <p className="mt-6 text-[14.5px] text-ink-muted">
+            Built for the people actually trying, not the people watching them
+          </p>
+        </Reveal>
+      </section>
+
       {/* HOW IT WORKS */}
       <div id="how" className="scroll-mt-24">
         <HowSection />
       </div>
 
+      {/* FEATURES, PRIVACY, FAQ (same content as their former pages) */}
+      <div id="features" className="scroll-mt-24">
+        <FeaturesSection />
+      </div>
       {/* HIGHLIGHTS */}
       <section className="border-y border-line bg-panel-2">
         <div className="mx-auto max-w-[1180px] px-5 py-20 md:px-8 md:py-24">
@@ -202,30 +218,12 @@ function HomePage() {
         </div>
       </section>
 
-      {/* FEATURES, PRIVACY, FAQ (same content as their former pages) */}
-      <div id="features" className="scroll-mt-24">
-        <FeaturesSection />
-      </div>
       <div id="privacy" className="scroll-mt-24">
         <PrivacySection />
       </div>
       <div id="faq" className="scroll-mt-24">
         <FaqSection />
       </div>
-
-      {/* WHY */}
-      <section className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
-        <Reveal>
-          <span className="eyebrow">Why we built this</span>
-          <blockquote className="mt-6 text-[clamp(24px,3.4vw,34px)] font-medium leading-snug tracking-tight text-ink">
-            “Guardian isn't here to punish a bad day. It's here so tomorrow is a little easier than
-            today was.”
-          </blockquote>
-          <p className="mt-6 text-[14.5px] text-ink-muted">
-            Built for the people actually trying, not the people watching them
-          </p>
-        </Reveal>
-      </section>
 
       {/* CTA */}
       <section className="bg-accent">

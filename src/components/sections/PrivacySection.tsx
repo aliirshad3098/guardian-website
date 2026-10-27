@@ -67,12 +67,12 @@ export function PrivacySection() {
         </div>
       </div>
 
-      <section className="mx-auto max-w-[1180px] px-5 py-20 md:px-8 md:py-24">
+      <section className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-20">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Accountability partner</span>
           <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">What a partner can and can't see</h2>
         </Reveal>
-        <div className="mt-10 divide-y divide-line border-y border-line">
+        <div className="mx-auto mt-10 max-w-2xl divide-y divide-line border-y border-line">
           {partnerSees.map((r, i) => (
             <Reveal key={r.t} delayMs={Math.min(i * 40, 240)}>
               <div className="flex items-center gap-4 py-4">
@@ -95,7 +95,7 @@ export function PrivacySection() {
         </div>
       </section>
 
-      <section className="border-t border-line" style={{ background: "var(--panel-2)" }}>
+      <section className="border-y border-line" style={{ background: "var(--panel-2)" }}>
         <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-20">
           <div className="grid gap-8 md:grid-cols-3">
             <Reveal variant="blur">
