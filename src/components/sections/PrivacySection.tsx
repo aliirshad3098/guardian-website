@@ -1,126 +1,248 @@
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 
-const onPhone = [
-  "Your browsing and search history",
-  "The AI model that classifies searches",
-  "The 4.6M domain blocklist",
-  "Your password, decoy password and Fortress lock",
-  "Streaks, blocked-attempt counts and activity times",
-];
-
-const neverLeaves = [
-  "No search text is uploaded, ever",
-  "No browsing history is stored on a server",
-  "No ads, no trackers, no analytics on your activity",
-  "No account required for core protection",
-  "Nothing sold or shared with third parties",
-];
-
 const partnerSees = [
-  { yes: true, t: "Whether protection is currently on" },
-  { yes: true, t: "Requests to disable or change protection" },
-  { yes: true, t: "Tamper or uninstall attempts" },
-  { yes: false, t: "The sites you visit" },
-  { yes: false, t: "What you searched for" },
-  { yes: false, t: "Anything typed inside other apps" },
+  { yes: true, t: "Protection status", d: "Whether Guardian is switched on" },
+  { yes: true, t: "Change requests", d: "Requests to disable or change protection" },
+  { yes: true, t: "Tamper alerts", d: "Attempts to bypass or uninstall protection" },
+  { yes: false, t: "Browsing history", d: "The websites you visit" },
+  { yes: false, t: "Searches and typing", d: "Search terms or text in other apps" },
+  { yes: false, t: "Other app content", d: "Anything typed inside other apps" },
+];
+
+const privacyProof = [
+  {
+    n: "01",
+    title: "Processed on your phone",
+    body: "Searches and page checks are evaluated locally on your device.",
+  },
+  {
+    n: "02",
+    title: "No browsing history sent to us",
+    body: "Guardian does not route your traffic through our servers.",
+  },
+  {
+    n: "03",
+    title: "Your protection, your choice",
+    body: "You control the allow-list and choose who you trust as a partner.",
+  },
 ];
 
 export function PrivacySection() {
   return (
-    <section>
-      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-12 text-center md:px-8 md:pb-14 md:pt-16">
-        <span className="eyebrow">Privacy</span>
-        <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
-          The safest place for your data is <em className="text-accent">your phone</em>.
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-          A tool that reads what you search has to earn trust. Guardian does it the only honest way:
-          by never sending it anywhere.
-        </p>
+    <section className="overflow-hidden">
+      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-14 md:px-8 md:pb-14 md:pt-20">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <span className="eyebrow">Privacy by design</span>
+          <h2 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.2vw,54px)] leading-[1.08]">
+            Your data belongs <em className="text-accent">on your phone.</em>
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-ink-muted">
+            Guardian protects your focus without turning private activity into someone else's data.
+          </p>
+        </Reveal>
       </header>
 
       <div className="border-y border-line" style={{ background: "var(--panel-2)" }}>
-        <div className="mx-auto grid max-w-[1180px] gap-6 px-5 py-16 md:grid-cols-2 md:px-8 md:py-20">
-          <Reveal variant="left" className="panel-card p-8">
-            <h2 className="text-[22px]">Stays on your phone</h2>
-            <ul className="mt-5 space-y-3">
-              {onPhone.map((t) => (
-                <li key={t} className="flex gap-3 text-[14.5px] text-ink-muted">
-                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal variant="right" delayMs={100} className="panel-card p-8">
-            <h2 className="text-[22px]">Never happens</h2>
-            <ul className="mt-5 space-y-3">
-              {neverLeaves.map((t) => (
-                <li key={t} className="flex gap-3 text-[14.5px] text-ink-muted">
-                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+        <div className="mx-auto grid max-w-[1180px] gap-4 px-5 py-10 md:grid-cols-3 md:px-8 md:py-14">
+          {privacyProof.map((item, i) => (
+            <Reveal
+              key={item.n}
+              delayMs={i * 70}
+              className="panel-card p-6 md:p-7"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs text-ink-faint">
+                  {item.n} / PRIVACY
+                </span>
+                <span
+                  className="grid size-9 place-items-center rounded-full text-accent"
+                  style={{ background: "var(--accent-tint)" }}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    className="size-5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d={
+                        i === 0
+                          ? "M12 3 19 6v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3Z"
+                          : i === 1
+                            ? "M5 12.5 9.2 17 19 7"
+                            : "M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      }
+                    />
+                  </svg>
+                </span>
+              </div>
+              <h3 className="mt-6 text-[19px] font-semibold">{item.title}</h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-ink-muted">
+                {item.body}
+              </p>
+            </Reveal>
+          ))}
         </div>
       </div>
 
-      <section className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-20">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Accountability partner</span>
-          <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">What a partner can and can't see</h2>
-        </Reveal>
-        <div className="mx-auto mt-10 max-w-2xl divide-y divide-line border-y border-line">
-          {partnerSees.map((r, i) => (
-            <Reveal key={r.t} delayMs={Math.min(i * 40, 240)}>
-              <div className="flex items-center gap-4 py-4">
-                <span
-                  aria-hidden
-                  className="grid size-6 shrink-0 place-items-center rounded-full font-mono text-[12px]"
-                  style={{
-                    background: r.yes ? "var(--accent-tint)" : "var(--accent-tint)",
-                    color: r.yes ? "var(--accent)" : "var(--ink-faint)",
-                  }}
-                >
-                  {r.yes ? "✓" : "—"}
-                </span>
-                <span className={r.yes ? "text-[15px] text-ink" : "text-[15px] text-ink-muted"}>
-                  {r.t}
-                </span>
+      <section className="mx-auto max-w-[1180px] px-5 py-14 md:px-8 md:py-20">
+        <div className="grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <Reveal className="max-w-md">
+            <span className="eyebrow">Accountability partner</span>
+            <h3 className="mt-5 text-[clamp(28px,3.6vw,38px)] leading-tight">
+              Support, without surveillance.
+            </h3>
+            <p className="mt-4 text-[15px] leading-relaxed text-ink-muted">
+              A partner helps you stay accountable. They can see protection-related events, not your private browsing activity.
+            </p>
+          </Reveal>
+
+          <Reveal
+            delayMs={100}
+            className="overflow-hidden rounded-2xl border border-line"
+            style={{ background: "var(--panel)" }}
+          >
+            <div className="grid grid-cols-2 border-b border-line px-5 py-4 md:px-6">
+              <div className="flex items-center gap-2 text-[13px] font-semibold text-ink">
+                <span className="size-2 rounded-full bg-accent" />
+                Partner can see
               </div>
-            </Reveal>
-          ))}
+              <div className="flex items-center gap-2 text-[13px] font-semibold text-ink-muted">
+                <span
+                  className="size-2 rounded-full"
+                  style={{ background: "var(--ink-faint)" }}
+                />
+                Always private
+              </div>
+            </div>
+
+            {partnerSees.map((item, i) => (
+              <div
+                key={item.t}
+                className={`grid grid-cols-2 gap-3 px-5 py-4 md:px-6 ${
+                  i < partnerSees.length - 1 ? "border-b border-line" : ""
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <span
+                    className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[11px]"
+                    style={{
+                      background: item.yes ? "var(--accent-tint)" : "transparent",
+                      color: "var(--accent)",
+                    }}
+                  >
+                    {item.yes ? "✓" : "—"}
+                  </span>
+                  <div>
+                    <p
+                      className={`text-[13.5px] font-medium ${
+                        item.yes ? "text-ink" : "text-ink-muted"
+                      }`}
+                    >
+                      {item.yes ? item.t : "—"}
+                    </p>
+                    {item.yes && (
+                      <p className="mt-1 text-[12px] leading-relaxed text-ink-muted">
+                        {item.d}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <span
+                    className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[11px]"
+                    style={{
+                      background: !item.yes ? "var(--accent-tint)" : "transparent",
+                      color: "var(--ink-faint)",
+                    }}
+                  >
+                    {!item.yes ? "✓" : "—"}
+                  </span>
+                  <div>
+                    {!item.yes && (
+                      <>
+                        <p className="text-[13.5px] font-medium text-ink">
+                          {item.t}
+                        </p>
+                        <p className="mt-1 text-[12px] leading-relaxed text-ink-muted">
+                          {item.d}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
 
       <section className="border-y border-line" style={{ background: "var(--panel-2)" }}>
-        <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-20">
-          <div className="grid gap-8 md:grid-cols-3">
-            <Reveal variant="blur">
-              <h3 className="text-[19px]">Why a VPN permission?</h3>
-              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
-                Android only allows domain filtering through a local VPN. It runs entirely on your
-                phone — no traffic is routed through us, because there is no server to route it to.
+        <div className="mx-auto grid max-w-[1180px] gap-5 px-5 py-10 md:grid-cols-2 md:px-8 md:py-12">
+          <Reveal className="flex gap-4 rounded-xl border border-line bg-panel p-5">
+            <span
+              className="grid size-10 shrink-0 place-items-center rounded-xl text-accent"
+              style={{ background: "var(--accent-tint)" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                className="size-5"
+                aria-hidden="true"
+              >
+                <rect x="5" y="3" width="14" height="18" rx="2" />
+                <path d="M9 7h6M9 11h6M10 17h4" />
+              </svg>
+            </span>
+            <div>
+              <h3 className="text-[16px] font-semibold">Why VPN permission?</h3>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-muted">
+                Android uses a local VPN interface for domain filtering. Guardian does not send your traffic through a Guardian server.
               </p>
-            </Reveal>
-            <Reveal variant="blur" delayMs={90}>
-              <h3 className="text-[19px]">Why accessibility access?</h3>
-              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
-                It lets Guardian read the address bar and search field in real time so it can block
-                a page before it renders. The text is checked on-device and discarded immediately.
+            </div>
+          </Reveal>
+
+          <Reveal delayMs={80} className="flex gap-4 rounded-xl border border-line bg-panel p-5">
+            <span
+              className="grid size-10 shrink-0 place-items-center rounded-xl text-accent"
+              style={{ background: "var(--accent-tint)" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                className="size-5"
+                aria-hidden="true"
+              >
+                <path d="M12 3 19 6v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3Z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </span>
+            <div>
+              <h3 className="text-[16px] font-semibold">Why accessibility access?</h3>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-muted">
+                It helps Guardian check supported address bars and search fields on-device so it can apply blocking rules before a page opens.
               </p>
-            </Reveal>
-            <Reveal variant="blur" delayMs={180}>
-              <h3 className="text-[19px]">Questions?</h3>
-              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
-                We answer in English or Urdu, usually within a day.
+            </div>
+          </Reveal>
+
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-line px-5 py-4 md:col-span-2">
+            <div>
+              <p className="text-[14px] font-semibold">Still have a question?</p>
+              <p className="mt-1 text-[13px] text-ink-muted">
+                We reply in English or Urdu, usually within a day.
               </p>
-              <Link to="/" hash="faq" className="btn-ghost mt-4">
-                Read the FAQ
-              </Link>
-            </Reveal>
+            </div>
+            <Link to="/" hash="faq" className="btn-ghost">
+              Explore FAQs <span aria-hidden>↗</span>
+            </Link>
           </div>
         </div>
       </section>
