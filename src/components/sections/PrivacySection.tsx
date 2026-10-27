@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 
 const onPhone = [
@@ -28,64 +29,101 @@ const partnerSees = [
 export function PrivacySection() {
   return (
     <section>
-      {/* same statement style as "Why we built this" */}
-      <div className="mx-auto max-w-3xl px-5 pb-4 pt-12 text-center md:px-8 md:pt-16">
-        <Reveal>
-          <span className="eyebrow">Privacy</span>
-          <blockquote className="mt-6 text-[clamp(24px,3.4vw,34px)] font-medium leading-snug tracking-tight text-ink">
-            The safest place for your data is <span className="text-accent">your phone</span>.
-          </blockquote>
-          <p className="mx-auto mt-6 max-w-xl text-[14.5px] leading-relaxed text-ink-muted">
-            A tool that reads what you search has to earn trust. Guardian does it the only honest
-            way: by never sending it anywhere.
-          </p>
-        </Reveal>
+      <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-12 text-center md:px-8 md:pb-14 md:pt-16">
+        <span className="eyebrow">Privacy</span>
+        <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
+          The safest place for your data is <em className="text-accent">your phone</em>.
+        </h1>
+        <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
+          A tool that reads what you search has to earn trust. Guardian does it the only honest way:
+          by never sending it anywhere.
+        </p>
+      </header>
+
+      <div className="border-y border-line" style={{ background: "var(--panel-2)" }}>
+        <div className="mx-auto grid max-w-[1180px] gap-6 px-5 py-16 md:grid-cols-2 md:px-8 md:py-20">
+          <Reveal variant="left" className="panel-card p-8">
+            <h2 className="text-[22px]">Stays on your phone</h2>
+            <ul className="mt-5 space-y-3">
+              {onPhone.map((t) => (
+                <li key={t} className="flex gap-3 text-[14.5px] text-ink-muted">
+                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal variant="right" delayMs={100} className="panel-card p-8">
+            <h2 className="text-[22px]">Never happens</h2>
+            <ul className="mt-5 space-y-3">
+              {neverLeaves.map((t) => (
+                <li key={t} className="flex gap-3 text-[14.5px] text-ink-muted">
+                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
       </div>
 
-      <div className="mx-auto grid max-w-3xl gap-12 px-5 py-12 text-center md:grid-cols-2 md:px-8 md:py-16">
-        <Reveal>
-          <h3 className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">Stays on your phone</h3>
-          <ul className="mt-6 space-y-3 text-[15px] text-ink-muted">
-            {onPhone.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
-        </Reveal>
-        <Reveal delayMs={100}>
-          <h3 className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">Never happens</h3>
-          <ul className="mt-6 space-y-3 text-[15px] text-ink-muted">
-            {neverLeaves.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
-        </Reveal>
-      </div>
-
-      <div className="mx-auto max-w-3xl px-5 pb-20 text-center md:px-8">
-        <Reveal>
+      <section className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-20">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Accountability partner</span>
-          <h2 className="mt-5 text-[clamp(24px,3.2vw,32px)] font-medium leading-snug tracking-tight text-ink">
-            What a partner can and can't see
-          </h2>
+          <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">What a partner can and can't see</h2>
         </Reveal>
-        <ul className="mx-auto mt-10 max-w-md divide-y divide-line border-y border-line text-left">
-          {partnerSees.map((r) => (
-            <li key={r.t} className="flex items-center gap-4 py-4">
-              <span
-                aria-hidden
-                className="grid size-6 shrink-0 place-items-center rounded-full font-mono text-[12px]"
-                style={{
-                  background: "var(--accent-tint)",
-                  color: r.yes ? "var(--accent)" : "var(--ink-faint)",
-                }}
-              >
-                {r.yes ? "✓" : "—"}
-              </span>
-              <span className={r.yes ? "text-[15px] text-ink" : "text-[15px] text-ink-muted"}>{r.t}</span>
-            </li>
+        <div className="mx-auto mt-10 max-w-2xl divide-y divide-line border-y border-line">
+          {partnerSees.map((r, i) => (
+            <Reveal key={r.t} delayMs={Math.min(i * 40, 240)}>
+              <div className="flex items-center gap-4 py-4">
+                <span
+                  aria-hidden
+                  className="grid size-6 shrink-0 place-items-center rounded-full font-mono text-[12px]"
+                  style={{
+                    background: r.yes ? "var(--accent-tint)" : "var(--accent-tint)",
+                    color: r.yes ? "var(--accent)" : "var(--ink-faint)",
+                  }}
+                >
+                  {r.yes ? "✓" : "—"}
+                </span>
+                <span className={r.yes ? "text-[15px] text-ink" : "text-[15px] text-ink-muted"}>
+                  {r.t}
+                </span>
+              </div>
+            </Reveal>
           ))}
-        </ul>
-      </div>
+        </div>
+      </section>
+
+      <section className="border-y border-line" style={{ background: "var(--panel-2)" }}>
+        <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-20">
+          <div className="grid gap-8 md:grid-cols-3">
+            <Reveal variant="blur">
+              <h3 className="text-[19px]">Why a VPN permission?</h3>
+              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
+                Android only allows domain filtering through a local VPN. It runs entirely on your
+                phone — no traffic is routed through us, because there is no server to route it to.
+              </p>
+            </Reveal>
+            <Reveal variant="blur" delayMs={90}>
+              <h3 className="text-[19px]">Why accessibility access?</h3>
+              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
+                It lets Guardian read the address bar and search field in real time so it can block
+                a page before it renders. The text is checked on-device and discarded immediately.
+              </p>
+            </Reveal>
+            <Reveal variant="blur" delayMs={180}>
+              <h3 className="text-[19px]">Questions?</h3>
+              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
+                We answer in English or Urdu, usually within a day.
+              </p>
+              <Link to="/" hash="faq" className="btn-ghost mt-4">
+                Read the FAQ
+              </Link>
+            </Reveal>
+          </div>
+        </div>
+      </section>
     </section>
   );
 }
