@@ -5,6 +5,7 @@ import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
 import { PipelineDiagram } from "@/components/PipelineDiagram";
 import { NetworkArt, AIArt, PartnerArt } from "@/components/StepArt";
+import { HeroPhones } from "@/components/HeroPhones";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { PrivacySection } from "@/components/sections/PrivacySection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -163,43 +164,24 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]">
-            {/* left: partner */}
-            <div className="absolute left-0 top-[16%] z-10 w-[44%]">
-              <PhoneMockup
-                src={partnerShot}
-                alt="Guardian Partner app showing protection status and pending approval requests"
-                rotateY={8}
-                rotateX={3}
-                floatDelay="1.6s"
-                floatDuration="7s"
-                chips={[{ label: "Partner linked", className: "-right-6 bottom-[18%]" }]}
-              />
-            </div>
-            {/* right: analytics */}
-            <div className="absolute right-0 top-[16%] z-10 w-[44%]">
-              <PhoneMockup
-                src={statsShot}
-                alt="Guardian statistics screen showing weekly blocking activity"
-                rotateY={-8}
-                rotateX={3}
-                floatDelay="0.8s"
-                floatDuration="6.5s"
-                chips={[{ label: "Reels blocked", className: "-left-8 top-[14%]" }]}
-              />
-            </div>
-            {/* centre: home, in front */}
-            <div className="absolute left-1/2 top-0 z-20 w-[50%] -translate-x-1/2">
-              <PhoneMockup
-                src={homeShot}
-                alt="Guardian home screen showing protection active and a clean streak"
-                rotateY={0}
-                rotateX={3}
-                floatDelay="0s"
-                floatDuration="6s"
-              />
-            </div>
-          </div>
+          <HeroPhones
+            phones={[
+              {
+                src: homeShot,
+                alt: "Guardian home screen showing protection active and a clean streak",
+              },
+              {
+                src: partnerShot,
+                alt: "Guardian Partner app showing protection status and pending approval requests",
+                chips: [{ label: "Partner linked", className: "-right-6 bottom-[18%]" }],
+              },
+              {
+                src: statsShot,
+                alt: "Guardian statistics screen showing weekly blocking activity",
+                chips: [{ label: "Reels blocked", className: "-left-8 top-[14%]" }],
+              },
+            ]}
+          />
         </div>
       </header>
 
