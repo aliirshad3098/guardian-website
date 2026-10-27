@@ -13,6 +13,7 @@ import { GradientMesh } from "@/components/GradientMesh";
 import homeShot from "@/assets/home.jpg";
 import partnerShot from "@/assets/partner.jpg";
 import statsShot from "@/assets/stats.jpg";
+import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -225,32 +226,75 @@ function HomePage() {
         <FaqSection />
       </div>
 
-      {/* CTA */}
-    
-<section className="border-t border-line px-5 py-12 md:px-8 md:py-16">
-  <Reveal
-    className="mx-auto flex max-w-[1180px] flex-col items-start justify-between gap-7 border-b border-line pb-12 md:flex-row md:items-center md:pb-16"
-  >
-    <div className="max-w-2xl">
-      <span className="eyebrow">Get started</span>
+      
+      {/* DOWNLOAD CTA */}
+      <section className="px-4 pb-16 md:px-8 md:pb-20">
+        <div className="relative mx-auto grid max-w-[1180px] overflow-hidden rounded-[20px] border border-white/10 bg-[#071b19] md:min-h-[320px] md:grid-cols-[0.85fr_1.15fr]">
+          {/* Background atmosphere */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 18% 15%, rgba(76,160,112,0.28), transparent 45%), linear-gradient(105deg, #102d27 0%, #071b19 48%, #061311 100%)",
+            }}
+          />
 
-      <h2 className="mt-4 text-[clamp(29px,4vw,42px)] leading-tight">
-        Make room for better habits.
-      </h2>
+          {/* Half-visible phone */}
+          <div className="relative min-h-[230px] overflow-hidden md:min-h-[320px]">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#071b19]/40" />
 
-      <p className="mt-3 max-w-lg text-[14.5px] leading-relaxed text-ink-muted">
-        Get practical protection for your phone, with no account required
-        for core protection.
-      </p>
-    </div>
+            <div className="absolute bottom-[-34%] left-[12%] w-[48%] max-w-[230px] sm:left-[18%] md:bottom-[-43%] md:left-[20%] md:w-[52%]">
+              <PhoneMockup
+                src={homeShot}
+                alt="Guardian app showing protection status"
+                rotateY={-7}
+                rotateX={2}
+                floatDelay="0s"
+                floatDuration="7s"
+              />
+            </div>
 
-    <MagneticButton>
-      <Link to="/download" className="btn-primary">
-        Download for Android <span aria-hidden>↗</span>
-      </Link>
-    </MagneticButton>
-  </Reveal>
-</section>
+            {/* Soft decorative shape behind the phone */}
+            <div className="absolute bottom-[-30px] left-[12%] h-[85%] w-[62%] rounded-t-[48%] border border-emerald-200/20 bg-emerald-300/[0.04] md:left-[17%]" />
+          </div>
+
+          {/* Download message */}
+          <Reveal className="relative z-10 flex flex-col justify-center px-6 pb-10 pt-2 md:px-10 md:py-12 lg:px-14">
+            <span className="mb-4 w-fit rounded-full border border-emerald-200/20 bg-emerald-300/10 px-3 py-1.5 text-[11px] font-medium text-emerald-200">
+              Start your first clean day
+            </span>
+
+            <h2 className="max-w-[520px] font-display text-[clamp(28px,3.4vw,42px)] leading-[1.08] tracking-[-0.035em] text-white">
+              A calmer mind
+              <br />
+              is just a download away.
+            </h2>
+
+            <p className="mt-4 max-w-[410px] text-[14px] leading-relaxed text-white/65">
+              Guardian is free for users in Pakistan. Install it in minutes — no account needed.
+            </p>
+
+            <div className="mt-6">
+              <MagneticButton>
+                <Link
+                  to="/download"
+                  className="inline-flex min-h-[48px] items-center gap-3 rounded-lg bg-emerald-300 px-5 py-3 text-[13px] font-semibold text-[#062019] transition hover:bg-emerald-200"
+                >
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="size-[18px] fill-current"
+                  >
+                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.6-2.2.43-3.06-.35C2.76 15.16 3.37 7.34 8.83 7.05c1.33.07 2.26.73 3.04.79 1.16-.24 2.27-.92 3.52-.83 1.5.12 2.63.71 3.38 1.78-3.13 1.88-2.39 6.01.48 7.17-.57 1.5-1.32 2.97-2.2 4.32ZM11.9 6.98c-.15-2.23 1.66-4.08 3.75-4.26.29 2.57-2.33 4.51-3.75 4.26Z" />
+                  </svg>
+                  Download for Android
+                  <span aria-hidden="true" className="ml-2 text-lg">→</span>
+                </Link>
+              </MagneticButton>
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </main>
   );
 }
