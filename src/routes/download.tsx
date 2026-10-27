@@ -155,12 +155,23 @@ function DownloadPage() {
             >
               <div className="panel-card p-6 sm:p-8">
                 <div className="flex items-start gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center">
-                    <img
-                      src="/logo.png"
-                      alt="Guardian PK logo"
-                      className="h-14 w-14 rounded-2xl object-contain"
-                    />
+                  <div
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line bg-background text-accent"
+                    aria-hidden="true"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="29"
+                      height="29"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M12 3 20 6v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6l8-3Z" />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
                   </div>
 
                   <div className="min-w-0 pt-1">
