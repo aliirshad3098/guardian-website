@@ -71,21 +71,6 @@ export function FaqSection() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal variant="scale" className="panel-card mt-12 p-8">
-          <span className="eyebrow">Support</span>
-          <p className="mt-4 text-[15px] text-ink-muted">
-            Humans, in Pakistan, usually within a day. English or Urdu.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a href="mailto:support@guardian.pk" className="btn-primary">
-              Email support
-            </a>
-            <Link to="/download" className="btn-ghost">
-              Download Guardian
-            </Link>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

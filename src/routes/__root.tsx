@@ -134,6 +134,15 @@ function SiteFooter() {
           </div>
           <p className="font-mono text-[12.5px] text-ink-faint">Made in Pakistan</p>
         </div>
+        <div className="mt-8 flex flex-col gap-2 border-t border-line pt-6 text-[13.5px] text-ink-muted md:flex-row md:items-center md:justify-between">
+          <p>
+            Support:{" "}
+            <a href="mailto:support@guardian.pk" className="text-ink hover:text-accent">
+              support@guardian.pk
+            </a>
+          </p>
+          <p>Humans, in Pakistan, usually within a day. English or Urdu.</p>
+        </div>
       </div>
     </footer>
   );
