@@ -12,11 +12,11 @@ export type HeroPhone = {
  * same box and only changes transform (translate, rotateY, scale), so the motion
  * reads as a rotation rather than a flat slide.
  */
-const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+const EASE = "cubic-bezier(0.645, 0.045, 0.355, 1)";
 const SLOTS = [
   { transform: "translate3d(0%, 0%, 0) rotateY(0deg) scale(1)", zIndex: 30, opacity: 1 },
-  { transform: "translate3d(-58%, 9%, -120px) rotateY(24deg) scale(0.8)", zIndex: 20, opacity: 0.9 },
-  { transform: "translate3d(58%, 9%, -120px) rotateY(-24deg) scale(0.8)", zIndex: 20, opacity: 0.9 },
+  { transform: "translate3d(-64%, 10%, -90px) rotateY(22deg) scale(0.8)", zIndex: 20, opacity: 0.92 },
+  { transform: "translate3d(64%, 10%, -90px) rotateY(-22deg) scale(0.8)", zIndex: 20, opacity: 0.92 },
 ];
 
 /**
@@ -69,7 +69,7 @@ export function HeroPhones({ phones, intervalMs = 3800 }: { phones: HeroPhone[];
 
   return (
     <div
-      className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]"
+      className="relative mx-auto h-[460px] w-full max-w-[480px] sm:h-[520px]"
       style={{ perspective: "1400px" }}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => {
@@ -104,14 +104,14 @@ export function HeroPhones({ phones, intervalMs = 3800 }: { phones: HeroPhone[];
             }
             className="absolute outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-[2.5rem]"
             style={{
-              left: "25%",
-              top: "0%",
-              width: "50%",
+              left: "30%",
+              top: "6%",
+              width: "40%",
               zIndex: pos.zIndex,
               opacity: pos.opacity,
               transform: pos.transform,
               transformStyle: "preserve-3d",
-              transition: `transform 1100ms ${EASE}, opacity 1100ms ${EASE}`,
+              transition: `transform 1300ms ${EASE}, opacity 1300ms ${EASE}`,
               cursor: isFront ? "default" : "pointer",
             }}
           >
