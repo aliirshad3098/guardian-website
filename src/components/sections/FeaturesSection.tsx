@@ -139,10 +139,15 @@ export function FeaturesSection() {
                   <span className="eyebrow">{s.eyebrow}</span>
                   <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">{s.title}</h2>
                   <p className="mt-4 text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-                  <ul className="mt-6 w-fit space-y-2.5 text-left">
-                    {s.points.map((p) => (
-                      <li key={p} className="flex gap-3 text-[14.5px] text-ink-muted">
-                        <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                  <ul className="mt-7 flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-panel sm:flex-row">
+                    {s.points.map((p, i) => (
+                      <li
+                        key={p}
+                        className={`flex flex-1 items-center gap-3 px-5 py-4 text-[14px] leading-snug text-ink-muted ${
+                          i > 0 ? "border-t border-line sm:border-l sm:border-t-0" : ""
+                        }`}
+                      >
+                        <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-accent" />
                         {p}
                       </li>
                     ))}
