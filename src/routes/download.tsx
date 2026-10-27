@@ -223,13 +223,6 @@ function DownloadPage() {
                   and requested permissions before proceeding.
                 </p>
 
-                <Link
-                  to="/"
-                  hash="privacy"
-                  className="btn-ghost mt-4 flex w-full items-center justify-center"
-                >
-                  Review privacy practices
-                </Link>
               </div>
             </Reveal>
           </div>
