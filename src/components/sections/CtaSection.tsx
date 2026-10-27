@@ -10,13 +10,13 @@ import homeShot from "@/assets/home.jpg";
  */
 export function CtaSection() {
   return (
-    <section className="px-4 py-20 md:px-8 md:py-24">
+    <section className="px-4 py-14 md:px-8 md:py-24">
       <Reveal
         className="relative mx-auto grid max-w-[1180px] overflow-hidden rounded-[28px] border border-line md:grid-cols-[1fr_1.1fr]"
         style={{ background: "linear-gradient(120deg,#0b2a25 0%,#06120f 70%)" }}
       >
         {/* left: phone with the zig-zag behind it */}
-        <div className="relative min-h-[380px] overflow-hidden">
+        <div className="relative min-h-[300px] overflow-hidden md:min-h-[380px]">
           <svg
             viewBox="0 0 560 400"
             preserveAspectRatio="none"
@@ -46,7 +46,7 @@ export function CtaSection() {
         </div>
 
         {/* right: copy and action */}
-        <div className="relative z-10 flex flex-col justify-center px-8 py-16 text-white md:px-14">
+        <div className="relative z-10 flex flex-col justify-center px-7 pb-12 pt-4 text-white md:px-14 md:py-16">
           <h2 className="text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.1] tracking-[-0.025em]">
             A calmer mind
             <br />

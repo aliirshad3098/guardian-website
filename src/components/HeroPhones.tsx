@@ -66,7 +66,7 @@ export function HeroPhones({ phones, intervalMs = 3800 }: { phones: HeroPhone[];
 
   return (
     <div
-      className="relative mx-auto h-[520px] w-full max-w-[480px] sm:h-[580px]"
+      className="relative mx-auto h-[420px] w-full max-w-[480px] sm:h-[520px] md:h-[580px]"
       style={{ perspective: "1400px", transformStyle: "preserve-3d" }}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => {

@@ -188,10 +188,12 @@ const css = `
 @media(max-width:900px){
   .hp-track{height:auto}
   .hp-pin{position:static;height:auto;overflow:visible}
-  .hp-head{position:static;padding:80px 28px 0;max-width:none}
+  .hp-head{position:static;padding:56px 24px 0;max-width:none;text-align:left}
+  .hp-h2{font-size:34px;margin-top:14px}
   .hp-row{position:static;display:block;height:auto}
-  .hp-panel{flex:none;height:auto;padding:64px 28px}
-  .hp-inner{grid-template-columns:1fr;gap:36px}
+  .hp-panel{flex:none;height:auto;padding:44px 24px}
+  .hp-inner{grid-template-columns:1fr;gap:28px}
+  .hp-p{font-size:16px}
   .hp-media{justify-self:start}
   .hp-nav{display:none}
 }

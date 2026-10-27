@@ -58,7 +58,7 @@ export function PrivacySection() {
 
   return (
     <section>
-      <div className="mx-auto grid max-w-[1180px] gap-16 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+      <div className="mx-auto grid max-w-[1180px] gap-12 px-5 py-14 md:gap-16 md:px-8 md:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
         <Reveal className="lg:sticky lg:top-32 lg:self-start">
           <span className="eyebrow">Privacy by design</span>
           <h2 className="mt-5 text-[clamp(34px,4.6vw,52px)] leading-[1.08] tracking-[-0.03em]">
@@ -81,7 +81,7 @@ export function PrivacySection() {
       </div>
 
       <div className="border-t border-line">
-        <div className="mx-auto grid max-w-[1180px] gap-16 px-5 py-20 md:px-8 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+        <div className="mx-auto grid max-w-[1180px] gap-12 px-5 py-14 md:gap-16 md:px-8 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
           <Reveal className="lg:sticky lg:top-32 lg:self-start">
             <span className="eyebrow">Accountability partner</span>
             <h3 className="mt-5 text-[clamp(28px,3.4vw,40px)] leading-[1.1] tracking-[-0.025em]">
