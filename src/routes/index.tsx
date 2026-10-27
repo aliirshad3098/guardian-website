@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
-import { RouteMap } from "@/components/RouteMap";
 import { HeroPhones } from "@/components/HeroPhones";
 import { HowSection } from "@/components/sections/HowSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
