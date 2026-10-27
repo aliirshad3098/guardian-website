@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
-import { PipelineDiagram } from "@/components/PipelineDiagram";
-import { NetworkArt, AIArt, PartnerArt } from "@/components/StepArt";
+import { RouteMap } from "@/components/RouteMap";
 import { HeroPhones } from "@/components/HeroPhones";
+import { HowSection } from "@/components/sections/HowSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { PrivacySection } from "@/components/sections/PrivacySection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -43,34 +43,6 @@ const facts: { n: number | string; decimals?: number; suffix?: string; l: string
   { n: 6, l: "languages the on-device AI understands" },
   { n: "On-device", l: "every search classified locally, not on a server" },
   { n: "24/7", l: "quiet, background protection" },
-];
-
-const stages = [
-  {
-    n: "01",
-    tag: "Network",
-    icon: Globe,
-    image: <NetworkArt />,
-    title: "VPN-level filtering",
-    body: "A lightweight, on-device VPN checks every site your browser tries to reach against 4.6 million known domains before the page ever loads. No traffic leaves your phone to do this.",
-  },
-  {
-    n: "02",
-    tag: "Understanding",
-    icon: Brain,
-    image: <AIArt />,
-    imageFirst: true,
-    title: "On-device AI",
-    body: "If a search slips past the domain list, a model trained on English, Roman Urdu, Urdu, Chinese, Bengali and Hindi search patterns catches it — without ever sending the search to a server.",
-  },
-  {
-    n: "03",
-    tag: "Support",
-    icon: ShieldCheck,
-    image: <PartnerArt />,
-    title: "Accountability partner",
-    body: "If protection is turned off, an optional trusted partner is notified. They see your protection status, never your browsing history or search content.",
-  },
 ];
 
 const highlights = [
@@ -208,22 +180,9 @@ function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how" className="mx-auto max-w-[1180px] scroll-mt-24 px-5 py-20 md:px-8 md:py-28">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">How it works</span>
-            <h2 className="mt-4 text-[clamp(30px,4.2vw,44px)]">What happens to every search</h2>
-            <p className="mt-4 text-ink-muted">
-              Not three features bolted together. A single path a search travels through, in order,
-              before anything ever loads.
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal delayMs={120} className="mt-20">
-          <PipelineDiagram steps={stages} />
-        </Reveal>
-      </section>
+      <div id="how" className="scroll-mt-24">
+        <HowSection />
+      </div>
 
       {/* HIGHLIGHTS */}
       <section className="border-y border-line bg-panel-2">
