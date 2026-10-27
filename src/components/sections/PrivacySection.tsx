@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/Reveal";
+import { Smartphone, Ban } from "lucide-react";
 
 const onPhone = [
   "Your browsing and search history",
@@ -25,6 +26,38 @@ const partnerSees = [
   { yes: false, t: "Anything typed inside other apps" },
 ];
 
+
+type ColumnProps = { label: string; items: string[]; Icon: typeof Smartphone };
+
+function PrivacyColumn({ label, items, Icon }: ColumnProps) {
+  return (
+    <div className="flex flex-col">
+      <div className="flex items-center justify-between border-t-2 border-accent pt-5">
+        <div className="flex items-center gap-3">
+          <span
+            className="grid size-9 place-items-center rounded-lg"
+            style={{ background: "var(--accent-tint)" }}
+          >
+            <Icon className="size-4 text-accent" strokeWidth={1.8} aria-hidden />
+          </span>
+          <h3 className="text-[18px] font-semibold text-ink">{label}</h3>
+        </div>
+        <span className="font-mono text-[12px] text-ink-faint">
+          {String(items.length).padStart(2, "0")}
+        </span>
+      </div>
+      <ul className="mt-2 divide-y divide-line">
+        {items.map((t) => (
+          <li key={t} className="flex items-start gap-3.5 py-4 text-left text-[15.5px] leading-relaxed text-ink/80">
+            <span aria-hidden className="mt-[9px] size-1.5 shrink-0 rounded-full bg-accent" />
+            {t}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function PrivacySection() {
   return (
     <section>
@@ -42,22 +75,12 @@ export function PrivacySection() {
         </Reveal>
       </header>
 
-      <div className="mx-auto grid max-w-3xl gap-12 px-5 py-14 text-center md:grid-cols-2 md:px-8 md:py-20">
+      <div className="mx-auto grid max-w-[1000px] gap-12 px-5 py-14 md:grid-cols-2 md:gap-16 md:px-8 md:py-20">
         <Reveal>
-          <h3 className="font-mono text-[13px] font-semibold uppercase tracking-[0.06em] text-accent">Stays on your phone</h3>
-          <ul className="mt-6 space-y-3.5 text-[15.5px] leading-relaxed text-ink/80">
-            {onPhone.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
+          <PrivacyColumn label="Stays on your phone" items={onPhone} Icon={Smartphone} />
         </Reveal>
         <Reveal delayMs={100}>
-          <h3 className="font-mono text-[13px] font-semibold uppercase tracking-[0.06em] text-accent">Never happens</h3>
-          <ul className="mt-6 space-y-3.5 text-[15.5px] leading-relaxed text-ink/80">
-            {neverLeaves.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
+          <PrivacyColumn label="Never happens" items={neverLeaves} Icon={Ban} />
         </Reveal>
       </div>
 
