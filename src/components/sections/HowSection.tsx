@@ -176,13 +176,15 @@ const css = `
 .hp-p{font-size:17px;line-height:1.75;color:var(--ink-muted);margin:0;max-width:44ch}
 .hp-media{justify-self:end;width:100%;max-width:360px}
 .hp-img{width:100%;display:block;will-change:transform,opacity}
-.hp-nav{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);z-index:3;display:inline-flex;align-items:center;gap:4px;padding:6px;border-radius:16px;background:var(--panel);border:1px solid var(--line);box-shadow:0 12px 32px -18px rgba(0,0,0,.35)}
-.hp-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:11px 20px;border-radius:12px;font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--ink-muted);transition:background .35s,color .35s,box-shadow .35s;white-space:nowrap}
-.hp-btn span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;color:var(--ink-faint);transition:color .35s}
-.hp-btn:hover{color:var(--ink)}
-.hp-btn.on{background:var(--panel-2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.hp-nav{position:absolute;left:0;right:0;bottom:40px;z-index:3;width:100%;max-width:1160px;margin:0 auto;padding:0 48px;box-sizing:border-box;display:flex;gap:0;border-top:1px solid var(--line)}
+.hp-btn{all:unset;cursor:pointer;position:relative;flex:1;display:flex;align-items:center;gap:12px;padding:20px 0 0;font-size:15px;font-weight:500;letter-spacing:-.005em;color:var(--ink-faint);transition:color .3s}
+.hp-btn span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-faint);transition:color .3s}
+.hp-btn:after{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.hp-btn:hover{color:var(--ink-muted)}
+.hp-btn.on{color:var(--ink)}
+.hp-btn.on:after{transform:scaleX(1)}
 .hp-btn.on span{color:var(--accent)}
-.hp-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.hp-btn:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 @media(max-width:900px){
   .hp-track{height:auto}
   .hp-pin{position:static;height:auto;overflow:visible}
@@ -343,7 +345,7 @@ export function HowSection() {
                 aria-current={active === i ? "step" : undefined}
               >
                 <span>{s.n}</span>
-                <b className="font-semibold">{s.tag}</b>
+                <b className="font-medium">{s.tag}</b>
               </button>
             ))}
           </nav>
