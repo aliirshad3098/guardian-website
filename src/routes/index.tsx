@@ -226,20 +226,31 @@ function HomePage() {
       </div>
 
       {/* CTA */}
-      <section className="bg-accent">
-        <Reveal className="relative overflow-hidden px-6 py-20 text-center text-white">
-          <h2 className="text-[clamp(28px,4vw,40px)] text-white">Start your first clean day.</h2>
-          <p className="mx-auto mt-4 max-w-md text-white/80">
-            Guardian is free for users in Pakistan. Install it in under two minutes — no account
-            needed.
-          </p>
-          <MagneticButton className="mt-8">
-            <Link to="/download" className="btn-primary bg-white !text-accent hover:bg-white/90">
-              Download for Android
-            </Link>
-          </MagneticButton>
-        </Reveal>
-      </section>
+    
+<section className="border-t border-line px-5 py-12 md:px-8 md:py-16">
+  <Reveal
+    className="mx-auto flex max-w-[1180px] flex-col items-start justify-between gap-7 border-b border-line pb-12 md:flex-row md:items-center md:pb-16"
+  >
+    <div className="max-w-2xl">
+      <span className="eyebrow">Get started</span>
+
+      <h2 className="mt-4 text-[clamp(29px,4vw,42px)] leading-tight">
+        Make room for better habits.
+      </h2>
+
+      <p className="mt-3 max-w-lg text-[14.5px] leading-relaxed text-ink-muted">
+        Get practical protection for your phone, with no account required
+        for core protection.
+      </p>
+    </div>
+
+    <MagneticButton>
+      <Link to="/download" className="btn-primary">
+        Download for Android <span aria-hidden>↗</span>
+      </Link>
+    </MagneticButton>
+  </Reveal>
+</section>
     </main>
   );
 }
