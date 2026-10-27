@@ -79,8 +79,8 @@ export function PrivacySection() {
         </div>
       </div>
 
-      {/* Accountability partner comparison */}
-      <div className="mx-auto grid max-w-[1180px] gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+      {/* Accountability partner: two clean lists instead of a mixed table */}
+      <div className="mx-auto grid max-w-[1180px] gap-10 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <Reveal className="max-w-md">
           <span className="eyebrow">Accountability partner</span>
 
@@ -94,83 +94,33 @@ export function PrivacySection() {
           </p>
         </Reveal>
 
-        <Reveal delayMs={80}>
-          <div className="border-y border-line">
-            <div className="grid grid-cols-2 border-b border-line py-4">
-              <p className="text-[13px] font-semibold text-ink">
-                Partner can see
-              </p>
+        <Reveal delayMs={80} className="grid gap-10 md:grid-cols-2">
+          <div>
+            <p className="text-[13px] font-semibold text-accent">Partner can see</p>
+            <ul className="mt-4 divide-y divide-line border-y border-line">
+              {partnerSees
+                .filter((r) => r.yes)
+                .map((r) => (
+                  <li key={r.t} className="py-4">
+                    <p className="text-[14px] font-medium text-ink">{r.t}</p>
+                    <p className="mt-1 text-[13px] leading-relaxed text-ink-muted">{r.d}</p>
+                  </li>
+                ))}
+            </ul>
+          </div>
 
-              <p className="text-[13px] font-semibold text-ink-muted">
-                Stays private
-              </p>
-            </div>
-
-            {partnerSees.map((item, i) => (
-              <div
-                key={item.t}
-                className={[
-                  "grid grid-cols-2 gap-4 py-4",
-                  i < partnerSees.length - 1 ? "border-b border-line" : "",
-                ].join(" ")}
-              >
-                <div className="flex items-start gap-2.5">
-                  <span
-                    aria-hidden="true"
-                    className="mt-0.5 text-[14px]"
-                    style={{
-                      color: item.yes ? "var(--accent)" : "var(--ink-faint)",
-                    }}
-                  >
-                    {item.yes ? "✓" : "—"}
-                  </span>
-
-                  <div>
-                    <p
-                      className={`text-[13px] font-medium ${
-                        item.yes ? "text-ink" : "text-ink-muted"
-                      }`}
-                    >
-                      {item.yes ? item.t : "Not shared"}
-                    </p>
-
-                    {item.yes && (
-                      <p className="mt-1 text-[12px] leading-relaxed text-ink-muted">
-                        {item.d}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <span
-                    aria-hidden="true"
-                    className="mt-0.5 text-[14px]"
-                    style={{
-                      color: !item.yes
-                        ? "var(--accent)"
-                        : "var(--ink-faint)",
-                    }}
-                  >
-                    {!item.yes ? "✓" : "—"}
-                  </span>
-
-                  <div>
-                    {!item.yes && (
-                      <>
-                        <p className="text-[13px] font-medium text-ink">
-                          {item.t}
-                        </p>
-
-                        <p className="mt-1 text-[12px] leading-relaxed text-ink-muted">
-                          {item.d}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div>
+            <p className="text-[13px] font-semibold text-ink-muted">Stays private</p>
+            <ul className="mt-4 divide-y divide-line border-y border-line">
+              {partnerSees
+                .filter((r) => !r.yes)
+                .map((r) => (
+                  <li key={r.t} className="py-4">
+                    <p className="text-[14px] font-medium text-ink">{r.t}</p>
+                    <p className="mt-1 text-[13px] leading-relaxed text-ink-muted">{r.d}</p>
+                  </li>
+                ))}
+            </ul>
           </div>
         </Reveal>
       </div>
