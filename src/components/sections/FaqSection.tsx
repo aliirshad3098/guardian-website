@@ -54,7 +54,7 @@ export function FaqSection() {
             <h2 className="mt-5 text-[clamp(34px,4.6vw,52px)] leading-[1.08] tracking-[-0.03em]">
               Good questions.
               <br />
-              <em className="text-accent">Clear answers.</em>
+              Clear answers.
             </h2>
 
             <p className="mt-6 max-w-md text-[17px] leading-relaxed text-ink-muted">
