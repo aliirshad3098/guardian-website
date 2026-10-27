@@ -7,11 +7,16 @@ export type HeroPhone = {
   chips?: { label: string; className: string }[];
 };
 
-/** Three positions: front (centre), left and right. Changing a phone's slot animates it. */
+/**
+ * Three positions on a shared 3D stage: front, left and right. Each phone keeps the
+ * same box and only changes transform (translate, rotateY, scale), so the motion
+ * reads as a rotation rather than a flat slide.
+ */
+const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const SLOTS = [
-  { style: { left: "25%", top: "0%", width: "50%", zIndex: 30 }, rotateY: 0 },
-  { style: { left: "0%", top: "16%", width: "44%", zIndex: 20 }, rotateY: 8 },
-  { style: { left: "56%", top: "16%", width: "44%", zIndex: 20 }, rotateY: -8 },
+  { transform: "translate3d(0%, 0%, 0) rotateY(0deg) scale(1)", zIndex: 30, opacity: 1 },
+  { transform: "translate3d(-58%, 9%, -120px) rotateY(24deg) scale(0.8)", zIndex: 20, opacity: 0.9 },
+  { transform: "translate3d(58%, 9%, -120px) rotateY(-24deg) scale(0.8)", zIndex: 20, opacity: 0.9 },
 ];
 
 /**
@@ -58,13 +63,14 @@ export function HeroPhones({ phones, intervalMs = 3800 }: { phones: HeroPhone[];
   // hovering a side phone for a moment brings it forward (avoids flicker when passing over)
   const hoverSide = (k: number) => {
     window.clearTimeout(hoverTimer.current);
-    hoverTimer.current = window.setTimeout(() => bringToFront(k), 350);
+    hoverTimer.current = window.setTimeout(() => bringToFront(k), 650);
   };
   const leaveSide = () => window.clearTimeout(hoverTimer.current);
 
   return (
     <div
       className="relative mx-auto h-[500px] w-full max-w-[480px] sm:h-[580px]"
+      style={{ perspective: "1400px" }}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => {
         setHovering(false);
@@ -96,19 +102,26 @@ export function HeroPhones({ phones, intervalMs = 3800 }: { phones: HeroPhone[];
                     }
                   }
             }
-            className={`absolute cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-[2.5rem] ${
-              isFront ? "cursor-default" : ""
-            }`}
-            style={{ ...pos.style }}
+            className="absolute outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-[2.5rem]"
+            style={{
+              left: "25%",
+              top: "0%",
+              width: "50%",
+              zIndex: pos.zIndex,
+              opacity: pos.opacity,
+              transform: pos.transform,
+              transformStyle: "preserve-3d",
+              transition: `transform 1100ms ${EASE}, opacity 1100ms ${EASE}`,
+              cursor: isFront ? "default" : "pointer",
+            }}
           >
             <PhoneMockup
               src={phone.src}
               alt={phone.alt}
-              rotateY={pos.rotateY}
-              rotateX={3}
+              rotateY={0}
+              rotateX={0}
               floatDelay={`${k * 0.8}s`}
               floatDuration="7s"
-              {...(phone.chips ? { chips: phone.chips } : {})}
             />
           </div>
         );

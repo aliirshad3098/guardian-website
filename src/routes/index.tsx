@@ -173,12 +173,10 @@ function HomePage() {
               {
                 src: partnerShot,
                 alt: "Guardian Partner app showing protection status and pending approval requests",
-                chips: [{ label: "Partner linked", className: "-right-6 bottom-[18%]" }],
               },
               {
                 src: statsShot,
                 alt: "Guardian statistics screen showing weekly blocking activity",
-                chips: [{ label: "Reels blocked", className: "-left-8 top-[14%]" }],
               },
             ]}
           />
