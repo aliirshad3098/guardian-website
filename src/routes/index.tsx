@@ -23,10 +23,7 @@ export const Route = createFileRoute("/")({
         content:
           "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free for users in Pakistan.",
       },
-      {
-        property: "og:title",
-        content: "Guardian PK — Quiet content blocking for Android",
-      },
+      { property: "og:title", content: "Guardian PK — Quiet content blocking for Android" },
       {
         property: "og:description",
         content:
@@ -37,12 +34,8 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const facts: {
-  n: number | string;
-  decimals?: number;
-  suffix?: string;
-  l: string;
-}[] = [
+// Numeric values are counted up on scroll; the rest render as plain text.
+const facts: { n: number | string; decimals?: number; suffix?: string; l: string }[] = [
   { n: 4.6, decimals: 1, suffix: "M+", l: "domains in the local blocklist" },
   { n: 6, l: "languages the on-device AI understands" },
   { n: "On-device", l: "every search classified locally, not on a server" },
@@ -76,14 +69,10 @@ function HighlightsGrid() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <div
-      className="mt-12 grid gap-5 md:grid-cols-3"
-      onMouseLeave={() => setActive(null)}
-    >
+    <div className="mt-12 grid gap-5 md:grid-cols-3" onMouseLeave={() => setActive(null)}>
       {highlights.map((h, i) => {
         const isActive = active === i;
         const dimmed = active !== null && !isActive;
-
         return (
           <div
             key={h.title}
@@ -98,9 +87,7 @@ function HighlightsGrid() {
               variant="scale"
               delayMs={i * 80}
               className="bento-tile h-full p-8"
-              style={{
-                borderColor: isActive ? "var(--accent)" : undefined,
-              }}
+              style={{ borderColor: isActive ? "var(--accent)" : undefined }}
             >
               <span
                 className={`font-mono text-[12px] transition-colors duration-300 ${
@@ -109,11 +96,8 @@ function HighlightsGrid() {
               >
                 0{i + 1}
               </span>
-
               <h3 className="mt-3 text-[21px]">{h.title}</h3>
-              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">
-                {h.body}
-              </p>
+              <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-muted">{h.body}</p>
             </Reveal>
           </div>
         );
@@ -128,25 +112,21 @@ function HomePage() {
       {/* HERO */}
       <header className="relative overflow-hidden">
         <GradientMesh variant="hero" />
-
         <div className="relative mx-auto grid max-w-[1180px] items-center gap-14 px-5 pb-16 pt-8 md:px-8 md:pb-24 md:pt-12 lg:grid-cols-[1.05fr_1fr]">
           <div>
             <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(36px,4.8vw,56px)] leading-[1.06]">
-              The habit you want to quit is the one{" "}
-              <em>Guardian is built to stop</em>.
+              The habit you want to quit is the one <em>Guardian is built to stop</em>.
             </h1>
-
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
-              Guardian filters adult websites and searches, blocks distracting apps and reels, and turns protection on by schedule. It understands six languages.
+              Guardian filters adult websites and searches, blocks distracting apps and reels, and
+              turns protection on by schedule. It understands six languages.
             </p>
-
             <div className="mt-8 flex flex-wrap gap-3">
               <MagneticButton>
                 <Link to="/download" className="btn-primary">
                   Download for Android
                 </Link>
               </MagneticButton>
-
               <Link to="/" hash="how" className="btn-ghost">
                 See how it works
               </Link>
@@ -157,11 +137,11 @@ function HomePage() {
             phones={[
               {
                 src: homeShot,
-                alt: "Guardian home screen showing protection status",
+                alt: "Guardian home screen showing protection active and a clean streak",
               },
               {
                 src: partnerShot,
-                alt: "Guardian Partner app showing protection status and approval requests",
+                alt: "Guardian Partner app showing protection status and pending approval requests",
               },
               {
                 src: statsShot,
@@ -179,27 +159,18 @@ function HomePage() {
             <Reveal
               key={f.l}
               delayMs={i * 80}
-              className={`px-6 py-9 text-center ${
-                i % 2 === 0 ? "border-r border-line" : ""
-              } ${
+              className={`px-6 py-9 text-center ${i % 2 === 0 ? "border-r border-line md:border-r" : ""} ${
                 i < 2 ? "border-b border-line md:border-b-0" : ""
               } ${i === 3 ? "md:border-r-0" : ""}`}
             >
               <div className="font-display text-[34px] font-semibold tracking-tight text-accent">
                 {typeof f.n === "number" ? (
-                  <CountUp
-                    to={f.n}
-                    decimals={f.decimals ?? 0}
-                    suffix={f.suffix ?? ""}
-                  />
+                  <CountUp to={f.n} decimals={f.decimals ?? 0} suffix={f.suffix ?? ""} />
                 ) : (
                   f.n
                 )}
               </div>
-
-              <div className="mt-2 text-[14px] leading-snug text-ink-muted">
-                {f.l}
-              </div>
+              <div className="mt-2 text-[14px] leading-snug text-ink-muted">{f.l}</div>
             </Reveal>
           ))}
         </div>
@@ -210,106 +181,63 @@ function HomePage() {
         <HowSection />
       </div>
 
-      {/* FEATURES */}
+      {/* FEATURES, PRIVACY, FAQ (same content as their former pages) */}
       <div id="features" className="scroll-mt-24">
         <FeaturesSection />
       </div>
-
       {/* HIGHLIGHTS */}
       <section className="border-y border-line bg-panel-2">
         <div className="mx-auto max-w-[1180px] px-5 py-20 md:px-8 md:py-24">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <span className="eyebrow">Built for the harder moments</span>
-
               <h2 className="mt-5 text-[clamp(26px,3.8vw,38px)]">
                 For when a filter alone isn't enough
               </h2>
-
               <p className="mt-4 text-ink-muted">
-                Willpower runs out sometimes. These are the tools Guardian has for exactly that moment.
+                Willpower runs out sometimes. These are the tools Guardian has for exactly that
+                moment.
               </p>
             </div>
           </Reveal>
-
           <HighlightsGrid />
         </div>
       </section>
 
-      {/* PRIVACY AND ACCOUNTABILITY */}
       <div id="privacy" className="scroll-mt-24">
         <PrivacySection />
       </div>
-
-      {/* BRAND STATEMENT */}
-      <section className="mx-auto max-w-[1180px] px-5 py-12 md:px-8 md:py-16">
-        <Reveal
-          className="relative overflow-hidden rounded-2xl border border-line px-6 py-10 md:px-12 md:py-12"
-          style={{ background: "var(--panel-2)" }}
-        >
-          <div className="grid items-center gap-6 md:grid-cols-[auto_1fr] md:gap-10">
-            <div className="grid size-14 place-items-center rounded-2xl border border-line bg-panel text-accent">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                className="size-7"
-                aria-hidden="true"
-              >
-                <path d="M12 3 19 6v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3Z" />
-                <path d="M8.5 12.5 11 15l4.5-5" />
-              </svg>
-            </div>
-
-            <div>
-              <span className="eyebrow">Why we built Guardian</span>
-
-              <blockquote className="mt-3 max-w-3xl text-[clamp(22px,3.2vw,32px)] font-medium leading-snug tracking-tight text-ink">
-                “Not to punish a bad day. To make tomorrow a little easier than today.”
-              </blockquote>
-
-              <p className="mt-3 text-[13.5px] text-ink-muted">
-                Built for the people doing the work, one day at a time.
-              </p>
-            </div>
-          </div>
+      {/* WHY */}
+      <section className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
+        <Reveal>
+          <span className="eyebrow">Why we built this</span>
+          <blockquote className="mt-6 text-[clamp(24px,3.4vw,34px)] font-medium leading-snug tracking-tight text-ink">
+            “Guardian isn't here to punish a bad day. It's here so tomorrow is a little easier than
+            today was.”
+          </blockquote>
+          <p className="mt-6 text-[14.5px] text-ink-muted">
+            Built for the people actually trying, not the people watching them
+          </p>
         </Reveal>
       </section>
 
-      {/* FAQ */}
       <div id="faq" className="scroll-mt-24">
         <FaqSection />
       </div>
 
-      {/* FINAL CTA */}
-      <section className="px-5 pb-12 md:px-8 md:pb-16">
-        <Reveal
-          className="relative mx-auto max-w-[1180px] overflow-hidden rounded-2xl border border-line px-6 py-12 text-center md:px-12 md:py-16"
-          style={{ background: "var(--panel-2)" }}
-        >
-          <div
-            className="pointer-events-none absolute left-1/2 top-0 h-40 w-2/3 -translate-x-1/2 rounded-full opacity-30 blur-3xl"
-            style={{ background: "var(--accent)" }}
-          />
-
-          <div className="relative">
-            <span className="eyebrow">Your next step</span>
-
-            <h2 className="mt-4 text-[clamp(29px,4vw,42px)]">
-              Start your first clean day.
-            </h2>
-
-            <p className="mx-auto mt-3 max-w-md text-[14.5px] leading-relaxed text-ink-muted">
-              Get practical protection for your phone, with no account required for core protection.
-            </p>
-
-            <MagneticButton className="mt-7">
-              <Link to="/download" className="btn-primary">
-                Download for Android <span aria-hidden>↗</span>
-              </Link>
-            </MagneticButton>
-          </div>
+      {/* CTA */}
+      <section className="bg-accent">
+        <Reveal className="relative overflow-hidden px-6 py-20 text-center text-white">
+          <h2 className="text-[clamp(28px,4vw,40px)] text-white">Start your first clean day.</h2>
+          <p className="mx-auto mt-4 max-w-md text-white/80">
+            Guardian is free for users in Pakistan. Install it in under two minutes — no account
+            needed.
+          </p>
+          <MagneticButton className="mt-8">
+            <Link to="/download" className="btn-primary bg-white !text-accent hover:bg-white/90">
+              Download for Android
+            </Link>
+          </MagneticButton>
         </Reveal>
       </section>
     </main>
