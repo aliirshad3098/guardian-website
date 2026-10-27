@@ -144,7 +144,7 @@ function DownloadPage() {
         <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
             <span className="eyebrow">Permissions</span>
-            <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">Permissions, clearly explained</h2>
+            <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">Permissions needed for protection</h2>
             <p className="mt-4 max-w-xl text-[15.5px] leading-relaxed text-ink-muted">
               A quick overview of the access Android asks you to enable. These controls help Guardian block apps and websites on your device.
             </p>
