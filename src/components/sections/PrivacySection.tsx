@@ -42,18 +42,18 @@ export function PrivacySection() {
         </Reveal>
       </header>
 
-      <div className="mx-auto grid max-w-3xl gap-12 px-5 py-12 text-center md:grid-cols-2 md:px-8 md:py-16">
+      <div className="mx-auto grid max-w-3xl gap-12 px-5 py-14 text-center md:grid-cols-2 md:px-8 md:py-20">
         <Reveal>
-          <h3 className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">Stays on your phone</h3>
-          <ul className="mt-6 space-y-3 text-[15px] text-ink-muted">
+          <h3 className="font-mono text-[13px] font-semibold uppercase tracking-[0.06em] text-accent">Stays on your phone</h3>
+          <ul className="mt-6 space-y-3.5 text-[15.5px] leading-relaxed text-ink/80">
             {onPhone.map((t) => (
               <li key={t}>{t}</li>
             ))}
           </ul>
         </Reveal>
         <Reveal delayMs={100}>
-          <h3 className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">Never happens</h3>
-          <ul className="mt-6 space-y-3 text-[15px] text-ink-muted">
+          <h3 className="font-mono text-[13px] font-semibold uppercase tracking-[0.06em] text-accent">Never happens</h3>
+          <ul className="mt-6 space-y-3.5 text-[15.5px] leading-relaxed text-ink/80">
             {neverLeaves.map((t) => (
               <li key={t}>{t}</li>
             ))}
@@ -68,7 +68,7 @@ export function PrivacySection() {
             What a partner can and can't see
           </h2>
         </Reveal>
-        <ul className="mx-auto mt-10 max-w-md divide-y divide-line border-y border-line text-left">
+        <ul className="mx-auto mt-10 max-w-xl divide-y divide-line border-y border-line text-left">
           {partnerSees.map((r) => (
             <li key={r.t} className="flex items-center gap-4 py-4">
               <span
