@@ -21,29 +21,6 @@ export const Route = createFileRoute("/download")({
   component: DownloadPage,
 });
 
-const downloads = [
-  {
-    name: "Guardian PK (full app)",
-    size: "120 MB",
-    note: "Install this first. It runs the content filter and protection.",
-  },
-  {
-    name: "AI model",
-    size: "50 MB",
-    note: "On-device checker that reads search intent. Runs locally, nothing uploaded.",
-  },
-  {
-    name: "VPN block list",
-    size: "10 MB",
-    note: "The domain blocklist, stored on your phone so it works offline.",
-  },
-  {
-    name: "Partner app",
-    size: "20 MB",
-    note: "For your accountability partner's phone. Shows status and approval requests.",
-  },
-];
-
 const permissions = [
   {
     name: "Accessibility",
@@ -99,7 +76,6 @@ const steps = [
 const specs = [
   ["Android", "9.0+"],
   ["Size", "120 MB (full app)"],
-  ["Permissions", "Accessibility · Usage Access · Overlay · Device Admin · VPN · Notifications"],
   ["Account", "Not required"],
   ["Price", "Free in Pakistan"],
 ];
@@ -164,52 +140,39 @@ function DownloadPage() {
         </div>
       </div>
 
-      <main className="border-t border-line">
-        <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
-          <Reveal>
-            <span className="eyebrow">Downloads</span>
-            <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">Four files, one setup</h2>
-          </Reveal>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
-            {downloads.map((d, i) => (
-              <Reveal key={d.name} variant="left" delayMs={i * 80}>
-                <div className="panel-card flex h-full flex-col p-6">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="text-[18px]">{d.name}</h3>
-                    <span className="font-mono text-[13px] text-accent">{d.size}</span>
-                  </div>
-                  <p className="mt-2 flex-1 text-[14.5px] leading-relaxed text-ink-muted">{d.note}</p>
-                  <a href="#" className="btn-ghost mt-5 w-full">
-                    Download
-                  </a>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </main>
-
       <main className="border-t border-line" style={{ background: "var(--panel-2)" }}>
         <div className="mx-auto max-w-[1180px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
             <span className="eyebrow">Permissions</span>
-            <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">What each permission does</h2>
+            <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">Permissions, clearly explained</h2>
             <p className="mt-4 max-w-xl text-[15.5px] leading-relaxed text-ink-muted">
-              Guardian needs these to work. Each one is explained in plain language, and none of them
-              send your activity anywhere.
+              A quick overview of the access Android asks you to enable. These controls help Guardian block apps and websites on your device.
             </p>
           </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="mt-8 flex flex-wrap gap-2.5" aria-label="Required permissions overview">
+            {permissions.map((p) => (
+              <span key={p.name} className="inline-flex items-center gap-2 rounded-full border border-line bg-background/60 px-3.5 py-2 text-[13px] text-ink-muted">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
+                {p.name === "Display over other apps" ? "Overlay" : p.name}
+              </span>
+            ))}
+          </div>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {permissions.map((p, i) => (
-              <Reveal key={p.name} variant="left" delayMs={i * 60}>
-                <div className="panel-card h-full p-6">
-                  <div className="flex items-center justify-between gap-4">
-                    <h3 className="text-[18px]">{p.name}</h3>
-                    <span className="font-mono text-[11.5px] uppercase tracking-[0.12em] text-accent">
-                      {p.tag}
+              <Reveal key={p.name} variant="left" delayMs={i * 55}>
+                <div className="panel-card group h-full p-5 transition-transform duration-300 hover:-translate-y-1 sm:p-6">
+                  <div className="flex items-start gap-3.5">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-background font-mono text-[12px] text-accent">
+                      0{i + 1}
                     </span>
+                    <div className="min-w-0 flex-1 pt-0.5">
+                      <h3 className="text-[16px] leading-snug">{p.name}</h3>
+                      <span className="mt-2 inline-flex rounded-full border border-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-accent">
+                        {p.tag}
+                      </span>
+                    </div>
                   </div>
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-ink-muted">{p.body}</p>
+                  <p className="mt-4 text-[14px] leading-relaxed text-ink-muted">{p.body}</p>
                 </div>
               </Reveal>
             ))}
