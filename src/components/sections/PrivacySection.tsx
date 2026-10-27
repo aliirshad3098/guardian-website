@@ -39,7 +39,7 @@ function Group({
   Icon: typeof Smartphone;
 }) {
   return (
-    <div>
+    <div className="h-full rounded-3xl border border-line bg-panel p-8 md:p-10">
       <div className="flex items-center gap-4">
         <span
           className="grid size-12 place-items-center rounded-2xl"
@@ -49,7 +49,7 @@ function Group({
         </span>
         <h3 className="text-[20px] font-semibold tracking-[-0.01em] text-ink">{label}</h3>
       </div>
-      <div className="mt-6 flex flex-wrap gap-2.5">
+      <div className="mt-7 flex flex-wrap gap-2.5">
         {items.map((t) => (
           <span key={t} className={chip}>
             {t}
@@ -79,7 +79,7 @@ export function PrivacySection() {
           </p>
         </Reveal>
 
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-6">
           <Reveal>
             <Group label="Stays on your phone" items={onPhone} Icon={Smartphone} />
           </Reveal>

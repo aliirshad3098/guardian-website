@@ -46,18 +46,18 @@ const faqs = [
 export function FaqSection() {
   return (
     <section id="faq" className="border-t border-line">
-      <div className="mx-auto max-w-[1180px] px-5 py-14 md:px-8 md:py-20">
-        <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-          <Reveal className="max-w-md lg:sticky lg:top-28 lg:self-start">
+      <div className="mx-auto max-w-[1180px] px-5 py-20 md:px-8 md:py-28">
+        <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+          <Reveal className="lg:sticky lg:top-32 lg:self-start">
             <span className="eyebrow">FAQ / HELP CENTRE</span>
 
-            <h2 className="mt-5 text-[clamp(34px,5vw,50px)] leading-[1.08]">
+            <h2 className="mt-5 text-[clamp(34px,4.6vw,52px)] leading-[1.08] tracking-[-0.03em]">
               Good questions.
               <br />
               <em className="text-accent">Clear answers.</em>
             </h2>
 
-            <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-ink-muted">
+            <p className="mt-6 max-w-md text-[17px] leading-relaxed text-ink-muted">
               Straightforward answers about how Guardian works.
             </p>
           </Reveal>
