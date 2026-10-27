@@ -210,20 +210,6 @@ function HomePage() {
       <div id="privacy" className="scroll-mt-24">
         <PrivacySection />
       </div>
-      {/* WHY */}
-      <section className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
-        <Reveal>
-          <span className="eyebrow">Why we built this</span>
-          <blockquote className="mt-6 text-[clamp(24px,3.4vw,34px)] font-medium leading-snug tracking-tight text-ink">
-            “Guardian isn't here to punish a bad day. It's here so tomorrow is a little easier than
-            today was.”
-          </blockquote>
-          <p className="mt-6 text-[14.5px] text-ink-muted">
-            Built for the people actually trying, not the people watching them
-          </p>
-        </Reveal>
-      </section>
-
       <div id="faq" className="scroll-mt-24">
         <FaqSection />
       </div>
