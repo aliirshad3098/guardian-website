@@ -1,4 +1,3 @@
-
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 
@@ -159,19 +158,7 @@ function DownloadPage() {
                     className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line bg-background text-accent"
                     aria-hidden="true"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="29"
-                      height="29"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12 3 20 6v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6l8-3Z" />
-                      <path d="m9 12 2 2 4-4" />
-                    </svg>
+                    <img src="/apple-touch-icon.png" alt="Guardian PK app icon" width="56" height="56" className="h-full w-full rounded-2xl object-cover" />
                   </div>
 
                   <div className="min-w-0 pt-1">
