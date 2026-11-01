@@ -149,14 +149,14 @@ function SiteFooter() {
 }
 
 /**
- * PageTransition — cross-fades between routes. Keying the wrapper div on
+ * PageTransition cross-fades between routes. Keying the wrapper div on
  * pathname forces React to remount it on navigation, which restarts the
- * `page-enter` CSS animation (defined in styles.css) — a fade+small-lift,
+ * `page-enter` CSS animation (defined in styles.css) a fade+small-lift,
  * same easing family as Reveal so route changes feel like part of the same
  * motion language rather than a separate effect. No exit animation (that
  * needs a transition library to hold the old page during unmount); the
  * entrance alone is what reads as an intentional transition rather than a
- * hard cut, and it's free — no extra dependency.
+ * hard cut, and it's free no extra dependency.
  */
 function PageTransition({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
