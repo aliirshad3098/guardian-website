@@ -208,7 +208,7 @@ function UFlow({ points }: { points: string[] }) {
         <p
           key={p}
           className={`absolute w-[36%] text-center text-[13px] leading-snug text-ink-muted sm:w-[34%] sm:text-[14px] ${
-            ["left-0 top-0", "left-1/2 bottom-[56px] -translate-x-1/2", "right-0 top-0"][i]
+            ["left-0 top-0", "left-1/2 bottom-[66px] -translate-x-1/2", "right-0 top-0"][i]
           }`}
         >
           {p}
