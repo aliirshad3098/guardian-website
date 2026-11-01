@@ -1,358 +1,121 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-export function FilterArt() {
-  return (
-    <svg viewBox="0 0 400 400" className="h-auto w-full" aria-hidden>
-      <defs>
-        <radialGradient id="fa-core" cx="35%" cy="30%" r="75%">
-          <stop offset="0%" style={{ stopColor: "var(--accent-bright)" }} stopOpacity="0.9" />
-          <stop offset="60%" style={{ stopColor: "var(--accent)" }} stopOpacity="0.35" />
-          <stop offset="100%" style={{ stopColor: "var(--accent)" }} stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="fa-halo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" style={{ stopColor: "var(--accent)" }} stopOpacity="0.18" />
-          <stop offset="100%" style={{ stopColor: "var(--accent)" }} stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <circle cx="200" cy="200" r="190" fill="url(#fa-halo)" />
-      {/* latitude rings of a globe */}
-      {[-60, -30, 0, 30, 60].map((y, i) => (
-        <ellipse key={y} cx="200" cy={200 + y * 1.6} rx={Math.sqrt(160 * 160 - (y * 1.6) ** 2) * 0.9} ry="26" fill="none" stroke="var(--accent)" strokeOpacity={0.16 + i * 0.02} strokeWidth="1" />
-      ))}
-      {/* orbit ring */}
-      <ellipse cx="200" cy="200" rx="168" ry="62" fill="none" stroke="var(--accent)" strokeOpacity="0.35" strokeWidth="1" transform="rotate(-18 200 200)" />
-      <ellipse cx="200" cy="200" rx="132" ry="128" fill="none" stroke="var(--accent)" strokeOpacity="0.12" strokeWidth="1" strokeDasharray="2 6" />
-      {/* core */}
-      <circle cx="200" cy="200" r="78" fill="url(#fa-core)" />
-      <circle cx="200" cy="200" r="78" fill="none" stroke="var(--accent)" strokeOpacity="0.5" strokeWidth="1.2" />
-      {/* checked-domain points on the sphere */}
-      {[[170, 180], [222, 196], [196, 232], [236, 224], [178, 226]].map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r="3" fill="var(--accent-bright)" />
-      ))}
-      {/* travelling check pulse along the orbit */}
-      <circle r="6" fill="var(--accent-bright)">
-        <animateMotion dur="5s" repeatCount="indefinite" path="M32,200 A168,62 0 1,0 368,200 A168,62 0 1,0 32,200" />
-      </circle>
-      <circle r="3" fill="var(--accent)" opacity="0.7">
-        <animateMotion dur="7s" repeatCount="indefinite" path="M68,200 A132,128 0 1,0 332,200 A132,128 0 1,0 68,200" />
-      </circle>
-    </svg>
-  );
-}
-
-export function NeuralArt() {
-  const layers = [
-    { x: 70, ys: [110, 200, 290] },
-    { x: 200, ys: [80, 150, 220, 290, 340] },
-    { x: 330, ys: [130, 200, 270] },
-  ];
-  const links: [number, number, number, number][] = [];
-  for (let c = 0; c < layers.length - 1; c++) {
-    const from = layers[c];
-    const to = layers[c + 1];
-    if (!from || !to) continue;
-    for (const y1 of from.ys) for (const y2 of to.ys) links.push([from.x, y1, to.x, y2]);
-  }
-  return (
-    <svg viewBox="0 0 400 400" className="h-auto w-full" aria-hidden>
-      <defs>
-        <linearGradient id="na-line" x1="0" x2="1">
-          <stop offset="0" style={{ stopColor: "var(--accent)" }} stopOpacity="0" />
-          <stop offset="0.5" style={{ stopColor: "var(--accent-bright)" }} stopOpacity="0.9" />
-          <stop offset="1" style={{ stopColor: "var(--accent)" }} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      {/* faint hex lattice */}
-      {[0, 1, 2, 3, 4].map((r) => (
-        <line key={r} x1="0" x2="400" y1={40 + r * 80} y2={40 + r * 80} stroke="var(--accent)" strokeOpacity="0.06" />
-      ))}
-      {links.map(([x1, y1, x2, y2], i) => (
-        <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="var(--accent)" strokeOpacity="0.22" strokeWidth="1" />
-      ))}
-      {/* a few bright signal lines */}
-      {links.slice(0, 6).map(([x1, y1, x2, y2], i) => (
-        <line key={`s${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="url(#na-line)" strokeWidth="1.6" strokeDasharray="30 200">
-          <animate attributeName="stroke-dashoffset" from="230" to="0" dur={`${2.2 + i * 0.25}s`} repeatCount="indefinite" />
-        </line>
-      ))}
-      {layers.flatMap((l) =>
-        l.ys.map((y) => (
-          <g key={`${l.x}-${y}`}>
-            <circle cx={l.x} cy={y} r="13" fill="none" stroke="var(--accent)" strokeOpacity="0.35" />
-            <circle cx={l.x} cy={y} r="5" fill="var(--accent-bright)" />
-          </g>
-        )),
-      )}
-    </svg>
-  );
-}
-
-export function ShieldArt() {
-  // hexagon rings around a central shield, with two people nodes linked to it
-  const hex = (r: number) =>
-    Array.from({ length: 6 }, (_, i) => {
-      const a = (Math.PI / 3) * i - Math.PI / 2;
-      return `${200 + r * Math.cos(a)},${200 + r * Math.sin(a)}`;
-    }).join(" ");
-  return (
-    <svg viewBox="0 0 400 400" className="h-auto w-full" aria-hidden>
-      <defs>
-        <radialGradient id="sa-core" cx="50%" cy="40%" r="60%">
-          <stop offset="0%" style={{ stopColor: "var(--accent-bright)" }} stopOpacity="0.35" />
-          <stop offset="100%" style={{ stopColor: "var(--accent)" }} stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <circle cx="200" cy="200" r="150" fill="url(#sa-core)" />
-      {[150, 115, 80].map((r, i) => (
-        <polygon key={r} points={hex(r)} fill="none" stroke="var(--accent)" strokeOpacity={0.18 + i * 0.14} strokeWidth="1.2" />
-      ))}
-      {/* central shield */}
-      <path
-        d="M200 140 L240 156 L240 204 C240 240 222 262 200 272 C178 262 160 240 160 204 L160 156 Z"
-        fill="var(--panel)"
-        stroke="var(--accent-bright)"
-        strokeWidth="2"
-      />
-      <path d="M182 204 L196 218 L220 190" fill="none" stroke="var(--accent-bright)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      {/* two linked people nodes */}
-      {[70, 330].map((x) => (
-        <g key={x}>
-          <circle cx={x} cy="200" r="30" fill="var(--panel)" stroke="var(--accent)" strokeOpacity="0.6" strokeWidth="1.4" />
-          <circle cx={x} cy="192" r="8" fill="var(--accent)" fillOpacity="0.7" />
-          <path d={`M${x - 14} 214 Q${x} 198 ${x + 14} 214`} fill="var(--accent)" fillOpacity="0.7" />
-        </g>
-      ))}
-      <line x1="100" y1="200" x2="160" y2="200" stroke="var(--accent)" strokeOpacity="0.5" strokeDasharray="4 5" />
-      <line x1="240" y1="200" x2="300" y2="200" stroke="var(--accent)" strokeOpacity="0.5" strokeDasharray="4 5" />
-      <circle r="4" fill="var(--accent-bright)">
-        <animateMotion dur="2.6s" repeatCount="indefinite" path="M100,200 L160,200" />
-      </circle>
-      <circle r="4" fill="var(--accent-bright)">
-        <animateMotion dur="2.6s" repeatCount="indefinite" path="M300,200 L240,200" />
-      </circle>
-    </svg>
-  );
-}
-
-const STEPS = [
-  {
-    n: "01",
-    tag: "Network",
-    title: "Network-level filtering",
-    body: "Guardian runs a lightweight on-device VPN. Every site your browser requests is checked against a local list of 4.6 million known domains before the page loads. Nothing leaves your phone.",
-    art: <FilterArt />,
-    alt: "Illustration of a globe with orbiting domain checks",
-  },
-  {
-    n: "02",
-    tag: "Understanding",
-    title: "On-device language understanding",
-    body: "Searches that pass the domain list are reviewed by an on-device model trained on English, Roman Urdu, Urdu, Chinese, Bengali and Hindi. Your queries are never sent to a server.",
-    art: <NeuralArt />,
-    alt: "Illustration of a layered neural network",
-  },
-  {
-    n: "03",
-    tag: "Support",
-    title: "Accountability partner",
-    body: "Link a trusted person to your account. They are notified if protection is turned off, and they can see your protection status. They never see your browsing history or search content.",
-    art: <ShieldArt />,
-    alt: "Illustration of a shield linking two people",
-  },
-];
-
-const css = `
-.hp-track{height:340vh;position:relative}
-.hp-pin{position:sticky;top:0;height:100vh;overflow:hidden}
-.hp-head{position:absolute;top:0;left:0;right:0;z-index:3;width:100%;max-width:1160px;margin:0 auto;padding:64px 48px 0;box-sizing:border-box;text-align:center}
-.hp-eb{color:var(--accent);font-size:14px;font-weight:600}
-.hp-h2{font-size:clamp(34px,5.4vw,56px);line-height:1.08;letter-spacing:-.025em;font-weight:650;margin:20px auto 0;max-width:20ch;color:var(--ink)}
-.hp-row{position:absolute;top:0;left:0;height:100%;display:flex;will-change:transform}
-.hp-panel{flex:0 0 100vw;height:100%;display:flex;align-items:center;justify-content:center;padding:130px 48px 150px;box-sizing:border-box}
-.hp-inner{width:100%;max-width:1080px;display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center}
-.hp-txt{will-change:transform,opacity}
-.hp-count{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-faint);letter-spacing:.04em;display:flex;align-items:center;gap:12px}
-.hp-h3{font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.028em;font-weight:650;margin:22px 0 20px;color:var(--ink)}
-.hp-p{font-size:17px;line-height:1.75;color:var(--ink-muted);margin:0;max-width:44ch}
-.hp-media{justify-self:end;width:100%;max-width:360px}
-.hp-img{width:100%;display:block;will-change:transform,opacity}
-.hp-nav{position:absolute;left:0;right:0;bottom:40px;z-index:3;width:100%;max-width:1160px;margin:0 auto;padding:0 48px;box-sizing:border-box;display:flex;gap:0;border-top:1px solid var(--line)}
-.hp-btn{all:unset;cursor:pointer;position:relative;flex:1;display:flex;align-items:center;gap:12px;padding:20px 0 0;font-size:15px;font-weight:500;letter-spacing:-.005em;color:var(--ink-faint);transition:color .3s}
-.hp-btn span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-faint);transition:color .3s}
-.hp-btn:after{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
-.hp-btn:hover{color:var(--ink-muted)}
-.hp-btn.on{color:var(--ink)}
-.hp-btn.on:after{transform:scaleX(1)}
-.hp-btn.on span{color:var(--accent)}
-.hp-btn:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
-@media(max-width:900px){
-  .hp-track{height:auto}
-  .hp-pin{position:static;height:auto;overflow:visible}
-  .hp-head{position:static;padding:56px 24px 0;max-width:none;text-align:left}
-  .hp-h2{font-size:34px;margin-top:14px}
-  .hp-row{position:static;display:block;height:auto}
-  .hp-panel{flex:none;height:auto;padding:44px 24px}
-  .hp-inner{grid-template-columns:1fr;gap:28px}
-  .hp-p{font-size:16px}
-  .hp-media{justify-self:start}
-  .hp-nav{display:none}
-}
-@media(prefers-reduced-motion:reduce){.hp-txt,.hp-img{transition:none}}
-`;
+/* How it works: horizontal pinned flow with connectors that join the live card edges. */
+const CSS = ".gh-how{--bg:#f3f5f8;--card:#ffffff;--ink:#0f172a;--muted:#525d70;--faint:#8a96a8;--accent:#0f766e;--teal:#14b8a6;--bad:#b42318;--rule:#e2e6ed;--ease:cubic-bezier(.22,1,.36,1)}.gh-how *{box-sizing:border-box}.gh-how, .gh-how{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}.gh-how .track{height:300vh;position:relative}.gh-how .pin{position:sticky;top:76px;height:calc(100vh - 76px);overflow:hidden}.gh-how .head{position:absolute;top:8px;left:0;right:0;text-align:center;z-index:2}.gh-how .eb{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:6px 12px;border:1px solid var(--rule);border-radius:999px;background:#fff}.gh-how .h2{font-size:clamp(30px,3.6vw,42px);font-weight:650;letter-spacing:-.025em;margin:14px 0 0}.gh-how .row{position:absolute;top:0;left:0;height:100%;width:300vw;display:flex;will-change:transform}.gh-how .panel{position:relative;flex:0 0 100vw;height:100%;display:flex;align-items:center;justify-content:center;padding:200px 48px 150px;box-sizing:border-box}.gh-how .card{position:relative;width:min(1080px,100%);display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;background:var(--card);border:1px solid var(--rule);border-radius:28px;padding:56px 60px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 24px 60px -30px rgba(15,23,42,.18);will-change:transform,opacity,filter}.gh-how .meta{display:flex;gap:12px;font-family:\"JetBrains Mono\",ui-monospace,monospace;font-size:12px;color:var(--faint);letter-spacing:.04em}.gh-how h3{font-size:clamp(28px,2.8vw,38px);font-weight:650;letter-spacing:-.025em;line-height:1.1;margin:18px 0 16px}.gh-how p{margin:0;font-size:16px;line-height:1.75;color:var(--muted)}.gh-how .stat{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule);display:flex;align-items:baseline;gap:12px}.gh-how .stat b{font-size:34px;font-weight:650;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums}.gh-how .stat span{font-size:13px;color:var(--muted)}.gh-how .art svg{width:100%;height:auto;display:block;overflow:visible}.gh-how .txt>*{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}.gh-how .txt>*:nth-child(1){transition-delay:.05s}.gh-how .txt>*:nth-child(2){transition-delay:.12s}.gh-how .txt>*:nth-child(3){transition-delay:.2s}.gh-how .txt>*:nth-child(4){transition-delay:.28s}.gh-how .panel.on .txt>*{opacity:1;transform:none}.gh-how .in{fill:none;stroke:rgba(15,23,42,.18);stroke-width:1;stroke-dasharray:260;stroke-dashoffset:260;transition:stroke-dashoffset 1.2s var(--ease)}.gh-how .in.on{stroke:var(--accent);stroke-width:1.8}.gh-how .panel.on .in{stroke-dashoffset:0}.gh-how .panel.on .in.on{transition-delay:.15s}.gh-how .node{fill:#8a96a8;transition:fill .5s}.gh-how .node.on{fill:var(--accent)}.gh-how .lab{font-size:11px;font-weight:500;fill:#8a96a8}.gh-how .lab.on{font-weight:600;fill:var(--ink)}.gh-how .dot{fill:var(--teal)}.gh-how .core{fill:#fff;stroke:#8a96a8;stroke-width:1;transition:stroke .6s}.gh-how .panel.on .core{stroke:var(--accent)}.gh-how .out{fill:none;stroke-width:1.4;stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset 1.1s var(--ease) .5s}.gh-how .out.ok{stroke:var(--accent)}.gh-how .out.no{stroke:var(--bad);opacity:.85}.gh-how .panel.on .out{stroke-dashoffset:0}.gh-how .tick, .gh-how .cross{fill:none;stroke-width:2;stroke-linecap:round;opacity:0;transition:opacity .4s .9s}.gh-how .tick{stroke:var(--accent)}.gh-how .cross{stroke:var(--bad)}.gh-how .panel.on .tick, .gh-how .panel.on .cross{opacity:1}.gh-how .res{font-size:10px;font-weight:700;opacity:0;transition:opacity .4s 1s}.gh-how .res.ok{fill:var(--accent)}.gh-how .res.no{fill:var(--bad)}.gh-how .panel.on .res{opacity:1}.gh-how .nav{position:absolute;left:0;right:0;bottom:48px;display:flex;justify-content:center;gap:12px;z-index:2}.gh-how .nav button{all:unset;cursor:pointer;position:relative;display:flex;align-items:center;gap:10px;padding:10px 18px 14px;font-size:14px;font-weight:500;color:var(--faint);transition:color .4s}.gh-how .nav button span{font-family:\"JetBrains Mono\",ui-monospace,monospace;font-size:11px}.gh-how .nav button i{position:absolute;left:18px;right:18px;bottom:0;height:2px;background:var(--rule);border-radius:2px;overflow:hidden}.gh-how .nav button i:after{content:\"\";position:absolute;inset:0;background:var(--accent);transform:scaleX(var(--f,0));transform-origin:left}.gh-how .nav button.on{color:var(--ink)}.gh-how .nav button.on span{color:var(--accent)}.gh-how .links{position:absolute;left:0;top:0;width:300vw;height:100%;z-index:0;pointer-events:none;overflow:visible}.gh-how .row .end{z-index:0;pointer-events:none}@keyframes drawWire{to{stroke-dashoffset:0}}.gh-how .end{position:absolute;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:#fff;border:1.5px solid #9aa6b8;box-shadow:0 0 0 3px rgba(20,184,166,0);transition:background .5s,border-color .5s,transform .5s;transform:scale(.8)}.gh-how .end.lit{background:#0f766e;border-color:#0f766e;transform:scale(1);box-shadow:0 0 0 4px rgba(20,184,166,.15)}.gh-how .rail{fill:none;stroke:#2f9e92;stroke-linecap:round;stroke-width:2.8px;stroke-dasharray:1 1;stroke-dashoffset:1}.gh-how .run{fill:none;stroke:#14b8a6;stroke-linecap:round;stroke-width:4.2px;stroke-dasharray:.14 .86;stroke-dashoffset:.14;opacity:0}.gh-how .hub{position:absolute;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#fff;border:1.5px solid #9aa6b8;transition:border-color .5s,box-shadow .5s;opacity:0}.gh-how .hub img{position:absolute;inset:8px;width:38px;height:38px;border-radius:50%;object-fit:cover}.gh-how .hub.lit{border-color:#0f766e;box-shadow:0 0 0 6px rgba(20,184,166,.12)}.gh-how .panel{z-index:1}@media(max-width:900px){.gh-how .links{display:none}.gh-how .track{height:auto}.gh-how .pin{position:static;height:auto;overflow:visible}.gh-how .head{position:static;text-align:left;padding:48px 24px 0}.gh-how .h2{font-size:30px}.gh-how .row{position:static;display:block;width:auto;height:auto}.gh-how .panel{height:auto;padding:24px 16px}.gh-how .card{grid-template-columns:1fr;gap:24px;padding:32px 24px}.gh-how .txt>*{opacity:1;transform:none}.gh-how .in, .gh-how .out{stroke-dashoffset:0}.gh-how .tick, .gh-how .cross, .gh-how .res{opacity:1}.gh-how .nav{display:none}}@media(prefers-reduced-motion:reduce){.gh-how *{transition:none!important;animation:none!important}}";
+const MARKUP = "<section class=\"track\" id=\"track\"><div class=\"pin\">\n <div class=\"head\"><div class=\"eb\">How it works</div><h2 class=\"h2\">How every search is filtered</h2></div>\n <div class=\"row\" id=\"row\"><svg class=\"links\" aria-hidden=\"true\"><path class=\"rail\" data-g=\"0\" data-j=\"0\" data-d=\"0.00\" data-r=\"0\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"0\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"0\" data-j=\"1\" data-d=\"0.04\" data-r=\"1\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"1\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"0\" data-j=\"2\" data-d=\"0.08\" data-r=\"2\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"2\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"0\" data-j=\"3\" data-d=\"0.04\" data-r=\"3\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"3\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"0\" data-j=\"4\" data-d=\"0.08\" data-r=\"4\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"4\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"0\" data-j=\"5\" data-d=\"0.12\" data-r=\"5\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"5\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"1\" data-j=\"0\" data-d=\"0.00\" data-r=\"6\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"6\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"1\" data-j=\"1\" data-d=\"0.04\" data-r=\"7\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"7\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"1\" data-j=\"2\" data-d=\"0.08\" data-r=\"8\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"8\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"1\" data-j=\"3\" data-d=\"0.04\" data-r=\"9\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"9\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"1\" data-j=\"4\" data-d=\"0.08\" data-r=\"10\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"10\" pathLength=\"1\" d=\"M0 0\"/><path class=\"rail\" data-g=\"1\" data-j=\"5\" data-d=\"0.12\" data-r=\"11\" pathLength=\"1\" d=\"M0 0\"/><path class=\"run\" data-r=\"11\" pathLength=\"1\" d=\"M0 0\"/></svg><i class=\"end\" data-r=\"0\" data-s=\"0\"></i><i class=\"end\" data-r=\"0\" data-s=\"1\"></i><i class=\"end\" data-r=\"1\" data-s=\"0\"></i><i class=\"end\" data-r=\"1\" data-s=\"1\"></i><i class=\"end\" data-r=\"2\" data-s=\"0\"></i><i class=\"end\" data-r=\"2\" data-s=\"1\"></i><i class=\"end\" data-r=\"3\" data-s=\"0\"></i><i class=\"end\" data-r=\"3\" data-s=\"1\"></i><i class=\"end\" data-r=\"4\" data-s=\"0\"></i><i class=\"end\" data-r=\"4\" data-s=\"1\"></i><i class=\"end\" data-r=\"5\" data-s=\"0\"></i><i class=\"end\" data-r=\"5\" data-s=\"1\"></i><i class=\"end\" data-r=\"6\" data-s=\"0\"></i><i class=\"end\" data-r=\"6\" data-s=\"1\"></i><i class=\"end\" data-r=\"7\" data-s=\"0\"></i><i class=\"end\" data-r=\"7\" data-s=\"1\"></i><i class=\"end\" data-r=\"8\" data-s=\"0\"></i><i class=\"end\" data-r=\"8\" data-s=\"1\"></i><i class=\"end\" data-r=\"9\" data-s=\"0\"></i><i class=\"end\" data-r=\"9\" data-s=\"1\"></i><i class=\"end\" data-r=\"10\" data-s=\"0\"></i><i class=\"end\" data-r=\"10\" data-s=\"1\"></i><i class=\"end\" data-r=\"11\" data-s=\"0\"></i><i class=\"end\" data-r=\"11\" data-s=\"1\"></i><i class=\"hub\" data-g=\"0\"><img alt=\"\" src=\"/logo.png\"></i><i class=\"hub\" data-g=\"1\"><img alt=\"\" src=\"/logo.png\"></i><section class=\"panel\" data-i=\"0\"><div class=\"card\">\n <div class=\"txt\">\n  <h3>Network-level filtering</h3><p>Guardian runs a lightweight on-device VPN. Every site your browser requests is checked against a local list of 4.6 million known domains before the page loads. Nothing leaves your phone.</p>\n  </div>\n <div class=\"art\"><svg viewBox=\"0 0 400 300\" aria-hidden=\"true\"><path id=\"s0i0\" class=\"in on\" d=\"M70 70 C130 70 140 150 168 150\"/><circle class=\"node on\" cx=\"66\" cy=\"70\" r=\"4.5\"/><text class=\"lab on\" x=\"0\" y=\"74\">Domains</text><circle class=\"dot\" r=\"3.2\"><animateMotion dur=\"2.4s\" repeatCount=\"indefinite\"><mpath href=\"#s0i0\"/></animateMotion></circle><path id=\"s0i1\" class=\"in \" d=\"M70 150 C130 150 140 150 168 150\"/><circle class=\"node \" cx=\"66\" cy=\"150\" r=\"3.5\"/><text class=\"lab \" x=\"0\" y=\"154\">Query</text><path id=\"s0i2\" class=\"in \" d=\"M70 230 C130 230 140 150 168 150\"/><circle class=\"node \" cx=\"66\" cy=\"230\" r=\"3.5\"/><text class=\"lab \" x=\"0\" y=\"234\">Partner</text><circle class=\"core\" cx=\"200\" cy=\"150\" r=\"30\"/><image href=\"/logo.png\" x=\"180\" y=\"130\" width=\"40\" height=\"40\"/><path class=\"out ok\" d=\"M232 150 C260 150 280 110 352 110\"/><path class=\"out no\" d=\"M232 150 C260 150 280 190 352 190\"/><path class=\"tick\" d=\"M358 110 l5 5 l9 -10\"/><path class=\"cross\" d=\"M358 186 l10 10 m0 -10 l-10 10\"/><text class=\"res ok\" x=\"372\" y=\"134\">Allowed</text><text class=\"res no\" x=\"372\" y=\"214\">Blocked</text></svg></div>\n</div></section><section class=\"panel\" data-i=\"1\"><div class=\"card\">\n <div class=\"txt\">\n  <h3>On-device language understanding</h3><p>Searches that pass the domain list are reviewed by an on-device model trained on English, Roman Urdu, Urdu, Chinese, Bengali and Hindi. Your queries are never sent to a server.</p>\n  </div>\n <div class=\"art\"><svg viewBox=\"0 0 400 300\" aria-hidden=\"true\"><path id=\"s1i0\" class=\"in \" d=\"M70 70 C130 70 140 150 168 150\"/><circle class=\"node \" cx=\"66\" cy=\"70\" r=\"3.5\"/><text class=\"lab \" x=\"0\" y=\"74\">Domains</text><path id=\"s1i1\" class=\"in on\" d=\"M70 150 C130 150 140 150 168 150\"/><circle class=\"node on\" cx=\"66\" cy=\"150\" r=\"4.5\"/><text class=\"lab on\" x=\"0\" y=\"154\">Query</text><circle class=\"dot\" r=\"3.2\"><animateMotion dur=\"2.4s\" repeatCount=\"indefinite\"><mpath href=\"#s1i1\"/></animateMotion></circle><path id=\"s1i2\" class=\"in \" d=\"M70 230 C130 230 140 150 168 150\"/><circle class=\"node \" cx=\"66\" cy=\"230\" r=\"3.5\"/><text class=\"lab \" x=\"0\" y=\"234\">Partner</text><circle class=\"core\" cx=\"200\" cy=\"150\" r=\"30\"/><image href=\"/logo.png\" x=\"180\" y=\"130\" width=\"40\" height=\"40\"/><path class=\"out ok\" d=\"M232 150 C260 150 280 110 352 110\"/><path class=\"out no\" d=\"M232 150 C260 150 280 190 352 190\"/><path class=\"tick\" d=\"M358 110 l5 5 l9 -10\"/><path class=\"cross\" d=\"M358 186 l10 10 m0 -10 l-10 10\"/><text class=\"res ok\" x=\"372\" y=\"134\">Allowed</text><text class=\"res no\" x=\"372\" y=\"214\">Blocked</text></svg></div>\n</div></section><section class=\"panel\" data-i=\"2\"><div class=\"card\">\n <div class=\"txt\">\n  <h3>Accountability partner</h3><p>Link a trusted person to your account. They are notified if protection is turned off, and they can see your protection status. They never see your browsing history or search content.</p>\n  </div>\n <div class=\"art\"><svg viewBox=\"0 0 400 300\" aria-hidden=\"true\"><path id=\"s2i0\" class=\"in \" d=\"M70 70 C130 70 140 150 168 150\"/><circle class=\"node \" cx=\"66\" cy=\"70\" r=\"3.5\"/><text class=\"lab \" x=\"0\" y=\"74\">Domains</text><path id=\"s2i1\" class=\"in \" d=\"M70 150 C130 150 140 150 168 150\"/><circle class=\"node \" cx=\"66\" cy=\"150\" r=\"3.5\"/><text class=\"lab \" x=\"0\" y=\"154\">Query</text><path id=\"s2i2\" class=\"in on\" d=\"M70 230 C130 230 140 150 168 150\"/><circle class=\"node on\" cx=\"66\" cy=\"230\" r=\"4.5\"/><text class=\"lab on\" x=\"0\" y=\"234\">Partner</text><circle class=\"dot\" r=\"3.2\"><animateMotion dur=\"2.4s\" repeatCount=\"indefinite\"><mpath href=\"#s2i2\"/></animateMotion></circle><circle class=\"core\" cx=\"200\" cy=\"150\" r=\"30\"/><image href=\"/logo.png\" x=\"180\" y=\"130\" width=\"40\" height=\"40\"/><path class=\"out ok\" d=\"M232 150 C260 150 280 110 352 110\"/><path class=\"out no\" d=\"M232 150 C260 150 280 190 352 190\"/><path class=\"tick\" d=\"M358 110 l5 5 l9 -10\"/><path class=\"cross\" d=\"M358 186 l10 10 m0 -10 l-10 10\"/><text class=\"res ok\" x=\"372\" y=\"134\">Allowed</text><text class=\"res no\" x=\"372\" y=\"214\">Blocked</text></svg></div>\n</div></section></div>\n <nav class=\"nav\" id=\"nav\"><button data-i=\"0\"><span>01</span>Network<i></i></button><button data-i=\"1\"><span>02</span>Understanding<i></i></button><button data-i=\"2\"><span>03</span>Support<i></i></button></nav>\n</div></section>";
 
 export function HowSection() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const rowRef = useRef<HTMLDivElement>(null);
-  const txtRefs = useRef<HTMLDivElement[]>([]);
-  const imgRefs = useRef<HTMLDivElement[]>([]);
-  const navRefs = useRef<HTMLButtonElement[]>([]);
-  const [active, setActive] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const track = trackRef.current;
-    const row = rowRef.current;
-    if (!track || !row) return;
+    const root = rootRef.current;
+    if (!root) return;
+    const ac = new AbortController();
+    let alive = true;
+    let conn: any = null;
 
-    const N = STEPS.length;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isMobile = () => window.innerWidth <= 900;
-    let target = 0;
-    let cur = 0;
-    let raf = 0;
-    let lastActive = 0;
 
-    const targetFromScroll = () => {
-      const r = track.getBoundingClientRect();
-      const total = track.offsetHeight - window.innerHeight;
-      return Math.min(1, Math.max(0, -r.top / total));
-    };
+const track=root.querySelector('#'+'track'),row=root.querySelector('#'+'row');
+const panels=[...root.querySelectorAll('.panel')],cards=panels.map(p=>p.querySelector('.card'));
+const btns=[...root.querySelectorAll('.nav button')];
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let target=0,cur=0;
+const ease=t=>1-Math.pow(1-t,3);
+function countTo(el){
+  const raw=el.dataset.count,num=parseFloat(raw),suf=raw.replace(/[0-9.]/g,'');
+  if(reduce||isNaN(num)){el.textContent=raw;return;}
+  const t0=performance.now();
+  (function t(now){const k=Math.min((now-t0)/1200,1);el.textContent=(num*ease(k)).toFixed(num%1?1:0)+suf;if(k<1)requestAnimationFrame(t);})(t0);
+}
+const counted=[false,false,false];
+function frame(){
+  if(!alive) return;
+  cur+=(target-cur)*(reduce?1:0.1);
+  if(Math.abs(target-cur)<0.0004)cur=target;
+  const W=window.innerWidth,f=cur*2;
+  if(W>900){
+    row.style.transform=`translate3d(${-cur*2*W}px,0,0)`;
+    panels.forEach((p,i)=>{
+      const d=Math.min(Math.abs(i-f),1.2);           // 0 = centred
+      const a=Math.max(0,1-d);
+      const card=cards[i];
+      card.style.transform=`perspective(1200px) rotateY(${(i-f)*-8}deg) scale(${1-d*0.08})`;
+      card.style.opacity=(0.35+0.65*a).toFixed(3);
+      card.style.filter=`blur(${(d*2.5).toFixed(2)}px)`;
+      const on=d<0.35;
+      p.classList.toggle('on',on);
+      if(on&&!counted[i]){counted[i]=true;const c=p.querySelector('[data-count]');if(c)countTo(c);}
+    });
+  }
 
-    const render = () => {
-      if (isMobile()) {
-        row.style.transform = "";
-        return;
-      }
-      const max = (N - 1) * window.innerWidth;
-      row.style.transform = `translate3d(${-cur * max}px,0,0)`;
-      const pos = cur * (N - 1);
-      for (let i = 0; i < N; i++) {
-        const a = 1 - Math.min(1, Math.abs(pos - i));
-        const t = txtRefs.current[i];
-        const im = imgRefs.current[i];
-        const nb = navRefs.current[i];
-        if (t) {
-          t.style.opacity = String(0.25 + 0.75 * a);
-          t.style.transform = `translate3d(${((pos - i) * -40).toFixed(1)}px,0,0)`;
-        }
-        if (im) {
-          im.style.transform = `translate3d(${((pos - i) * -70).toFixed(1)}px,0,0) scale(${(0.94 + 0.06 * a).toFixed(4)})`;
-          im.style.opacity = String(0.35 + 0.65 * a);
-        }
-        if (nb) nb.style.setProperty("--p", String(i <= pos ? Math.min(1, pos - i + 1) : 0));
-      }
-      const act = Math.round(pos);
-      if (act !== lastActive) {
-        lastActive = act;
-        setActive(act);
-      }
-    };
+  // ---- connectors: left card -> hub -> right card, built from live card edges ----
+  if(!conn){
+    conn={rails:[...root.querySelectorAll('.rail')],runs:[...root.querySelectorAll('.run')],
+      ends:[...root.querySelectorAll('.end')],hubs:[...root.querySelectorAll('.hub')],svg:root.querySelector('.links')};
+  }
+  const C=conn, rowRect=row.getBoundingClientRect();
+  const pinRect=root.querySelector('.pin').getBoundingClientRect();
+  const SH=pinRect.height, SW=row.offsetWidth;
+  if(C.svg.getAttribute('viewBox')!==`0 0 ${SW} ${SH}`) C.svg.setAttribute('viewBox',`0 0 ${SW} ${SH}`);
+  const FR=[0.34,0.5,0.66];
+  C.rails.forEach((r,idx)=>{
+    const g=+r.dataset.g, j=+r.dataset.j, k=j%3, out=j>=3;
+    const a=cards[g].getBoundingClientRect(), b=cards[g+1].getBoundingClientRect();
+    const x1=a.right-rowRect.left, x2=b.left-rowRect.left;
+    const y1=a.top+a.height*FR[k]-pinRect.top, y2=b.top+b.height*FR[k]-pinRect.top;
+    const xm=(x1+x2)/2, ym=(a.top+a.height/2)-pinRect.top;
+    const span=x2-x1;
+    let d;
+    if(!out){
+      d=`M${x1.toFixed(1)} ${y1.toFixed(1)} C${(x1+span*0.42).toFixed(1)} ${y1.toFixed(1)}, ${(xm-span*0.18).toFixed(1)} ${ym.toFixed(1)}, ${xm.toFixed(1)} ${ym.toFixed(1)}`;
+    }else{
+      d=`M${xm.toFixed(1)} ${ym.toFixed(1)} C${(xm+span*0.18).toFixed(1)} ${ym.toFixed(1)}, ${(x2-span*0.42).toFixed(1)} ${y2.toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+    }
+    r.setAttribute('d',d); C.runs[idx].setAttribute('d',d);
+    const e0=C.ends[idx*2], e1=C.ends[idx*2+1];
+    const sx=out?xm:x1, sy=out?ym:y1, ex=out?x2:xm, ey=out?y2:ym;
+    e0.style.left=sx+'px'; e0.style.top=sy+'px';
+    e1.style.left=ex+'px'; e1.style.top=ey+'px';
+    const dl=+r.dataset.d;
+        const draw=Math.min(Math.max((f-g-(out?0.12:-0.05)-dl)/(out?0.32:0.3),0),1);
+    r.style.strokeDashoffset=(1-draw).toFixed(4);
+    const q=Math.min(Math.max((f-g-0.1-dl)/0.6,0),1);
+    C.runs[idx].style.strokeDashoffset=(0.14-1.14*q).toFixed(4);
+    C.runs[idx].style.opacity=(Math.sin(Math.PI*q)*(draw>0.9?1:draw)).toFixed(3);
+    e0.style.opacity=(draw>0.05?1:0); e1.style.opacity=(draw>0.9?1:0);
+  });
+  C.hubs.forEach(h=>{
+    const g=+h.dataset.g;
+    const a=cards[g].getBoundingClientRect(), b=cards[g+1].getBoundingClientRect();
+    const xm=((a.right+b.left)/2)-rowRect.left, ym=(a.top+a.height/2)-pinRect.top;
+    h.style.left=xm+'px'; h.style.top=ym+'px';
+    const arrive=Math.min(Math.max((f-g-0.1)/0.3,0),1);
+    h.style.opacity=arrive.toFixed(3);
+    h.classList.toggle('lit',arrive>0.95);
+  });
+  const idx=Math.min(Math.round(f),2);
+  btns.forEach((b,k)=>{b.classList.toggle('on',k===idx);b.style.setProperty('--f',Math.min(Math.max(f-k,0),1));});
+  requestAnimationFrame(frame);
+}
+window.addEventListener('scroll',()=>{
+  const r=track.getBoundingClientRect(),total=track.offsetHeight-window.innerHeight;
+  target=Math.min(Math.max(-r.top/total,0),1);
+},{passive:true,signal:ac.signal});
+btns.forEach((b,i)=>b.onclick=()=>window.scrollTo({top:track.offsetTop+(i/2)*(track.offsetHeight-window.innerHeight),behavior:reduce?'auto':'smooth'}));
+if(window.innerWidth<=900)counted.fill(true);
+frame();
 
-    const loop = () => {
-      target = targetFromScroll();
-      cur = reduce ? target : cur + (target - cur) * 0.12;
-      render();
-      if (Math.abs(target - cur) > 0.0005) {
-        raf = requestAnimationFrame(loop);
-      } else {
-        cur = target;
-        render();
-        raf = 0;
-      }
-    };
-    const kick = () => {
-      if (!raf) raf = requestAnimationFrame(loop);
-    };
 
-    window.addEventListener("scroll", kick, { passive: true });
-    window.addEventListener("resize", kick);
-    kick();
     return () => {
-      window.removeEventListener("scroll", kick);
-      window.removeEventListener("resize", kick);
-      cancelAnimationFrame(raf);
+      alive = false;
+      ac.abort();
     };
   }, []);
 
-  const goTo = (i: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const y = track.offsetTop + (i / (STEPS.length - 1)) * (track.offsetHeight - window.innerHeight);
-    window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
-  };
-
   return (
     <>
-      <style>{css}</style>
-      <div ref={trackRef} className="hp-track">
-        <div className="hp-pin">
-          <div className="hp-head">
-            <div className="hp-eb">How it works</div>
-            <h2 className="hp-h2">How every search is filtered</h2>
-          </div>
-
-          <div ref={rowRef} className="hp-row">
-            {STEPS.map((s, i) => (
-              <div key={s.n} className="hp-panel">
-                <div className="hp-inner">
-                  <div
-                    ref={(el) => {
-                      if (el) txtRefs.current[i] = el;
-                    }}
-                    className="hp-txt"
-                  >
-                    <div className="hp-count">
-                      {s.n} / 03 &nbsp;{s.tag}
-                    </div>
-                    <h3 className="hp-h3">{s.title}</h3>
-                    <p className="hp-p">{s.body}</p>
-                  </div>
-                  <div className="hp-media">
-                    <div
-                      ref={(el) => {
-                        if (el) imgRefs.current[i] = el;
-                      }}
-                      className="hp-img"
-                      role="img"
-                      aria-label={s.alt}
-                    >
-                      {s.art}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <nav className="hp-nav" aria-label="How it works steps">
-            {STEPS.map((s, i) => (
-              <button
-                key={s.n}
-                ref={(el) => {
-                  if (el) navRefs.current[i] = el;
-                }}
-                type="button"
-                onClick={() => goTo(i)}
-                className={`hp-btn ${active === i ? "on" : ""}`}
-                aria-current={active === i ? "step" : undefined}
-              >
-                <span>{s.n}</span>
-                <b className="font-medium">{s.tag}</b>
-              </button>
-            ))}
-          </nav>
-        </div>
-      </div>
+      <style>{CSS}</style>
+      <div ref={rootRef} className="gh-how" dangerouslySetInnerHTML={{ __html: MARKUP }} />
     </>
   );
 }
