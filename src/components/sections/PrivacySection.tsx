@@ -89,18 +89,12 @@ export function PrivacySection() {
             </h3>
           </Reveal>
 
-          <div className="flex flex-col gap-10">
+          <div className="grid gap-5 md:grid-cols-2">
             <Reveal>
-              <p className="text-[15px] font-semibold text-ink">Partner can see</p>
-              <div className="mt-4">
-                <PlainList items={shown} />
-              </div>
+              <Box label="Partner can see" items={shown} />
             </Reveal>
             <Reveal delayMs={100}>
-              <p className="text-[15px] font-semibold text-ink-muted">Stays private</p>
-              <div className="mt-4">
-                <PlainList items={hidden} muted />
-              </div>
+              <Box label="Stays private" items={hidden} />
             </Reveal>
           </div>
         </div>
