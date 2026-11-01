@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { PhoneMockup } from "@/components/PhoneMockup";
@@ -13,7 +14,7 @@ const sections = [
   {
     eyebrow: "Commitment",
     title: "Fortress Mode",
-    body: "Lock protection for a set number of days. Guardian generates the password itself, hides it, and only reveals it when the lock expires so a weak moment can't undo a good decision.",
+    body: "Lock protection for a set number of days. Guardian generates the password itself, hides it, and only reveals it when the lock expires — so a weak moment can't undo a good decision.",
     points: [
       "Auto-generated password you never see",
       "Cannot be released early, even by you",
@@ -25,11 +26,11 @@ const sections = [
   {
     eyebrow: "Support",
     title: "Accountability partner",
-    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it never your searches or browsing history.",
+    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it — never your searches or browsing history.",
     points: [
       "Simple pairing code, no accounts to manage",
       "Partner approves changes to protection",
-      "Status only activity is never shared",
+      "Status only — activity is never shared",
     ],
     image: pairingShot,
     alt: "Guardian partner pairing screen with a pairing code",
@@ -114,6 +115,103 @@ const grid = [
   },
 ];
 
+/**
+ * UFlow: three labels arranged in a U with a line through them.
+ * An arrow travels along the U as the section scrolls into and past the view.
+ */
+function UFlow({ points }: { points: string[] }) {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+  const [arrow, setArrow] = useState({ x: 0, y: 0, deg: 0 });
+
+  // Track the box size in pixels so the U and the arrow share one coordinate system.
+  useEffect(() => {
+    const box = boxRef.current;
+    if (!box) return;
+    const measure = () => setSize({ w: box.clientWidth, h: box.clientHeight });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(box);
+    return () => ro.disconnect();
+  }, []);
+
+  const { w, h } = size;
+  const top = h * 0.28;
+  const x1 = w * 0.16;
+  const x2 = w * 0.84;
+  const d = `M ${x1} ${top} C ${x1} ${h}, ${x2} ${h}, ${x2} ${top}`;
+
+  // Move the arrow along the path based on how far the section has scrolled.
+  useEffect(() => {
+    const box = boxRef.current;
+    const path = pathRef.current;
+    if (!box || !path) return;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const rect = box.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const raw = (vh * 0.85 - rect.top) / (rect.height + vh * 0.5);
+      const t = Math.min(1, Math.max(0, raw));
+      const len = path.getTotalLength();
+      const at = path.getPointAtLength(t * len);
+      const ahead = path.getPointAtLength(Math.min(len, t * len + 2));
+      const behind = path.getPointAtLength(Math.max(0, t * len - 2));
+      const deg = (Math.atan2(ahead.y - behind.y, ahead.x - behind.x) * 180) / Math.PI;
+      setArrow({ x: at.x, y: at.y, deg });
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [size]);
+
+  return (
+    <div ref={boxRef} className="relative mt-7 h-[300px] w-full max-w-[420px] sm:h-[240px]">
+      <svg
+        aria-hidden
+        className="absolute inset-0 size-full"
+        viewBox={w ? `0 0 ${w} ${h}` : undefined}
+      >
+        <path
+          ref={pathRef}
+          d={d}
+          fill="none"
+          stroke="var(--accent)"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <path
+          d="M -7 -6 L 7 0 L -7 6 Z"
+          fill="var(--accent)"
+          transform={`translate(${arrow.x} ${arrow.y}) rotate(${arrow.deg})`}
+        />
+      </svg>
+      {points.map((p, i) => (
+        <p
+          key={p}
+          className={`absolute w-[36%] text-center text-[13px] leading-snug text-ink-muted sm:w-[34%] sm:text-[14px] ${
+            ["left-0 top-0", "left-1/2 bottom-[56px] -translate-x-1/2", "right-0 top-0"][i]
+          }`}
+        >
+          {p}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 export function FeaturesSection() {
   return (
     <section>
@@ -139,33 +237,7 @@ export function FeaturesSection() {
                   <span className="eyebrow">{s.eyebrow}</span>
                   <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">{s.title}</h2>
                   <p className="mt-4 text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-                  <div className="relative mt-7 h-[300px] w-full max-w-[420px] sm:h-[240px]">
-                      <svg
-                        aria-hidden
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                        className="absolute inset-0 size-full"
-                      >
-                        <path
-                          d="M 16 28 C 16 100, 84 100, 84 28"
-                          fill="none"
-                          stroke="var(--accent)"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          vectorEffect="non-scaling-stroke"
-                        />
-                      </svg>
-                      {s.points.map((p, i) => (
-                        <p
-                          key={p}
-                          className={`absolute w-[36%] text-center text-[13px] leading-snug text-ink-muted sm:w-[34%] sm:text-[14px] ${
-                            ["left-0 top-0", "left-1/2 bottom-[56px] -translate-x-1/2", "right-0 top-0"][i]
-                          }`}
-                        >
-                          {p}
-                        </p>
-                      ))}
-                    </div>
+                  <UFlow points={s.points} />
                 </div>
                 <div className={`flex w-full items-center justify-center py-6 ${s.reverse ? "md:order-1" : ""}`}>
                   <div className="w-[230px] shrink-0 sm:w-[240px]">
