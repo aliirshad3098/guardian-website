@@ -71,6 +71,7 @@ const sections = [
     ],
     image: autoBlockShot,
     alt: "Guardian Schedule screen with the Auto Blocking toggle and Add Schedule button highlighted",
+    uShape: true,
   },
   {
     eyebrow: "Focus",
@@ -139,19 +140,49 @@ export function FeaturesSection() {
                   <span className="eyebrow">{s.eyebrow}</span>
                   <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">{s.title}</h2>
                   <p className="mt-4 text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-                  <ul className="mt-7 flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-panel sm:flex-row">
-                    {s.points.map((p, i) => (
-                      <li
-                        key={p}
-                        className={`flex flex-1 items-center gap-3 px-5 py-4 text-[14px] leading-snug text-ink-muted ${
-                          i > 0 ? "border-t border-line sm:border-l sm:border-t-0" : ""
-                        }`}
+                  {s.uShape ? (
+                    <div className="relative mt-7 h-[240px] w-full max-w-[420px]">
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 100 100"
+                        preserveAspectRatio="none"
+                        className="absolute inset-0 size-full"
                       >
-                        <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-accent" />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
+                        <path
+                          d="M 16 25 C 16 100, 84 100, 84 25"
+                          fill="none"
+                          stroke="var(--accent)"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          vectorEffect="non-scaling-stroke"
+                        />
+                      </svg>
+                      {s.points.map((p, i) => (
+                        <p
+                          key={p}
+                          className={`absolute w-[34%] text-center text-[14px] leading-snug text-ink-muted ${
+                            ["left-0 top-0", "left-1/2 bottom-[56px] -translate-x-1/2", "right-0 top-0"][i]
+                          }`}
+                        >
+                          {p}
+                        </p>
+                      ))}
+                    </div>
+                  ) : (
+                    <ul className="mt-7 flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-panel sm:flex-row">
+                      {s.points.map((p, i) => (
+                        <li
+                          key={p}
+                          className={`flex flex-1 items-center gap-3 px-5 py-4 text-[14px] leading-snug text-ink-muted ${
+                            i > 0 ? "border-t border-line sm:border-l sm:border-t-0" : ""
+                          }`}
+                        >
+                          <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-accent" />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 <div className={`flex w-full items-center justify-center py-6 ${s.reverse ? "md:order-1" : ""}`}>
                   <div className="w-[230px] shrink-0 sm:w-[240px]">
