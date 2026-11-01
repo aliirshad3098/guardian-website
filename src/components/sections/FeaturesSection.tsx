@@ -147,7 +147,7 @@ export function FeaturesSection() {
                         className="absolute inset-0 size-full"
                       >
                         <path
-                          d="M 16 40 C 16 100, 84 100, 84 40"
+                          d="M 16 28 C 16 100, 84 100, 84 28"
                           fill="none"
                           stroke="var(--accent)"
                           strokeWidth="3"
