@@ -114,12 +114,12 @@ function DownloadPage() {
             </p>
           </Reveal>
 
-          <div className="mx-auto mt-12 grid max-w-[560px] items-start gap-10">
+          <div className="mx-auto mt-12 max-w-[1000px]">
             {/* App cards */}
-            <div className="flex flex-col gap-6">
+            <div className="grid gap-6 md:grid-cols-2">
               {apps.map((app, index) => (
-                <Reveal key={app.name} variant="scale" delayMs={120 + index * 100}>
-                  <div className="panel-card p-6 sm:p-7">
+                <Reveal key={app.name} variant="scale" delayMs={120 + index * 100} className="h-full">
+                  <div className="panel-card h-full p-6 sm:p-7">
                     <div className="flex items-center gap-4">
                       <img
                         src={app.icon}
@@ -173,7 +173,7 @@ function DownloadPage() {
                 </Reveal>
               ))}
 
-              <p className="text-center text-xs leading-relaxed text-ink-muted">
+              <p className="text-center text-xs leading-relaxed text-ink-muted md:col-span-2">
                 APK installation required. Review the app publisher
                 and requested permissions before proceeding.
               </p>
