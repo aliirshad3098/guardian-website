@@ -103,8 +103,8 @@ const apps = [
     iconAlt: "Guardian Partner app icon",
     specs: [
       { label: "Platform", value: "Android" },
-      { label: "Role", value: "Accountability partner" },
-      { label: "Works with", value: "Guardian PK" },
+      { label: "Minimum version", value: "Android 9+" },
+      { label: "App size", value: "20 MB" },
     ],
     cta: "Download Guardian Partner",
   },
