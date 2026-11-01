@@ -49,7 +49,7 @@ export function FaqSection() {
       <div className="mx-auto max-w-[1180px] px-5 py-14 md:px-8 md:py-28">
         <div className="grid gap-10 md:gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
           <Reveal className="lg:sticky lg:top-32 lg:self-start">
-            <span className="eyebrow">FAQ / HELP CENTRE</span>
+            <span className="eyebrow">FAQ</span>
 
             <h2 className="mt-5 text-[clamp(34px,4.6vw,52px)] leading-[1.08] tracking-[-0.03em]">
               Good questions.
