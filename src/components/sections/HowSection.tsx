@@ -41,6 +41,8 @@ export function HowSection() {
     let target = 0;
     let cur = 0;
     let conn: Conn | null = null;
+    let lastGeomKey = "";
+    let running = false;
 
     const ease = (t: number): number => 1 - Math.pow(1 - t, 3);
 
@@ -104,15 +106,20 @@ export function HowSection() {
       const vertical = window.innerWidth <= 1024;
       const SH = vertical ? row.offsetHeight : pinRect.height;
       const SW = row.offsetWidth;
+      const geomKey = `${SW}|${SH}|${cards.map((c) => `${c.offsetTop}:${c.offsetHeight}`).join(",")}`;
+      const geomNeeded = !vertical || geomKey !== lastGeomKey;
+      lastGeomKey = geomKey;
       if (C.svg.getAttribute("viewBox") !== `0 0 ${SW} ${SH}`) {
         C.svg.setAttribute("viewBox", `0 0 ${SW} ${SH}`);
       }
-      if (vertical) {
-        C.svg.style.width = `${SW}px`;
-        C.svg.style.height = `${SH}px`;
-      } else {
-        C.svg.style.width = "";
-        C.svg.style.height = "";
+      if (geomNeeded) {
+        if (vertical) {
+          C.svg.style.width = `${SW}px`;
+          C.svg.style.height = `${SH}px`;
+        } else {
+          C.svg.style.width = "";
+          C.svg.style.height = "";
+        }
       }
       const FR = [0.34, 0.5, 0.66];
 
@@ -121,51 +128,54 @@ export function HowSection() {
         const j = Number(r.dataset["j"]);
         const k = j % 3;
         const out = j >= 3;
-        const a = at(cards, g).getBoundingClientRect();
-        const b = at(cards, g + 1).getBoundingClientRect();
-        let d: string;
-        let sx: number, sy: number, ex: number, ey: number;
-        if (vertical) {
-          // stacked cards: each line runs from the card above, into the hub, out to the card below
-          const x1 = a.left + a.width * at(FR, k) - rowRect.left;
-          const x2 = b.left + b.width * at(FR, k) - rowRect.left;
-          const y1 = a.bottom - rowRect.top;
-          const y2 = b.top - rowRect.top;
-          const xm = a.left + a.width / 2 - rowRect.left;
-          const ym = (y1 + y2) / 2;
-          const span = y2 - y1;
-          d = !out
-            ? `M${x1.toFixed(1)} ${y1.toFixed(1)} C${x1.toFixed(1)} ${(y1 + span * 0.42).toFixed(1)}, ${(xm).toFixed(1)} ${(ym - span * 0.18).toFixed(1)}, ${xm.toFixed(1)} ${ym.toFixed(1)}`
-            : `M${xm.toFixed(1)} ${ym.toFixed(1)} C${xm.toFixed(1)} ${(ym + span * 0.18).toFixed(1)}, ${x2.toFixed(1)} ${(y2 - span * 0.42).toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}`;
-          sx = out ? xm : x1;
-          sy = out ? ym : y1;
-          ex = out ? x2 : xm;
-          ey = out ? y2 : ym;
-        } else {
-          const x1 = a.right - rowRect.left;
-          const x2 = b.left - rowRect.left;
-          const y1 = a.top + a.height * at(FR, k) - pinRect.top;
-          const y2 = b.top + b.height * at(FR, k) - pinRect.top;
-          const xm = (x1 + x2) / 2;
-          const ym = a.top + a.height / 2 - pinRect.top;
-          const span = x2 - x1;
-          d = !out
-            ? `M${x1.toFixed(1)} ${y1.toFixed(1)} C${(x1 + span * 0.42).toFixed(1)} ${y1.toFixed(1)}, ${(xm - span * 0.18).toFixed(1)} ${ym.toFixed(1)}, ${xm.toFixed(1)} ${ym.toFixed(1)}`
-            : `M${xm.toFixed(1)} ${ym.toFixed(1)} C${(xm + span * 0.18).toFixed(1)} ${ym.toFixed(1)}, ${(x2 - span * 0.42).toFixed(1)} ${y2.toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}`;
-          sx = out ? xm : x1;
-          sy = out ? ym : y1;
-          ex = out ? x2 : xm;
-          ey = out ? y2 : ym;
-        }
-        r.setAttribute("d", d);
-        at(C.runs, idx).setAttribute("d", d);
-
         const e0 = at(C.ends, idx * 2);
         const e1 = at(C.ends, idx * 2 + 1);
-        e0.style.left = sx + "px";
-        e0.style.top = sy + "px";
-        e1.style.left = ex + "px";
-        e1.style.top = ey + "px";
+
+        if (geomNeeded) {
+          const a = at(cards, g).getBoundingClientRect();
+          const b = at(cards, g + 1).getBoundingClientRect();
+          let d: string;
+          let sx: number, sy: number, ex: number, ey: number;
+          if (vertical) {
+            // stacked cards: each line runs from the card above, into the hub, out to the card below
+            const x1 = a.left + a.width * at(FR, k) - rowRect.left;
+            const x2 = b.left + b.width * at(FR, k) - rowRect.left;
+            const y1 = a.bottom - rowRect.top;
+            const y2 = b.top - rowRect.top;
+            const xm = a.left + a.width / 2 - rowRect.left;
+            const ym = (y1 + y2) / 2;
+            const span = y2 - y1;
+            d = !out
+              ? `M${x1.toFixed(1)} ${y1.toFixed(1)} C${x1.toFixed(1)} ${(y1 + span * 0.42).toFixed(1)}, ${(xm).toFixed(1)} ${(ym - span * 0.18).toFixed(1)}, ${xm.toFixed(1)} ${ym.toFixed(1)}`
+              : `M${xm.toFixed(1)} ${ym.toFixed(1)} C${xm.toFixed(1)} ${(ym + span * 0.18).toFixed(1)}, ${x2.toFixed(1)} ${(y2 - span * 0.42).toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+            sx = out ? xm : x1;
+            sy = out ? ym : y1;
+            ex = out ? x2 : xm;
+            ey = out ? y2 : ym;
+          } else {
+            const x1 = a.right - rowRect.left;
+            const x2 = b.left - rowRect.left;
+            const y1 = a.top + a.height * at(FR, k) - pinRect.top;
+            const y2 = b.top + b.height * at(FR, k) - pinRect.top;
+            const xm = (x1 + x2) / 2;
+            const ym = a.top + a.height / 2 - pinRect.top;
+            const span = x2 - x1;
+            d = !out
+              ? `M${x1.toFixed(1)} ${y1.toFixed(1)} C${(x1 + span * 0.42).toFixed(1)} ${y1.toFixed(1)}, ${(xm - span * 0.18).toFixed(1)} ${ym.toFixed(1)}, ${xm.toFixed(1)} ${ym.toFixed(1)}`
+              : `M${xm.toFixed(1)} ${ym.toFixed(1)} C${(xm + span * 0.18).toFixed(1)} ${ym.toFixed(1)}, ${(x2 - span * 0.42).toFixed(1)} ${y2.toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+            sx = out ? xm : x1;
+            sy = out ? ym : y1;
+            ex = out ? x2 : xm;
+            ey = out ? y2 : ym;
+          }
+          r.setAttribute("d", d);
+          at(C.runs, idx).setAttribute("d", d);
+
+          e0.style.left = sx + "px";
+          e0.style.top = sy + "px";
+          e1.style.left = ex + "px";
+          e1.style.top = ey + "px";
+        }
 
         const dl = Number(r.dataset["d"]);
         const draw = Math.min(
@@ -188,8 +198,10 @@ export function HowSection() {
         const b = at(cards, g + 1).getBoundingClientRect();
         const xm = vertical ? a.left + a.width / 2 - rowRect.left : (a.right + b.left) / 2 - rowRect.left;
         const ym = vertical ? (a.bottom + b.top) / 2 - rowRect.top : a.top + a.height / 2 - pinRect.top;
-        h.style.left = xm + "px";
-        h.style.top = ym + "px";
+        if (geomNeeded) {
+          h.style.left = xm + "px";
+          h.style.top = ym + "px";
+        }
         const arrive = Math.min(Math.max((f - g - 0.1) / 0.3, 0), 1);
         h.style.opacity = arrive.toFixed(3);
         h.classList.toggle("lit", arrive > 0.95);
@@ -201,7 +213,11 @@ export function HowSection() {
         b.style.setProperty("--f", String(Math.min(Math.max(f - k, 0), 1)));
       });
 
-      requestAnimationFrame(frame);
+      if (Math.abs(target - cur) > 0) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
     }
 
     window.addEventListener(
@@ -210,6 +226,21 @@ export function HowSection() {
         const r = track.getBoundingClientRect();
         const total = track.offsetHeight - window.innerHeight;
         target = Math.min(Math.max(-r.top / total, 0), 1);
+        if (!running) {
+          running = true;
+          requestAnimationFrame(frame);
+        }
+      },
+      { passive: true, signal: ac.signal },
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+        if (!running) {
+          running = true;
+          requestAnimationFrame(frame);
+        }
       },
       { passive: true, signal: ac.signal },
     );
@@ -223,6 +254,7 @@ export function HowSection() {
     });
 
     if (window.innerWidth <= 1024) counted.fill(true);
+    running = true;
     frame();
 
     return () => {
