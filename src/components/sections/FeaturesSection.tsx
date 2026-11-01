@@ -139,7 +139,6 @@ export function FeaturesSection() {
                   <span className="eyebrow">{s.eyebrow}</span>
                   <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">{s.title}</h2>
                   <p className="mt-4 text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-                  (
                     <div className="relative mt-7 h-[240px] w-full max-w-[420px]">
                       <svg
                         aria-hidden
@@ -167,7 +166,6 @@ export function FeaturesSection() {
                         </p>
                       ))}
                     </div>
-)
                 </div>
                 <div className={`flex w-full items-center justify-center py-6 ${s.reverse ? "md:order-1" : ""}`}>
                   <div className="w-[230px] shrink-0 sm:w-[240px]">
