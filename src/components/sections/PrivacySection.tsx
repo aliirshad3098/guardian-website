@@ -84,7 +84,7 @@ export function PrivacySection() {
         <div className="mx-auto grid max-w-[1180px] gap-12 px-5 py-14 md:gap-16 md:px-8 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
           <Reveal className="lg:sticky lg:top-32 lg:self-start">
             <span className="eyebrow">Accountability partner</span>
-            <h3 className="mt-5 text-[clamp(30px,3.6vw,44px)] leading-[1.1] tracking-[-0.025em]">
+            <h3 className="mt-5 text-[clamp(34px,4.6vw,52px)] leading-[1.1] tracking-[-0.025em]">
               What a partner can and can't see
             </h3>
           </Reveal>
