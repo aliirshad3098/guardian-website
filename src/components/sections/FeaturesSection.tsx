@@ -13,7 +13,7 @@ const sections = [
   {
     eyebrow: "Commitment",
     title: "Fortress Mode",
-    body: "Lock protection for a set number of days. Guardian generates the password itself, hides it, and only reveals it when the lock expires — so a weak moment can't undo a good decision.",
+    body: "Lock protection for a set number of days. Guardian generates the password itself, hides it, and only reveals it when the lock expires so a weak moment can't undo a good decision.",
     points: [
       "Auto-generated password you never see",
       "Cannot be released early, even by you",
@@ -25,11 +25,11 @@ const sections = [
   {
     eyebrow: "Support",
     title: "Accountability partner",
-    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it — never your searches or browsing history.",
+    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it never your searches or browsing history.",
     points: [
       "Simple pairing code, no accounts to manage",
       "Partner approves changes to protection",
-      "Status only — activity is never shared",
+      "Status only activity is never shared",
     ],
     image: pairingShot,
     alt: "Guardian partner pairing screen with a pairing code",
@@ -139,12 +139,7 @@ export function FeaturesSection() {
                   <span className="eyebrow">{s.eyebrow}</span>
                   <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">{s.title}</h2>
                   <p className="mt-4 text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-                    <ul className="mt-7 w-full space-y-3 text-center text-[14px] leading-snug text-ink-muted lg:hidden">
-                    {s.points.map((p) => (
-                      <li key={p}>{p}</li>
-                    ))}
-                  </ul>
-                  <div className="relative mt-7 hidden h-[240px] w-full max-w-[420px] lg:block">
+                  <div className="relative mt-7 h-[300px] w-full max-w-[420px] sm:h-[240px]">
                       <svg
                         aria-hidden
                         viewBox="0 0 100 100"
@@ -152,7 +147,7 @@ export function FeaturesSection() {
                         className="absolute inset-0 size-full"
                       >
                         <path
-                          d="M 16 25 C 16 100, 84 100, 84 25"
+                          d="M 16 40 C 16 100, 84 100, 84 40"
                           fill="none"
                           stroke="var(--accent)"
                           strokeWidth="3"
@@ -163,7 +158,7 @@ export function FeaturesSection() {
                       {s.points.map((p, i) => (
                         <p
                           key={p}
-                          className={`absolute w-[34%] text-center text-[14px] leading-snug text-ink-muted ${
+                          className={`absolute w-[36%] text-center text-[13px] leading-snug text-ink-muted sm:w-[34%] sm:text-[14px] ${
                             ["left-0 top-0", "left-1/2 bottom-[56px] -translate-x-1/2", "right-0 top-0"][i]
                           }`}
                         >

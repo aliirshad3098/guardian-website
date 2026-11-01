@@ -20,13 +20,13 @@ import statsShot from "@/assets/stats.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Guardian PK — Quiet content blocking for Android" },
+      { title: "Guardian PK - Quiet content blocking for Android" },
       {
         name: "description",
         content:
           "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free for users in Pakistan.",
       },
-      { property: "og:title", content: "Guardian PK — Quiet content blocking for Android" },
+      { property: "og:title", content: "Guardian PK - Quiet content blocking for Android" },
       {
         property: "og:description",
         content:
