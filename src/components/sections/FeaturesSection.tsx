@@ -14,7 +14,7 @@ const sections = [
   {
     eyebrow: "Commitment",
     title: "Fortress Mode",
-    body: "Lock protection for a set number of days. Guardian generates the password itself, hides it, and only reveals it when the lock expires so a weak moment can't undo a good decision.",
+    body: "Lock protection for a set number of days. Guardian generates the password itself, hides it, and only reveals it when the lock expires — so a weak moment can't undo a good decision.",
     points: [
       "Auto-generated password you never see",
       "Cannot be released early, even by you",
@@ -26,11 +26,11 @@ const sections = [
   {
     eyebrow: "Support",
     title: "Accountability partner",
-    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it never your searches or browsing history.",
+    body: "Pair with someone you trust. They get a separate partner view showing whether protection is on and any request to change it — never your searches or browsing history.",
     points: [
       "Simple pairing code, no accounts to manage",
       "Partner approves changes to protection",
-      "Status only activity is never shared",
+      "Status only — activity is never shared",
     ],
     image: pairingShot,
     alt: "Guardian partner pairing screen with a pairing code",
@@ -123,7 +123,7 @@ function UFlow({ points }: { points: string[] }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
-  const [arrow, setArrow] = useState({ x: 0, y: 0, deg: 0 });
+  const arrowRef = useRef<SVGPathElement>(null);
 
   // Track the box size in pixels so the U and the arrow share one coordinate system.
   useEffect(() => {
@@ -160,7 +160,12 @@ function UFlow({ points }: { points: string[] }) {
       const ahead = path.getPointAtLength(Math.min(len, t * len + 2));
       const behind = path.getPointAtLength(Math.max(0, t * len - 2));
       const deg = (Math.atan2(ahead.y - behind.y, ahead.x - behind.x) * 180) / Math.PI;
-      setArrow({ x: at.x, y: at.y, deg });
+      // Write straight to the DOM: avoids a React re-render on every scroll frame,
+      // which is what made the arrow trail behind on phones.
+      arrowRef.current?.setAttribute(
+        "transform",
+        `translate(${at.x} ${at.y}) rotate(${deg})`,
+      );
     };
 
     const onScroll = () => {
@@ -193,9 +198,10 @@ function UFlow({ points }: { points: string[] }) {
           strokeLinecap="round"
         />
         <path
+          ref={arrowRef}
           d="M -7 -6 L 7 0 L -7 6 Z"
           fill="var(--accent)"
-          transform={`translate(${arrow.x} ${arrow.y}) rotate(${arrow.deg})`}
+          transform="translate(0 0)"
         />
       </svg>
       {points.map((p, i) => (
