@@ -60,27 +60,6 @@ const permissions = [
   },
 ];
 
-const steps = [
-  {
-    number: "01",
-    title: "Install Guardian PK",
-    body:
-      "Download the APK and open it. If Android requests permission to install apps from your browser, allow it for this installation.",
-  },
-  {
-    number: "02",
-    title: "Configure permissions",
-    body:
-      "Follow the in-app setup and enable the permissions needed for your chosen protection features.",
-  },
-  {
-    number: "03",
-    title: "Secure your settings",
-    body:
-      "Create a strong password and configure your blocking rules. Set up a trusted partner if you use accountability features.",
-  },
-];
-
 const apps = [
   {
     name: "Guardian PK",
@@ -135,40 +114,9 @@ function DownloadPage() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-            {/* Installation steps */}
-            <div>
-              <h2 className="text-xl">Get started</h2>
-
-              <div className="mt-6 divide-y divide-line border-y border-line">
-                {steps.map((step, index) => (
-                  <Reveal
-                    key={step.number}
-                    variant="left"
-                    delayMs={index * 70}
-                  >
-                    <div className="flex gap-5 py-6">
-                      <span
-                        className="pt-0.5 font-mono text-sm text-accent"
-                        aria-hidden
-                      >
-                        {step.number}
-                      </span>
-
-                      <div className="min-w-0">
-                        <h3 className="text-[17px]">{step.title}</h3>
-                        <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-muted">
-                          {step.body}
-                        </p>
-                      </div>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-
+          <div className="mx-auto mt-12 grid max-w-[560px] items-start gap-10">
             {/* App cards */}
-            <div className="flex h-fit flex-col gap-6 lg:sticky lg:top-24">
+            <div className="flex flex-col gap-6">
               {apps.map((app, index) => (
                 <Reveal key={app.name} variant="scale" delayMs={120 + index * 100}>
                   <div className="panel-card p-6 sm:p-7">
