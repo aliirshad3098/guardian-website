@@ -139,7 +139,12 @@ export function FeaturesSection() {
                   <span className="eyebrow">{s.eyebrow}</span>
                   <h2 className="mt-4 text-[clamp(26px,3.6vw,36px)]">{s.title}</h2>
                   <p className="mt-4 text-[15.5px] leading-relaxed text-ink-muted">{s.body}</p>
-                    <div className="relative mt-7 h-[240px] w-full max-w-[420px]">
+                    <ul className="mt-7 w-full space-y-3 text-center text-[14px] leading-snug text-ink-muted lg:hidden">
+                    {s.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                  </ul>
+                  <div className="relative mt-7 hidden h-[240px] w-full max-w-[420px] lg:block">
                       <svg
                         aria-hidden
                         viewBox="0 0 100 100"
