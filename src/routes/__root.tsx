@@ -113,35 +113,48 @@ function SiteNav() {
 }
 
 function SiteFooter() {
+  const links = [
+    { label: "Features", to: "/", hash: "features" },
+    { label: "Privacy", to: "/", hash: "privacy" },
+    { label: "FAQ", to: "/", hash: "faq" },
+    { label: "Download", to: "/download", hash: undefined },
+  ];
+
   return (
-    <footer className="border-t border-line py-11">
+    <footer className="border-t border-line py-12">
       <div className="mx-auto max-w-[1180px] px-5 md:px-8">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
           <Wordmark />
-          <div className="flex flex-wrap gap-6 text-[13.5px] text-ink-muted">
-            <Link to="/" hash="features" className="hover:text-ink">
-              Features
-            </Link>
-            <Link to="/" hash="privacy" className="hover:text-ink">
-              Privacy
-            </Link>
-            <Link to="/" hash="faq" className="hover:text-ink">
-              FAQ
-            </Link>
-            <Link to="/download" className="hover:text-ink">
-              Download
-            </Link>
-          </div>
-          <p className="font-mono text-[12.5px] text-ink-faint">Made in Pakistan</p>
+
+          <nav
+            aria-label="Footer"
+            className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-[14px] text-ink-muted"
+          >
+            {links.map((l) =>
+              l.hash ? (
+                <Link key={l.label} to={l.to} hash={l.hash} className="transition-colors hover:text-ink">
+                  {l.label}
+                </Link>
+              ) : (
+                <Link key={l.label} to={l.to} className="transition-colors hover:text-ink">
+                  {l.label}
+                </Link>
+              ),
+            )}
+          </nav>
         </div>
-        <div className="mt-8 flex flex-col gap-2 border-t border-line pt-6 text-[13.5px] text-ink-muted md:flex-row md:items-center md:justify-between">
+
+        <div className="mt-10 flex flex-col items-center gap-3 border-t border-line pt-6 text-center text-[13.5px] text-ink-muted md:flex-row md:justify-between md:text-left">
           <p>
             Support:{" "}
-            <a href="mailto:support@guardian.pk" className="text-ink hover:text-accent">
+            <a href="mailto:support@guardian.pk" className="text-ink transition-colors hover:text-accent">
               support@guardian.pk
             </a>
           </p>
           <p>Humans, in Pakistan, usually within a day. English or Urdu.</p>
+          <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-ink-faint">
+            Made in Pakistan
+          </p>
         </div>
       </div>
     </footer>
@@ -149,14 +162,14 @@ function SiteFooter() {
 }
 
 /**
- * PageTransition cross-fades between routes. Keying the wrapper div on
+ * PageTransition — cross-fades between routes. Keying the wrapper div on
  * pathname forces React to remount it on navigation, which restarts the
- * `page-enter` CSS animation (defined in styles.css) a fade+small-lift,
+ * `page-enter` CSS animation (defined in styles.css) — a fade+small-lift,
  * same easing family as Reveal so route changes feel like part of the same
  * motion language rather than a separate effect. No exit animation (that
  * needs a transition library to hold the old page during unmount); the
  * entrance alone is what reads as an intentional transition rather than a
- * hard cut, and it's free no extra dependency.
+ * hard cut, and it's free — no extra dependency.
  */
 function PageTransition({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
