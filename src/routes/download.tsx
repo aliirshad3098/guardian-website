@@ -81,12 +81,33 @@ const steps = [
   },
 ];
 
-const specs = [
-  { label: "Platform", value: "Android" },
-  { label: "Minimum version", value: "Android 9+" },
-  { label: "App size", value: "120 MB" },
-  { label: "Account", value: "Not required" },
-  { label: "Availability", value: "Free in Pakistan" },
+const apps = [
+  {
+    name: "Guardian PK",
+    tag: "Protection app",
+    description: "Filter apps, websites and reels on your own device, with schedules you control.",
+    icon: "/apple-touch-icon.png",
+    iconAlt: "Guardian PK app icon",
+    specs: [
+      { label: "Platform", value: "Android" },
+      { label: "Minimum version", value: "Android 9+" },
+      { label: "App size", value: "120 MB" },
+    ],
+    cta: "Download Guardian PK",
+  },
+  {
+    name: "Guardian Partner",
+    tag: "Accountability app",
+    description: "Support someone you care about. See protection status and approve change requests.",
+    icon: "/partner-icon.png",
+    iconAlt: "Guardian Partner app icon",
+    specs: [
+      { label: "Platform", value: "Android" },
+      { label: "Role", value: "Accountability partner" },
+      { label: "Works with", value: "Guardian PK" },
+    ],
+    cta: "Download Guardian Partner",
+  },
 ];
 
 function DownloadPage() {
@@ -146,72 +167,69 @@ function DownloadPage() {
               </div>
             </div>
 
-            {/* Download card */}
-            <Reveal
-              variant="scale"
-              delayMs={120}
-              className="h-fit lg:sticky lg:top-24"
-            >
-              <div className="panel-card p-6 sm:p-8">
-                <div className="flex items-start gap-4">
-                  <div
-                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line bg-background text-accent"
-                    aria-hidden="true"
-                  >
-                    <img src="/apple-touch-icon.png" alt="Guardian PK app icon" width="56" height="56" className="h-full w-full rounded-2xl object-cover" />
-                  </div>
-
-                  <div className="min-w-0 pt-1">
-                    <h2 className="text-xl">Guardian PK</h2>
-                    <p className="mt-1 text-sm text-ink-muted">
-                      Android application
-                    </p>
-                  </div>
-                </div>
-
-                <div className="my-6 grid grid-cols-2 gap-x-4 gap-y-5 border-y border-line py-5">
-                  {specs.map((spec) => (
-                    <div key={spec.label} className="min-w-0">
-                      <p className="text-xs text-ink-muted">
-                        {spec.label}
-                      </p>
-                      <p className="mt-1 text-sm font-medium text-ink">
-                        {spec.value}
-                      </p>
+            {/* App cards */}
+            <div className="flex h-fit flex-col gap-6 lg:sticky lg:top-24">
+              {apps.map((app, index) => (
+                <Reveal key={app.name} variant="scale" delayMs={120 + index * 100}>
+                  <div className="panel-card p-6 sm:p-7">
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={app.icon}
+                        alt={app.iconAlt}
+                        width={56}
+                        height={56}
+                        className="h-14 w-14 shrink-0 rounded-2xl border border-line object-cover"
+                      />
+                      <div className="min-w-0">
+                        <h2 className="text-xl">{app.name}</h2>
+                        <p className="mt-0.5 text-sm text-ink-muted">{app.tag}</p>
+                      </div>
                     </div>
-                  ))}
-                </div>
 
-                {/* Replace # with the real APK download URL */}
-                <a
-                  href="#"
-                  className="btn-primary flex w-full items-center justify-center gap-2"
-                  aria-label="Download Guardian PK Android application"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="18"
-                    height="18"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 3v12m-5-5 5 5 5-5" />
-                    <path d="M5 17v3h14v-3" />
-                  </svg>
-                  Download for Android
-                </a>
+                    <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+                      {app.description}
+                    </p>
 
-                <p className="mt-3 text-center text-xs leading-relaxed text-ink-muted">
-                  APK installation required. Review the app publisher
-                  and requested permissions before proceeding.
-                </p>
+                    <div className="mt-5 grid grid-cols-1 gap-x-4 gap-y-4 border-y border-line py-5 sm:grid-cols-3">
+                      {app.specs.map((spec) => (
+                        <div key={spec.label} className="min-w-0">
+                          <p className="text-xs text-ink-muted">{spec.label}</p>
+                          <p className="mt-1 text-sm font-medium text-ink">{spec.value}</p>
+                        </div>
+                      ))}
+                    </div>
 
-              </div>
-            </Reveal>
+                    {/* Replace # with the real APK download URL */}
+                    <a
+                      href="#"
+                      className="btn-primary mt-5 flex w-full items-center justify-center gap-2"
+                      aria-label={app.cta}
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 3v12m-5-5 5 5 5-5" />
+                        <path d="M5 17v3h14v-3" />
+                      </svg>
+                      {app.cta}
+                    </a>
+                  </div>
+                </Reveal>
+              ))}
+
+              <p className="text-center text-xs leading-relaxed text-ink-muted">
+                APK installation required. Review the app publisher
+                and requested permissions before proceeding.
+              </p>
+            </div>
           </div>
         </div>
       </section>
