@@ -151,7 +151,6 @@ function SiteFooter() {
               support@guardian.pk
             </a>
           </p>
-          <p>Humans, in Pakistan, usually within a day. English or Urdu.</p>
           <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-ink-faint">
             Made in Pakistan
           </p>
