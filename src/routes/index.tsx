@@ -1,15 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { MagneticButton } from "@/components/MagneticButton";
 import { CountUp } from "@/components/CountUp";
-import { KineticHero } from "@/components/KineticHero";
+import { HeroPhones } from "@/components/HeroPhones";
 import { HowSection } from "@/components/sections/HowSection";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { PrivacySection } from "@/components/sections/PrivacySection";
 import { FaqSection } from "@/components/sections/FaqSection";
+import { GradientMesh } from "@/components/GradientMesh";
 import { Globe, Brain, ShieldCheck } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
+
+import homeShot from "@/assets/home.jpg";
+import partnerShot from "@/assets/partner.jpg";
+import statsShot from "@/assets/stats.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -107,7 +113,47 @@ function HomePage() {
   return (
     <main>
       {/* HERO */}
-      <KineticHero />
+      <header className="relative overflow-hidden">
+        <GradientMesh variant="hero" />
+        <div className="relative mx-auto grid max-w-[1180px] items-center gap-14 px-5 pb-16 pt-8 md:px-8 md:pb-24 md:pt-12 lg:grid-cols-[1.05fr_1fr]">
+          <div>
+            <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(36px,4.8vw,56px)] leading-[1.06]">
+              The habit you want to quit is the one <em>Guardian is built to stop</em>.
+            </h1>
+            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-muted">
+              Guardian filters adult websites and searches, blocks distracting apps and reels, and
+              turns protection on by schedule. It understands six languages.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <MagneticButton>
+                <Link to="/download" className="btn-primary">
+                  Download for Android
+                </Link>
+              </MagneticButton>
+              <Link to="/" hash="how" className="btn-ghost">
+                See how it works
+              </Link>
+            </div>
+          </div>
+
+          <HeroPhones
+            phones={[
+              {
+                src: homeShot,
+                alt: "Guardian home screen showing protection active and a clean streak",
+              },
+              {
+                src: partnerShot,
+                alt: "Guardian Partner app showing protection status and pending approval requests",
+              },
+              {
+                src: statsShot,
+                alt: "Guardian statistics screen showing weekly blocking activity",
+              },
+            ]}
+          />
+        </div>
+      </header>
 
       {/* FACTS */}
       <section className="border-y border-line bg-panel">
@@ -170,6 +216,7 @@ function HomePage() {
 
       {/* CTA */}
       <CtaSection />
+
     </main>
   );
 }

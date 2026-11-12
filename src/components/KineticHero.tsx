@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { MagneticButton } from "@/components/MagneticButton";
 import { PhoneMockup } from "@/components/PhoneMockup";
-import { Reveal } from "@/components/Reveal";
 import { GradientMesh } from "@/components/GradientMesh";
 
 import homeShot from "@/assets/home.jpg";
@@ -30,10 +29,10 @@ const PHONES = [
 ];
 
 /**
- * KineticHero: the headline rises word by word, three phones sit in a row
- * below it, and a teal ticker runs along the bottom edge. Motion is CSS only
- * (keyframes live in styles.css), and prefers-reduced-motion is handled by
- * the global rule in styles.css, which lands each word at its final state.
+ * KineticHero: everything animates in with CSS only (the `word-rise` class
+ * from styles.css). No scroll observers are used here, so the hero content is
+ * always visible on load. prefers-reduced-motion is handled globally in
+ * styles.css and lands every element at its final state.
  */
 export function KineticHero() {
   return (
@@ -66,30 +65,34 @@ export function KineticHero() {
           })}
         </h1>
 
-        <Reveal delayMs={600}>
-          <p className="mx-auto mt-7 max-w-xl text-[18px] leading-relaxed text-ink-muted">
-            Guardian filters adult content, blocks distracting apps and reels, and turns protection
-            on by schedule. Free for users in Pakistan.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <MagneticButton>
-              <Link to="/download" className="btn-primary">
-                Download for Android
-              </Link>
-            </MagneticButton>
-            <Link to="/" hash="how" className="btn-ghost">
-              See how it works
+        <p
+          className="word-rise mx-auto mt-7 max-w-xl text-[18px] leading-relaxed text-ink-muted"
+          style={{ animationDelay: "700ms" }}
+        >
+          Guardian filters adult content, blocks distracting apps and reels, and turns protection on
+          by schedule. Free for users in Pakistan.
+        </p>
+
+        <div
+          className="word-rise mt-8 flex flex-wrap justify-center gap-3"
+          style={{ animationDelay: "800ms" }}
+        >
+          <MagneticButton>
+            <Link to="/download" className="btn-primary">
+              Download for Android
             </Link>
-          </div>
-        </Reveal>
+          </MagneticButton>
+          <Link to="/" hash="how" className="btn-ghost">
+            See how it works
+          </Link>
+        </div>
 
         <div className="mt-16 flex items-end justify-center gap-6">
           {PHONES.map((phone, i) => (
-            <Reveal
+            <div
               key={phone.alt}
-              variant="fade"
-              delayMs={800 + i * 120}
-              className={i === 1 ? "w-[230px] md:w-[260px]" : "w-[180px] md:w-[210px]"}
+              className={`word-rise ${i === 1 ? "w-[230px] md:w-[260px]" : "w-[180px] md:w-[210px]"}`}
+              style={{ animationDelay: `${900 + i * 120}ms` }}
             >
               <PhoneMockup
                 src={phone.src}
@@ -99,7 +102,7 @@ export function KineticHero() {
                 floatDelay={`${i * 0.8}s`}
                 floatDuration="7s"
               />
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>
