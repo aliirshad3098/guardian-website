@@ -81,7 +81,7 @@ export function FaqSection() {
                     </span>
                   </summary>
 
-                  <p className="pb-5 pl-11 pr-5 text-[13.5px] leading-relaxed text-ink-muted">
+                  <p className="pb-5 pl-11 pr-5 text-[15px] leading-relaxed text-ink-muted">
                     {f.a}
                   </p>
                 </details>

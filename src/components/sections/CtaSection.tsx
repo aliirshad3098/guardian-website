@@ -13,7 +13,7 @@ export function CtaSection() {
     <section className="px-4 py-14 md:px-8 md:py-24">
       <Reveal
         className="relative mx-auto grid max-w-[1180px] overflow-hidden rounded-[28px] border border-line md:grid-cols-[1fr_1.1fr]"
-        style={{ background: "linear-gradient(120deg,#0b2a25 0%,#06120f 70%)" }}
+        style={{ background: "#0b2a25" }}
       >
         {/* left: phone with the zig-zag behind it */}
         <div className="relative min-h-[300px] overflow-hidden md:min-h-[380px]">
@@ -58,7 +58,7 @@ export function CtaSection() {
           <div className="mt-9">
             <Link
               to="/download"
-              className="inline-flex items-center gap-3 rounded-xl bg-[#6ee7b7] px-6 py-3.5 text-[15px] font-semibold text-[#04201c] transition-transform hover:-translate-y-px"
+              className="inline-flex items-center gap-3 rounded-xl bg-white px-6 py-3.5 text-[15px] font-semibold text-[#0b2a25] transition-transform hover:-translate-y-px"
             >
               Download for Android
               <ArrowRight className="size-4" strokeWidth={2.2} aria-hidden />

@@ -71,7 +71,7 @@ export function PhoneMockup({
             style={{
               aspectRatio: "9 / 19.5",
               background:
-                "linear-gradient(145deg, #6e6e7a 0%, #2a2a32 18%, #121218 42%, #2e2e38 68%, #0a0a0e 100%)",
+                "#1c1c24",
               padding: "2.5px",
               boxShadow: [
                 "0 50px 80px -30px rgba(0,0,0,0.7)",
@@ -105,9 +105,9 @@ export function PhoneMockup({
                   <div
                     className="size-[11px] rounded-full"
                     style={{
-                      background: "radial-gradient(circle at 35% 30%, #1a1a28 0%, #050508 55%, #000 100%)",
+                      background: "#050508",
                       boxShadow:
-                        "0 0 0 1.5px #0a0a0c, 0 0 0 2.5px rgba(255,255,255,0.04), inset 0 0 3px rgba(80,120,255,0.25)",
+                        "0 0 0 1.5px #0a0a0c, 0 0 0 2.5px rgba(255,255,255,0.04), inset 0 0 0 1px rgba(255,255,255,0.04)",
                     }}
                   />
                 </div>
@@ -137,7 +137,7 @@ export function PhoneMockup({
                 boxShadow: "0 16px 36px -14px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.1)",
               }}
             >
-              <span className="size-1.5 rounded-full bg-[#2fe39a] shadow-[0_0_6px_#2fe39a]" />
+              <span className="size-1.5 rounded-full bg-accent-bright" />
               {c.label}
             </div>
           ))}

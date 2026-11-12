@@ -79,6 +79,8 @@ function SiteNav() {
           <button
             type="button"
             aria-label="Open menu"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
             className="grid size-9 place-items-center rounded-full border border-line-strong lg:hidden"
           >
@@ -89,7 +91,7 @@ function SiteNav() {
         </div>
       </div>
       {open && (
-        <div className="border-t border-line px-5 py-4 lg:hidden" style={{ background: "var(--panel)" }}>
+        <div id="mobile-menu" className="border-t border-line px-5 py-4 lg:hidden" style={{ background: "var(--panel)" }}>
           <div className="flex flex-col gap-4 text-[15px] text-ink-muted">
             {navLinks.map((l) => (
               <Link

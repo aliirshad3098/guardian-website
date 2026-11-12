@@ -224,9 +224,9 @@ export function FeaturesSection() {
       <header className="mx-auto max-w-[1180px] px-5 pb-10 pt-12 text-center md:px-8 md:pb-14 md:pt-16">
         <Reveal>
           <span className="eyebrow">Features</span>
-          <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
+          <h2 className="mx-auto mt-5 max-w-3xl text-[clamp(34px,5.4vw,56px)] leading-[1.08]">
             Protection that holds when motivation runs low, <em>with privacy intact</em>.
-          </h1>
+          </h2>
         </Reveal>
       </header>
 
