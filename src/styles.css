@@ -327,3 +327,31 @@ h2 em {
 [data-theme="dark"] .hero-sky {
   background: linear-gradient(180deg, #1b2e52 0%, #111b33 50%, var(--bg) 100%);
 }
+/* ===== Kinetic hero: add these to src/styles.css ===== */
+
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.word-rise {
+  opacity: 0;
+  animation: word-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
