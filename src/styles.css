@@ -369,7 +369,7 @@ h2 em {
   line-height: 1;
   font-size: clamp(64px, 12vw, 180px);
   color: transparent;
-  -webkit-text-stroke: 1px var(--line-strong);
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--ink) 20%, transparent);
 }
 .marquee-top {
   top: 14%;
