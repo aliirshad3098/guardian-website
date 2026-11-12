@@ -2,7 +2,10 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { GradientMesh } from "@/components/GradientMesh";
+
 import homeShot from "@/assets/home.jpg";
+import partnerShot from "@/assets/partner.jpg";
+import statsShot from "@/assets/stats.jpg";
 
 const LEAD_WORDS = ["The", "habit", "you", "want", "to", "quit", "is", "the", "one"];
 const EMPHASIS_WORDS = ["Guardian", "is", "built", "to", "stop."];
@@ -10,12 +13,31 @@ const EMPHASIS_WORDS = ["Guardian", "is", "built", "to", "stop."];
 const ROW_A = ["Quiet", "Block", "Focus", "Quiet", "Block", "Focus", "Quiet", "Block", "Focus"];
 const ROW_B = ["Reels", "Ads", "Fortress", "Reels", "Ads", "Fortress", "Reels", "Ads", "Fortress"];
 
+const PHONES = [
+  {
+    src: homeShot,
+    alt: "Guardian home screen showing protection active and a clean streak",
+    width: "w-[170px] md:w-[210px]",
+  },
+  {
+    src: partnerShot,
+    alt: "Guardian Partner app showing protection status and pending approval requests",
+    width: "w-[200px] md:w-[250px]",
+  },
+  {
+    src: statsShot,
+    alt: "Guardian statistics screen showing weekly blocking activity",
+    width: "w-[170px] md:w-[210px]",
+  },
+];
+
 /**
  * ShowcaseHero: oversized headline that rises word by word, two outlined
- * marquee rows running in opposite directions behind it, and a phone that
- * tilts toward the pointer. Colours come from the site's theme tokens, so it
- * works in light and dark mode. All motion is CSS or a single pointer
- * listener, and reduced motion is respected.
+ * marquee rows running in opposite directions behind it, and three phones
+ * that enter in sequence. The whole group tilts toward the pointer on
+ * desktop. Colours come from the site's theme tokens, so it works in light
+ * and dark mode. Keyframes live in showcase-hero.css, and reduced motion is
+ * respected.
  */
 export function ShowcaseHero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -32,7 +54,7 @@ export function ShowcaseHero() {
       const r = hero.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
       const y = (e.clientY - r.top) / r.height - 0.5;
-      tilt.style.transform = `rotateY(${x * 16}deg) rotateX(${-y * 9}deg)`;
+      tilt.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 8}deg)`;
     };
     const onLeave = () => {
       tilt.style.transform = "";
@@ -111,23 +133,28 @@ export function ShowcaseHero() {
           </Link>
         </div>
 
-        <div
-          className="word-rise mt-16 flex justify-center"
-          style={{ animationDelay: "1000ms", perspective: "1400px" }}
-        >
+        <div className="mt-16 flex justify-center" style={{ perspective: "1400px" }}>
           <div
             ref={tiltRef}
-            className="w-[240px] transition-transform duration-500 ease-out md:w-[280px]"
+            className="flex items-end justify-center gap-4 transition-transform duration-500 ease-out md:gap-6"
             style={{ transformStyle: "preserve-3d" }}
           >
-            <PhoneMockup
-              src={homeShot}
-              alt="Guardian home screen showing protection active and a clean streak"
-              rotateY={0}
-              rotateX={0}
-              floatDelay="0s"
-              floatDuration="7s"
-            />
+            {PHONES.map((phone, i) => (
+              <div
+                key={phone.alt}
+                className={`word-rise ${phone.width}`}
+                style={{ animationDelay: `${1000 + i * 150}ms` }}
+              >
+                <PhoneMockup
+                  src={phone.src}
+                  alt={phone.alt}
+                  rotateY={0}
+                  rotateX={0}
+                  floatDelay={`${i * 0.9}s`}
+                  floatDuration="7s"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
