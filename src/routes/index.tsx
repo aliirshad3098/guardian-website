@@ -2,14 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
-import { KineticHero } from "@/components/KineticHero";
+import { ShowcaseHero } from "@/components/ShowcaseHero";
 import { HowSection } from "@/components/sections/HowSection";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { PrivacySection } from "@/components/sections/PrivacySection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { Globe, Brain, ShieldCheck } from "lucide-react";
-import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -107,7 +106,7 @@ function HomePage() {
   return (
     <main>
       {/* HERO */}
-      <KineticHero />
+      <ShowcaseHero />
 
       {/* FACTS */}
       <section className="border-y border-line bg-panel">

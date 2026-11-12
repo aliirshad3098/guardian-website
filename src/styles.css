@@ -327,31 +327,38 @@ h2 em {
 [data-theme="dark"] .hero-sky {
   background: linear-gradient(180deg, #1b2e52 0%, #111b33 50%, var(--bg) 100%);
 }
-/* ===== Kinetic hero: add these to src/styles.css ===== */
+/* ===== Showcase hero: add these to the end of src/styles.css ===== */
 
-@keyframes word-rise {
-  from {
-    opacity: 0;
-    transform: translateY(60%);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+/* two outlined marquee rows behind the headline */
+.marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-size: clamp(64px, 12vw, 180px);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--line-strong);
 }
-
-.word-rise {
-  opacity: 0;
-  animation: word-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.marquee-top {
+  top: 14%;
 }
-
-@keyframes ticker {
-  to {
-    transform: translateX(-50%);
-  }
+.marquee-bottom {
+  bottom: 12%;
 }
-
-.ticker-track {
+.marquee-track {
   display: inline-block;
-  animation: ticker 22s linear infinite;
+  animation: ticker 34s linear infinite;
+}
+.marquee-track-reverse {
+  animation-direction: reverse;
+}
+.marquee span {
+  padding-right: 0.3em;
 }
