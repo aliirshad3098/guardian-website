@@ -8,9 +8,10 @@ export const Route = createFileRoute("/download")({
       {
         name: "description",
         content:
-          "Download Guardian PK for Android 9 and above. Install the app and configure the permissions required for your protection settings.",
+          "Download Guardian PK for Android 9 and above. Install it in minutes, review each permission it needs, and set up protection on your own device safely.",
       },
       { property: "og:title", content: "Download Guardian PK for Android" },
+      { property: "og:url", content: "https://guardian.pk/download" },
       {
         property: "og:description",
         content:
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/download")({
       },
     ],
   }),
+  links: [{ rel: "canonical", href: "https://guardian.pk/download" }],
   component: DownloadPage,
 });
 

@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/Reveal";
 
-const faqs = [
+export const faqs = [
   {
     q: "Does Guardian collect my data?",
     a: "Search checks and classification run on your phone. Guardian does not upload your browsing history, and your activity is not sold or shared.",

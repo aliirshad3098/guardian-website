@@ -120,6 +120,8 @@ function SiteFooter() {
     { label: "Privacy", to: "/", hash: "privacy" },
     { label: "FAQ", to: "/", hash: "faq" },
     { label: "Download", to: "/download", hash: undefined },
+    { label: "Privacy policy", to: "/privacy", hash: undefined },
+    { label: "Terms", to: "/terms", hash: undefined },
   ];
 
   return (
@@ -175,7 +177,7 @@ function SiteFooter() {
 function PageTransition({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <div key={pathname} className="page-enter">
+    <div key={pathname} id="main-content" tabIndex={-1} className="page-enter scroll-mt-24 outline-none">
       {children}
     </div>
   );
@@ -193,6 +195,11 @@ function NotFoundComponent() {
         <Link to="/" className="btn-primary mt-6">
           Go home
         </Link>
+        <nav aria-label="Helpful links" className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-ink-muted">
+          <Link to="/download" className="hover:text-ink">Download</Link>
+          <Link to="/" hash="faq" className="hover:text-ink">FAQ</Link>
+          <Link to="/privacy" className="hover:text-ink">Privacy policy</Link>
+        </nav>
       </div>
     </div>
   );
@@ -239,19 +246,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Guardian PK" },
+      { property: "og:image", content: "https://guardian.pk/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://guardian.pk/og-image.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&family=JetBrains+Mono:wght@400;500&display=swap",
-      },
+      { rel: "preload", href: "/fonts/inter-400.woff", as: "font", type: "font/woff", crossOrigin: "anonymous" },
+      { rel: "preload", href: "/fonts/inter-700.woff", as: "font", type: "font/woff", crossOrigin: "anonymous" },
     ],
   }),
   shellComponent: RootShell,
@@ -281,6 +288,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-bg text-ink">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] btn-primary"
+        >
+          Skip to content
+        </a>
         <SiteNav />
         <PageTransition>
           <Outlet />

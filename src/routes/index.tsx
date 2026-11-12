@@ -9,23 +9,46 @@ import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { PrivacySection } from "@/components/sections/PrivacySection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { Globe, Brain, ShieldCheck } from "lucide-react";
+import { faqs } from "@/components/sections/FaqSection";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Guardian PK",
+    url: "https://guardian.pk/",
+    operatingSystem: "Android 9 or later",
+    applicationCategory: "UtilitiesApplication",
+    description: "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free in Pakistan, on your own device.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "PKR" },
+    publisher: { "@type": "Organization", name: "Guardian PK", email: "support@guardian.pk" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Guardian PK - Quiet content blocking for Android" },
-      {
-        name: "description",
-        content:
-          "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free for users in Pakistan.",
-      },
+      { name: "description", content: "Guardian blocks adult content, distracting apps and reels on Android, with schedules and an accountability partner. Free in Pakistan, on your own device." },
       { property: "og:title", content: "Guardian PK - Quiet content blocking for Android" },
+      { property: "og:url", content: "https://guardian.pk/" },
       {
         property: "og:description",
         content:
           "Network-level blocking, on-device AI in six languages, Fortress Mode and an accountability partner. Nothing leaves your phone.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://guardian.pk/" }],
+    scripts: jsonLd.map((obj) => ({ type: "application/ld+json", children: JSON.stringify(obj) })),
   }),
   component: HomePage,
 });
