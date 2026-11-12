@@ -170,7 +170,6 @@ function HomePage() {
 
       {/* CTA */}
       <CtaSection />
-
     </main>
   );
 }

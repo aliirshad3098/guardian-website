@@ -22,7 +22,10 @@ const TICKER_ITEMS = [
 
 const PHONES = [
   { src: homeShot, alt: "Guardian home screen showing protection active and a clean streak" },
-  { src: partnerShot, alt: "Guardian Partner app showing protection status and pending approval requests" },
+  {
+    src: partnerShot,
+    alt: "Guardian Partner app showing protection status and pending approval requests",
+  },
   { src: statsShot, alt: "Guardian stats screen" },
 ];
 
