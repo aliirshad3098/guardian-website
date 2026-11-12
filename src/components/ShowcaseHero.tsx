@@ -88,7 +88,7 @@ export function ShowcaseHero() {
       </div>
 
       <div className="relative mx-auto max-w-[1180px] px-5 pb-20 pt-32 text-center md:px-8 md:pb-28 md:pt-44">
-        <h1 className="mx-auto max-w-[16ch] text-balance text-[clamp(50px,9vw,128px)] font-black leading-[0.92] tracking-[-0.06em]">
+        <h1 className="mx-auto max-w-[18ch] text-balance text-[clamp(38px,5.6vw,80px)] font-black leading-[0.92] tracking-[-0.06em]">
           {LEAD_WORDS.map((word, i) => (
             <span key={word}>
               {i > 0 && " "}
